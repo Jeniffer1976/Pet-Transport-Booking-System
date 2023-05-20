@@ -33,6 +33,43 @@
 
 
     <!-- Sign Up Form -->
+    <div class="container-fluid" id="signUpSection">
+        <h1 class="header1">SIGN UP FOR AN ACCOUNT</h1>
+        <h3 class="header2">USER'S INFORMATION</h3>
+
+        <section class="inverse full-bleed overflow-hidden" id="signUpForm">
+            <div class="container-fluid d-flex justify-content-center">            
+                <form class="row g-3 gx-5">
+                    <div class="col-md-6">
+                    <label for="firstName" class="form-label para">First Name:</label>
+                    <input type="text" class="form-control rounded-pill" id="firstName" placeholder="Johnny">
+                    </div>
+                    <div class="col-md-6">
+                    <label for="lastName" class="form-label para">Last Name:</label>
+                    <input type="text" class="form-control rounded-pill" id="lastName" placeholder="Leuwis">
+                    </div>
+                    <div class="col-12">
+                    <label for="email" class="form-label para">Email:</label>
+                    <input type="email" class="form-control rounded-pill" id="email" placeholder="test@email.com">
+                    </div>
+                    <div class="col-md-6">
+                    <label for="password" class="form-label para">Password:</label>
+                    <input type="password" class="form-control rounded-pill" id="password">
+                    </div>
+                    <div class="col-6">
+                        <label for="phone" class="form-label para">Mobile Number:</label>
+                        <input type="tel" class="form-control rounded-pill" id="phone" pattern="[0-9]{4}-[0-9]{4}"
+                        required placeholder="1234-5678">
+                    </div>
+                    <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-primary primarybtn rounded-pill">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </section>
+    </div>
 
     <!--  -->
 
