@@ -1,12 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Asap:ital,wght@0,400;0,500;0,700;1,500;1,600&family=Montserrat:wght@700&family=Nunito:ital,wght@0,400;0,700;1,800&display=swap');
 
 .full-bleed{
-    box-shadow: 0 0 0 100vmax #52FFB2;
+    box-shadow: 0 0 0 100vmax #87f8d2cc;
     clip-path: inset(0 -100vmax);
 }
 
 .inverse{
-    background-color: #52FFB2;
+    background-color: #87f8d2cc;
 }
 
 #signUpForm{
@@ -15,10 +15,6 @@
     padding-bottom: 5%;
     padding-top: 2%;
     margin-top: 1%;
-}
-
-.header1, .header2 {
-    margin-left: 15%;
 }
 
 .primarybtn{
