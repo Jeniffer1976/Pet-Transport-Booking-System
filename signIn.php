@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
 <body>
 
     <!-- Navbar -->
-
+    <?php include "navbar.php" ?>
     <!--  -->
 
 

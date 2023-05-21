@@ -28,7 +28,7 @@
 <body>
 
     <!-- Navbar -->
-
+    <?php include "navbar.php" ?>
     <!--  -->
 
 
