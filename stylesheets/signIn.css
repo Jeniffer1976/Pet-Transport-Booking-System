@@ -22,3 +22,7 @@ a {
 a:hover {
     color:#1c4a36;
 }
+
+#errorMsg {
+    color: #da7e6b;
+}

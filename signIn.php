@@ -1,3 +1,12 @@
+<?php
+include "loginFunctions.php";
+
+if (isset($_POST['login'])) {
+    $response = login($_POST['username'], $_POST['password']);
+}
+
+?>
+
 <html lang="en">
 
 <head>
@@ -27,7 +36,6 @@
 
 <body>
 
-
     <!-- Navbar -->
 
     <!--  -->
@@ -40,19 +48,23 @@
         <div align="center">
             <div class="bgCircle">
                 <div class="form-content">
-                    <form action="">
-                        <label for="email" class="form-label para">Email:</label>
-                        <input type="email" class="form-control rounded-pill" id="email" placeholder="test@email.com" required>
+                    <form action="" method="post">
+                        <label for="username" class="form-label para">Username:</label>
+                        <input type="text" class="form-control rounded-pill" id="username" name="username" required>
                         <br>
                         <label for="password" class="form-label para">Password:</label>
-                        <input type="password" class="form-control rounded-pill" id="password" required>
+                        <input type="password" class="form-control rounded-pill" id="password" name="password" required>
 
                         <br><br>
                         <div align="center">
-                            <input type="submit" class="btn btn-primary rounded-pill primaryBtn" value="Sign In">
+                            <input type="submit" class="btn btn-primary rounded-pill primaryBtn" value="Sign In"
+                                name="login">
                         </div>
                     </form>
-                    <a href="signUp.html">Sign up for a new account</a>
+                    <a href="signUp.php">Sign up for a new account</a><br><br>
+					<p id=errorMsg><?php echo @$response ?></p>
+                    <!-- <p id=errorMsg>That's not the right password. <br>Please try again</p> -->
+
                 </div>
             </div>
         </div>
