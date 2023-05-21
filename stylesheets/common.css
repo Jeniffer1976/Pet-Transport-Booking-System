@@ -49,7 +49,41 @@
 
 
 /* Navbar */
+.navbar {
+    background: #FF9544;
+}
 
+.text {
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.gradient2 {
+    background-image: linear-gradient(90deg, #6da9fa 0%, #52ffb2 100%);
+    padding: 0px;
+    z-index: -3;
+}
+
+.primaryBtn1 {
+    padding: 10px 50px ;
+    font-family: 'Nunito', sans-serif;
+}
+
+.main-logo {
+    left: 0%;
+    top: 0;
+    margin-left: 10px !important;
+}
+
+.con1{
+    padding-left: 90px;
+}
+
+.text2 {
+    color: red;
+}
 /*  */
 
 
