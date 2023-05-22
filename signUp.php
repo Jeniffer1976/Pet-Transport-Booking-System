@@ -2,59 +2,55 @@
 session_start();
 include("dbFunctions.php");
 
-if ($_SERVER['REQUEST_METHOD'] == "POST")
+if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
 {   
     //something was posted
     $email = $_POST['email'];
+    $username =  $_POST['username'];
     $password = $_POST['password'];
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $phone = $_POST['phone'];
 
-    if(!empty($email) && !empty($password) && !empty($firstName) && !empty($lastName) && !empty($phone))
-    {
         //save to database
-        $query = "INSERT INTO Users
+        $insertUsers = "INSERT INTO users
           (username, password) 
           VALUES 
-          ('$email', '$password')";
+          ('$username', '$password')";
 
-        $query2 = "INSERT INTO Pet_Owner
-        (first_name, last_name, email, mobile) 
-        VALUES 
-        ('$firstName','$lastName','$email',
-        '$phone')";
+        $checkUsername = "SELECT DISTINCT username
+        FROM users
+        WHERE username = '$username'"; 
 
-        $checkQuery = "SELECT DISTINCT username
-        FROM Users
-        WHERE username = '$email'";
+        $checkUsernameStatus = mysqli_query($link, $checkUsername);
 
-        $checkResult = mysqli_query($link, $checkQuery);
-
-        if (mysqli_num_rows($checkResult)) {
-            $row = mysqli_fetch_array($checkResult);
-            $_SESSION['email'] = $row['username'];
+        if (mysqli_num_rows($checkUsernameStatus)) {
+            $row = mysqli_fetch_array($checkUsernameStatus);
+            $checkUsername = $row['username'];
         
-            echo "The username " . $_SESSION['username'] . " already exists";
+            echo "The username " . $checkUsername . " already exists";
+        
         } else {
-            $status = mysqli_query($link, $query);
-            $status2 = mysqli_query($link, $query2);
+            $insertUsersStatus = mysqli_query($link, $insertUsers);
+            
+            $insertPetOwners = "INSERT INTO pet_owner
+            (first_name, last_name, email, mobile, username) 
+            VALUES 
+            ('$firstName','$lastName','$email',
+            '$phone', '$username')";
+            
+            $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
 
-            if ($status && $status2) {
+            if ($insertUsersStatus && $insertPetOwnersStatus) {
                 echo "Your new account has been successfully created";
                 
                 header("Location: signIn.php"); //makes it go to signIn page directly.
-                die();
 
             } else {
                 echo "Account creation failed";
             }
         }
-
-    } else {
-        echo "Please enter some valid information!";
     }
-}
 
 ?>
 
@@ -99,7 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 
         <section class="inverse full-bleed overflow-hidden" id="signUpForm">
             <div class="container-fluid d-flex justify-content-center">            
-                <form class="row g-3 gx-5" method="post" action="signIn.php">
+                <form class="row g-3 gx-5" method="post" action="">
+                    <div class="col-12">
+                    <label for="username" class="form-label para">Username:</label>
+                    <input type="username" class="form-control rounded-pill" name="username" placeholder="Johnny2314" required>
+                    </div>
                     <div class="col-md-6">
                     <label for="firstName" class="form-label para">First Name:</label>
                     <input type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny" required>
