@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
         <h1 class="header1">SIGN IN</h1>
         <div align="center">
             <div class="bgCircle">
-                <div class="form-content">
+                <div class="form-content" style="height:fit-content">
                     <form action="" method="post">
                         <label for="username" class="form-label para">Username:</label>
                         <input type="text" class="form-control rounded-pill" id="username" name="username" required>
@@ -55,16 +55,20 @@ if (isset($_POST['login'])) {
                         <label for="password" class="form-label para">Password:</label>
                         <input type="password" class="form-control rounded-pill" id="password" name="password" required>
 
-                        <br><br>
+                        <br>
                         <div align="center">
                             <input type="submit" class="btn btn-primary rounded-pill primaryBtn" value="Sign In"
                                 name="login">
                         </div>
                     </form>
                     <a href="signUp.php">Sign up for a new account</a><br><br>
-					<p id=errorMsg><?php echo @$response ?></p>
+                    <?php if (@$response == true) { ?>
+                        <div class="alert alert-danger errorMsg" role="alert">
+                            <?php echo @$response ?>
+                        </div>
+                    <?php } ?>
+                    <!-- <p id=errorMsg></p> -->
                     <!-- <p id=errorMsg>That's not the right password. <br>Please try again</p> -->
-
                 </div>
             </div>
         </div>

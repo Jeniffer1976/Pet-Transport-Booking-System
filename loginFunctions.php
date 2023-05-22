@@ -1,36 +1,48 @@
 <?php
 include "dbFunctions.php";
-if(session_status() === PHP_SESSION_NONE) session_start();
+if (session_status() === PHP_SESSION_NONE)
+    session_start();
 
 function login($username, $password)
 {
     global $link;
-    $queryCheck = "SELECT * FROM users, pet_owner
-          WHERE username ='$username'
-          AND password = '$password'";
 
-    $resultCheck = mysqli_query($link, $queryCheck) or die(mysqli_error($link));
+    $userPassQuery = "SELECT * FROM users U
+    INNER JOIN pet_owner PO 
+    ON U.username = PO.username 
+    WHERE U.username ='$username' 
+    AND password = '$password'"; // check for correct username and password
 
-    if (mysqli_num_rows($resultCheck) == 1) {
-        $row = mysqli_fetch_array($resultCheck);
-        $_SESSION['user_id'] = $row['user_id'];
-        $_SESSION['firstName'] = $row['first_name'];
-        $_SESSION['lastName'] = $row['last_name'];
-        $_SESSION['email'] = $row['email'];
-        $_SESSION['mobile'] = $row['mobile'];
-        header("Location: index.php");
-        exit();
+    $userQuery = "SELECT username FROM users WHERE username = '$username'"; // check if username exists
 
+    $userStatus = mysqli_query($link, $userQuery) or die(mysqli_error($link));
+    $userPassStatus = mysqli_query($link, $userPassQuery) or die(mysqli_error($link));
+
+    if (mysqli_num_rows($userStatus) == 1) { // check if username exists
+        if (mysqli_num_rows($userPassStatus) == 1) { // check for correct username and password
+            $row = mysqli_fetch_array($userPassStatus);
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['firstName'] = $row['first_Name'];
+            $_SESSION['lastName'] = $row['last_Name'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['mobile'] = $row['mobile'];
+            header("Location: index.php");
+            exit();
+
+        } else {
+            return "That's not the right password.";
+        }
     } else {
-        return "That's not the right username or password. Please try again";
+        return "That username does not exist.";
     }
 }
 
-function logout(){
-    if (isset($_SESSION['user_id'])) {
+function logout()
+{
+    if (isset($_SESSION['username'])) {
         session_destroy();
-        header("Location: index.php"); 
-		exit();
+        header("Location: index.php");
+        exit();
         // $_SESSION = array(); 
     }
 }

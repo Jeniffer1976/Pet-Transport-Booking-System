@@ -3,54 +3,56 @@ session_start();
 include("dbFunctions.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
-{   
+{
+    $message = "";
+    $isSuccessful = false;
     //something was posted
     $email = $_POST['email'];
-    $username =  $_POST['username'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $phone = $_POST['phone'];
 
-        //save to database
-        $insertUsers = "INSERT INTO users
+    //save to database
+    $insertUsers = "INSERT INTO users
           (username, password) 
           VALUES 
           ('$username', '$password')";
 
-        $checkUsername = "SELECT DISTINCT username
+    $checkUsername = "SELECT DISTINCT username
         FROM users
-        WHERE username = '$username'"; 
+        WHERE username = '$username'";
 
-        $checkUsernameStatus = mysqli_query($link, $checkUsername);
+    $checkUsernameStatus = mysqli_query($link, $checkUsername);
 
-        if (mysqli_num_rows($checkUsernameStatus)) {
-            $row = mysqli_fetch_array($checkUsernameStatus);
-            $checkUsername = $row['username'];
-        
-            echo "The username " . $checkUsername . " already exists";
-        
-        } else {
-            $insertUsersStatus = mysqli_query($link, $insertUsers);
-            
-            $insertPetOwners = "INSERT INTO pet_owner
+    if (mysqli_num_rows($checkUsernameStatus)) {
+        $row = mysqli_fetch_array($checkUsernameStatus);
+        $checkUsername = $row['username'];
+
+        $message = "The username " . $checkUsername . " already exists";
+
+    } else {
+        $insertUsersStatus = mysqli_query($link, $insertUsers);
+
+        $insertPetOwners = "INSERT INTO pet_owner
             (first_name, last_name, email, mobile, username) 
             VALUES 
             ('$firstName','$lastName','$email',
             '$phone', '$username')";
-            
-            $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
 
-            if ($insertUsersStatus && $insertPetOwnersStatus) {
-                echo "Your new account has been successfully created";
-                
-                header("Location: signIn.php"); //makes it go to signIn page directly.
+        $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
 
-            } else {
-                echo "Account creation failed";
-            }
+        if ($insertUsersStatus && $insertPetOwnersStatus) {
+            $message = "Your new account has been successfully created";
+            $isSuccessful = true;
+            header("Location: signIn.php"); //makes it go to signIn page directly.
+
+        } else {
+            $message = "Account creation failed";
         }
     }
+}
 
 ?>
 
@@ -95,40 +97,55 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
         <h3 class="header2">USER'S INFORMATION</h3>
 
         <section class="inverse full-bleed overflow-hidden" id="signUpForm">
-            <div class="container-fluid d-flex justify-content-center">            
+            <div class="container-fluid d-flex justify-content-center">
                 <form class="row g-3 gx-5" method="post" action="">
                     <div class="col-12">
-                    <label for="username" class="form-label para">Username:</label>
-                    <input type="username" class="form-control rounded-pill" name="username" placeholder="Johnny2314" required>
+                        <label for="username" class="form-label para">Username:</label>
+                        <input type="username" class="form-control rounded-pill" name="username"
+                            placeholder="Johnny2314" required>
                     </div>
                     <div class="col-md-6">
-                    <label for="firstName" class="form-label para">First Name:</label>
-                    <input type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny" required>
+                        <label for="firstName" class="form-label para">First Name:</label>
+                        <input type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny"
+                            required>
                     </div>
                     <div class="col-md-6">
-                    <label for="lastName" class="form-label para">Last Name:</label>
-                    <input type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis" required>
+                        <label for="lastName" class="form-label para">Last Name:</label>
+                        <input type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis"
+                            required>
                     </div>
                     <div class="col-12">
-                    <label for="email" class="form-label para">Email:</label>
-                    <input type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com" required>
+                        <label for="email" class="form-label para">Email:</label>
+                        <input type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com"
+                            required>
                     </div>
                     <div class="col-md-6">
-                    <label for="password" class="form-label para">Password:</label>
-                    <input type="password" class="form-control rounded-pill" name="password" required>
+                        <label for="password" class="form-label para">Password:</label>
+                        <input type="password" class="form-control rounded-pill" name="password" required>
                     </div>
                     <div class="col-6">
                         <label for="phone" class="form-label para">Mobile Number:</label>
-                        <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"
-                        required placeholder="12345678">
+                        <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}" required
+                            placeholder="12345678">
                     </div>
                     <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-primary primarybtn rounded-pill">Sign Up</button>
+                        <button type="submit" class="btn btn-primary primarybtn rounded-pill">Sign Up</button>
                     </div>
                 </form>
+
             </div>
-
-
+            
+            <?php if (isset($message)) { ?>
+                <?php if ($isSuccessful == true) { ?>
+                    <div class="alert alert-success errorMsg" role="alert">
+                        <?php echo $message ?>
+                    </div>
+                <?php } else { ?>
+                    <div class="alert alert-danger errorMsg" role="alert">
+                        <?php echo $message ?>
+                    </div>
+                <?php } ?>
+            <?php } ?>
         </section>
     </div>
 
@@ -139,10 +156,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
 
     <!--  -->
 
-    <!-- Background --> 
-    <div class="bgclass"> 
-        <div class="gradient"></div> 
-    </div> 
+    <!-- Background -->
+    <div class="bgclass">
+        <div class="gradient"></div>
+    </div>
     <!--  -->
 
 </body>
