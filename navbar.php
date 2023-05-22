@@ -30,16 +30,16 @@ if (isset($_GET['logout'])) {
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link text" href="index.php">Home</a>
+                    <a class="nav-link text" href="#">Home</a>
                 </li>
                 <li class="nav-item" >
-                    <a class="nav-link text" href="services.php">Services</a>
+                    <a class="nav-link text" href="#">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text" href="about.php">About</a>
+                    <a class="nav-link text" href="#">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text" href="contact.php">Contact Us</a>
+                    <a class="nav-link text" href="#">Contact Us</a>
                 </li>
             </ul>
         </div>
@@ -49,7 +49,7 @@ if (isset($_GET['logout'])) {
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><img src="images/person.svg" height="25" width="25"></a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="">View profile</a></li>
-                    <li><a class="dropdown-item text2" value="Sign Out" onclick="location.href = '?logout'">Sign out <i class="bi bi-box-arrow-left"></i></a></li>
+                    <li><a class="dropdown-item text2" href="">Sign out <i class="bi bi-box-arrow-left"></i></a></li>
                 </ul>
               </li>
         </ul>
