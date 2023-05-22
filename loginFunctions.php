@@ -29,9 +29,9 @@ function login($username, $password)
 function logout(){
     if (isset($_SESSION['user_id'])) {
         session_destroy();
-        header("Location: index.php");
+        header("Location: index.php"); 
 		exit();
-        // $_SESSION = array();
+        // $_SESSION = array(); 
     }
 }
 ?>

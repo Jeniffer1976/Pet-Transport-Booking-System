@@ -1,3 +1,4 @@
+
 <html lang="en">
 
 <head>
@@ -28,7 +29,8 @@
 <body>
 
     <!-- Navbar -->
-    <?php include "navbar.php" ?>
+    <?php include("navbar.php") ?>
+
     <!--  -->
 
 
