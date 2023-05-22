@@ -51,25 +51,38 @@
 /* Navbar */
 .navbar {
     background: #FF9544;
+    
 }
 
-.text {
-    color: white;
-    margin-left: 10px;
-    margin-right: 10px;
+.req-text{
+    font-family: 'Asap', sans-serif;
+    font-weight: 600;
+
 }
+.nav-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+}
+.req-text,
+.nav-text {
+    color: white;
+    margin-left: 15px;
+    margin-right: 15px;
+    font-size: larger;
+}
+
 
 
 .gradient2 {
     background-image: linear-gradient(90deg, #6da9fa 0%, #52ffb2 100%);
-    padding: 0px;
-    z-index: -3;
+    z-index: -4;
+    padding: 10px 50px ;
 }
-
+/* 
 .primaryBtn1 {
     padding: 10px 50px ;
     font-family: 'Nunito', sans-serif;
-}
+} */
 
 .main-logo {
     left: 0%;
