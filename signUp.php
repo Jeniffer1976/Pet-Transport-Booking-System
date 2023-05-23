@@ -93,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
 
     <!-- Sign Up Form -->
     <div class="container-fluid" id="signUpSection">
+        <br>
         <h1 class="header1">SIGN UP FOR AN ACCOUNT</h1>
         <h3 class="header2">USER'S INFORMATION</h3>
 
@@ -153,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
 
 
     <!-- Footer -->
-
+    <?php include("footer.php") ?>
     <!--  -->
 
     <!-- Background -->

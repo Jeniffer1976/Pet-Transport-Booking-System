@@ -79,7 +79,7 @@ if (isset($_POST['login'])) {
 
 
     <!-- Footer -->
-
+    <?php include("footer.php") ?>
     <!--  -->
 
 
