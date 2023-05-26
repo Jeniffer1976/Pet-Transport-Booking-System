@@ -129,13 +129,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
                         <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}" required
                             placeholder="12345678">
                     </div>
+                    <div class="col-12">
+                        <input name="profileImg" type="file" accept="image/*"/>
+                        <div class="profileImgDisplay">
+                            <img src="" alt="">
+                        </div>
+                    </div>
                     <div class="col-12 text-center">
                         <button type="submit" class="btn btn-primary primarybtn rounded-pill">Sign Up</button>
                     </div>
                 </form>
 
             </div>
-            
+
             <?php if (isset($message)) { ?>
                 <?php if ($isSuccessful == true) { ?>
                     <div class="alert alert-success errorMsg" role="alert">
@@ -162,6 +168,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
         <div class="gradient"></div>
     </div>
     <!--  -->
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 
 </body>
 
