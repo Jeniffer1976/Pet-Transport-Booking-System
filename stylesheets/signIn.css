@@ -17,11 +17,11 @@
     text-align: left;
 }
 
-a {
-    color: #338762;
+form a {
+    color: #338762; 
 }
 
-a:hover {
+form a:hover {
     color: #1c4a36;
 }
 
@@ -30,6 +30,6 @@ a:hover {
 }
 
 .errorMsg {
-    width: 200px;
+    width: 250px;
     height: 60px
 }

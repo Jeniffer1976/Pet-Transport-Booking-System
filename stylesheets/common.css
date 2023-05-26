@@ -124,8 +124,8 @@
 }
 
 .gradient2:hover {
-    background: linear-gradient(90deg, #52ffb2, transparent) #6da9fa;
-    /* background-color: #6da9fa; */
+    /* background: linear-gradient(90deg, #52ffb2, transparent) #6da9fa; */
+    background-color: #6da9fa;
     color: white;
 }
 /* 
