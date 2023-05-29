@@ -34,12 +34,36 @@
 
 
     <!-- Opening -->
-
+    <br>
+        <div class="container">
+            <h1 class="header1">Never leave your FURiends behind</h1>
+            <div align="center">
+                <img src="images/dogshome.jpeg" id="homeimg">
+                <div class="childClass firstchild">
+                    <div class="text1">
+                        <h2>Provide your <br>
+                            pets with the best <br>
+                            comfort and care <br>
+                            as they travel!
+                        </h2>
+                    </div>
+                </div>
+                <div class="childClass1 secondchild">
+                    <div>
+                        <button type="button" class="btn rounded-pill btnPrimary2 text">Request a quote</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--  -->
 
 
     <!-- Testimonials -->
-
+    <hr>
+    <div class="container">
+        <h1 class="header1">Testimonials</h1>
+    </div>
     <!--  -->
 
 
