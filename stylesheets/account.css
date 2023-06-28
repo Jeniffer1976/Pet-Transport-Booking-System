@@ -1,0 +1,104 @@
+.header2{
+    margin-right: 15%;
+    text-align: center;
+}
+
+.account{
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2%;
+}
+
+.account .row .col-4{
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    background-color: #42B381;
+    height: 80vh;
+}
+
+.account .row .col-8{
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px ;
+    background-color: #87f8d2cc;
+    padding: 5%;
+    text-align: left;
+}
+
+.primarybtn{
+    margin-left: 4%;
+    margin-top: 3%;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    /* overflow: auto; */
+    text-align: left;
+}
+
+.sidebar a{
+    margin-left: 10%;
+    padding: 5%;
+}
+
+.sidebar a:first-child{
+    margin-top: 12.5%;
+}
+
+.sidebar a i{
+    padding-right: 15px;
+}
+
+  /* .sidebar a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+  
+  .sidebar a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+  } */
+
+  #profilePic{
+    height: 80px;
+  }
+
+  
+  .account .row .col-8 .row{
+    text-align: left;
+  }
+
+  .row2{
+    margin-top: 3%;
+  }
+
+  .row1 img{
+    margin-left: 25%;
+  }
+
+  .account .col-5{
+    margin-left: 5%;
+  }
+
+  .row1 .col{
+    margin-top: 1%;
+  }
+
+  
+  /* @media screen and (max-width: 700px) {
+    .sidebar {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+    .sidebar a {float: left;}
+    div.content {margin-left: 0;}
+  }
+  
+  @media screen and (max-width: 400px) {
+    .sidebar a {
+      text-align: center;
+      float: none;
+    }
+  } */
