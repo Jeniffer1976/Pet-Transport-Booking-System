@@ -2,7 +2,8 @@
 session_start();
 include("dbFunctions.php");
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
+// if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
+if (isset($_POST['signUp']))
 {
     $message = "";
     $isSuccessful = false;
@@ -13,6 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $phone = $_POST['phone'];
+
+    // profile pic update
+    $profileImgName = time() . '_' . $_FILES['profileImg']['name'];
+    $target = 'images/profileImg/' . $profileImgName;
+    move_uploaded_file($_FILES['profileImg']['tmp_name'], $target);
 
     //save to database
     $insertUsers = "INSERT INTO users
@@ -36,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
         $insertUsersStatus = mysqli_query($link, $insertUsers);
 
         $insertPetOwners = "INSERT INTO pet_owner
-            (first_name, last_name, email, mobile, username) 
+            (first_name, last_name, email, mobile, username, profile_pic) 
             VALUES 
             ('$firstName','$lastName','$email',
-            '$phone', '$username')";
+            '$phone', '$username', '$profileImgName')";
 
         $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
 
@@ -99,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
 
         <section class="inverse full-bleed overflow-hidden" id="signUpForm">
             <div class="container-fluid d-flex justify-content-center">
-                <form class="row g-3 gx-5" method="post" action="">
+                <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
                     <div class="col-12">
                         <label for="username" class="form-label para">Username:</label>
                         <input type="username" class="form-control rounded-pill" name="username"
@@ -129,16 +135,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
                         <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}" required
                             placeholder="12345678">
                     </div>
-                    <div class="col-12">
-                        <input name="profileImg" type="file" accept="image/*"/>
+                    <div class="col form-group">
+                        <input name="profileImg" type="file" accept="image/*" id="imgUpload"
+                            onchange="displayImage(this)" style="display:none">
                         <div class="profileImgDisplay">
-                            <img src="" alt="">
+                            <img src="images/default.jpg" onclick="triggerClick()" id="imgPreview" alt="Preview">
                         </div>
                     </div>
-                    <div class="col-12 text-center">
-                        <button type="submit" class="btn btn-primary primarybtn rounded-pill">Sign Up</button>
+                    <div class="col-12 text-center form-group">
+                        <button type="submit" name="signUp" class="btn btn-primary primarybtn rounded-pill">Sign Up</button>
                     </div>
                 </form>
+
 
             </div>
 
@@ -170,9 +178,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
     <!--  -->
 
     <!-- Scripts -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
+    <script>
+        function triggerClick() {
+            document.querySelector("#imgUpload").click();
+        }
 
+        function displayImage(i) {
+            if (i.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (i) {
+                    document.querySelector("#imgPreview").setAttribute('src', i.target.result);
+                }
+                reader.readAsDataURL(i.files[0]);
+            }
+
+        }
+    </script>
 </body>
 
 </html>
