@@ -6,14 +6,7 @@
 .account{
     padding-left: 10%;
     padding-right: 10%;
-    padding-top: 2%;
-}
-
-.account .row .col-4{
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
-    background-color: #42B381;
-    height: 80vh;
+    padding-top:2%;
 }
 
 .account .row .col-8{
@@ -32,9 +25,11 @@
 .sidebar {
     margin: 0;
     padding: 0;
-    height: 100%;
     /* overflow: auto; */
     text-align: left;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    background-color: #42B381;
 }
 
 .sidebar a{
@@ -79,10 +74,6 @@
 
   .account .col-5{
     margin-left: 5%;
-  }
-
-  .row1 .col{
-    margin-top: 1%;
   }
 
   

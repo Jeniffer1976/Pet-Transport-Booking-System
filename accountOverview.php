@@ -1,10 +1,29 @@
+<?php
+include "loginFunctions.php";
+
+if (isset($_SESSION['username'])) {
+
+    $username = $_SESSION['username'];
+    $firstName = $_SESSION['firstName'];
+    $lastName = $_SESSION['lastName'];
+    $email = $_SESSION['email'];
+    $mobile = $_SESSION['mobile'];
+    $password = $_SESSION['password'];
+
+} else {
+    header("Location: signIn.php");
+    exit();
+}
+
+?>
+
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home | Waggin Wheels</title>
+    <title>Account Overview | Waggin Wheels</title>
 
     <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
@@ -37,24 +56,24 @@
         <h1 class="header1">ACCOUNT OVERVIEW</h1>
         <h3 class="header2">PROFILE INFORMATION</h3>
 
-        <div class="container-fluid account">
+        <div class="container account">
             <div class="row">
-                <div class="col col-4 sidebar">
-                    <a class="active nav-link nav-text" href="#home"><i class="fa-solid fa-house"></i>Account Overview</a>
+                <div class="col col-4 sidebar" style="height: 40em;">
+                    <a class="active nav-link nav-text" href="accountOverview.php"><i class="fa-solid fa-house"></i>Account Overview</a>
                     <a class="nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit Account</a>
                     <a class="nav-link nav-text" href="membershipStatus.php"><i class="fa-solid fa-crown"></i>Membership</a>
                     <a class="nav-link nav-text" href="invoiceHist.php"><i class="fa-solid fa-clock"></i>Invoice History</a>
                 </div>
 
-                <div class="col col-8">
+                <div class="col col-8" style="height: 40em;">
                     <div class="row row1">
                         <div class="col-3">
                             <img src="images/person.svg" id="profilePic">
                         </div>
 
                         <div class="col">
-                            <h3 class="header3">JOHN LEUWIS</h3>
-                            <span class="para">aka @john_leuwis12</span>
+                            <h3 class="header3"><?php echo strtoupper($firstName)." ".strtoupper($lastName) ?></h3>
+                            <span class="para">aka @<?php echo $username ?></span>
                         </div>
                     </div>
 
@@ -64,7 +83,7 @@
                         </div>
 
                         <div class="col">
-                            <span class="para">john_leuwis12</span>
+                            <span class="para"><?php echo $username ?></span>
                         </div>
                     </div>
 
@@ -76,7 +95,7 @@
                         </div>
 
                         <div class="col">
-                            <span class="para">John</span>
+                            <span class="para"><?php echo ucfirst($firstName) ?></span>
                         </div>
                     </div>
 
@@ -88,7 +107,7 @@
                         </div>
 
                         <div class="col">
-                            <span class="para">Leuwis</span>
+                            <span class="para"><?php echo ucfirst($lastName) ?></span>
                         </div>
                     </div>
 
@@ -100,7 +119,7 @@
                         </div>
 
                         <div class="col">
-                            <span class="para">johnleuwis12@email.com</span>
+                            <span class="para"><?php echo $email ?></span>
                         </div>
                     </div>
 
@@ -112,7 +131,12 @@
                         </div>
 
                         <div class="col">
-                            <span class="para">********</span>
+                            <span class="para">
+                                <?php
+                                    $count = strlen($password);
+                                    echo str_repeat("*", $count);
+                                ?>
+                            </span>
                         </div>
                     </div>
 
@@ -124,7 +148,15 @@
                         </div>
 
                         <div class="col">
-                            <span class="para">+65 1234 5678</span>
+                            <span class="para">
+                                <?php 
+                                $mobile = strval($mobile);
+
+                                $arrMobile = str_split($mobile, 4);
+
+                                echo '+65 '. $arrMobile[0]." ".$arrMobile[1];
+                                ?>
+                            </span>
                         </div>
                     </div>
 
