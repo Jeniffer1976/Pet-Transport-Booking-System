@@ -48,7 +48,7 @@
                     <p class="text3">Trust us with your pet's transportation needs, and we'll go above and beyond to ensure their safety, comfort, and happiness. Request a qoute today to discuss your requirements and let us take care of the logistics while you focus on creating wonderful memories with your furry friends.
                     </p>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                        <button type="button" class="btn rounded-pill btn-primary btn-lg px-5 me-md-2">Request a
+                        <button type="button" class="btn rounded-pill btn-primary btn-lg px-5 me-md-2" onclick="document.location='requestquote.php'">Request a
                             qoute</button>
                     </div>
                 </div>
