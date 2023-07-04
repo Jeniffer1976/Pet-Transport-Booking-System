@@ -22,59 +22,47 @@ if (isset($_SESSION['username'])) {
         $phoneN = $_POST['phone'];
 
         //save to database
-        $checkUsername = "SELECT DISTINCT username
-            FROM users
-            WHERE username = '$usernameN'";
 
         $checkPassword = "SELECT password
         FROM users
         WHERE username = '$username'";
 
-        $checkUsernameStatus = mysqli_query($link, $checkUsername);
-
         $checkPasswordStatus = mysqli_query($link, $checkPassword);
 
-        if (mysqli_num_rows($checkUsernameStatus)) {
-            $row = mysqli_fetch_array($checkUsernameStatus);
-            $checkUsername = $row['username'];
+        $rowPassword = mysqli_fetch_array($checkPasswordStatus);
+        if ($_POST['oldPassword'] == $rowPassword['password']){
 
-            $message = "The username " . $checkUsername . " already exists";
+            $updateUsers = "UPDATE users
+            SET password='$passwordN' 
+            WHERE username='$username'";
 
-        } else {
-            $rowPassword = mysqli_fetch_array($checkPasswordStatus);
-            if ($password == $rowPassword['password']){
+            $updateUsersStatus = mysqli_query($link, $updateUsers);
 
-                $updateUsers = "UPDATE users
-                SET password='$passwordN' 
+            $updatePetOwners = "UPDATE pet_owner
+                SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
                 WHERE username='$username'";
-    
-                $updateUsersStatus = mysqli_query($link, $updateUsers);
-    
-                $updatePetOwners = "UPDATE pet_owner
-                    SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
-                    WHERE username='$username'";
-    
-                $updatePetOwnersStatus = mysqli_query($link, $updatePetOwners);            
 
-                $_SESSION['firstName'] = $firstNameN;
-                $_SESSION['lastName'] = $lastNameN;
-                $_SESSION['email'] = $emailN;
-                $_SESSION['mobile'] = $phoneN;
-                $_SESSION['password'] = $passwordN;
-    
-                if ($updateUsersStatus && $updatePetOwnersStatus) {
-                    $message = "Your account has been successfully updated";
-                    $isSuccessful = true;
-                    header("Location: accountOverview.php"); //makes it go to signIn page directly.
-    
-                } else {
-                    $message = "The account update was unsuccessful";
-                }
-            }  else {
-                $message = "The old password does not match with the one in the system";
+            $updatePetOwnersStatus = mysqli_query($link, $updatePetOwners);            
+
+            $_SESSION['firstName'] = $firstNameN;
+            $_SESSION['lastName'] = $lastNameN;
+            $_SESSION['email'] = $emailN;
+            $_SESSION['mobile'] = $phoneN;
+            $_SESSION['password'] = $passwordN;
+
+            if ($updateUsersStatus && $updatePetOwnersStatus) {
+                $message = "Your account has been successfully updated";
+                $isSuccessful = true;
+                header("Location: accountOverview.php"); //makes it go to signIn page directly.
+
+            } else {
+                $message = "The account update was unsuccessful";
             }
-
+        }  else {
+            $message = "The old password does not match with the one in the system";
         }
+
+    
     }
 
 } else {

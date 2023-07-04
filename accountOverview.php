@@ -162,7 +162,7 @@ if (isset($_SESSION['username'])) {
 
                     <hr class="rounded">
 
-                    <button type="submit" class="btn btn-primary primarybtn rounded-pill">Edit Profile</button>
+                    <button type="submit" class="btn btn-primary primarybtn rounded-pill" onclick="document.location='editAccount.php'">Edit Profile</button>
                 </div>
             </div>
         </div>  
