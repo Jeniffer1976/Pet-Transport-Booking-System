@@ -96,3 +96,44 @@ a:hover {
     background-color: #de7524;
 }
 
+.font1 {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+}
+
+.font2 {
+    font-family: 'Nunito', sans-serif;
+    color: rgba(184, 229, 255, 1);;
+}
+
+.font4 {
+    font-style: italic;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color: #FF9544;
+}
+
+.text3 {
+    font-family: 'Asap', sans-serif;
+    color: black;
+}
+
+.header1 {
+    font-size: 3em;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
+    color: #1E53B3;
+    letter-spacing: 0.2em;
+}
+
+.avatar {
+    width: 10%;
+    height: 10%;
+    border-radius: 50%;
+}
+
+rect {
+    width: 100%;
+    height: 100%;
+    fill: rgba(184, 229, 255, 1);
+}

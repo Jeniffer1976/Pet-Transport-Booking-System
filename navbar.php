@@ -53,7 +53,7 @@ if (isset($_GET['logout'])) {
                                 <?php echo $_SESSION['firstName'] ?>
                             <h5>
                         </li>
-                        <li><a class="dropdown-item" href="">View profile</a></li>
+                        <li><a class="dropdown-item" href="accountOverview.php">View profile</a></li>
                         <li><a class="dropdown-item text2" onclick="location.href = '?logout'">Sign out <i
                                     class="fas fa-sign-out-alt ms-2"></i></a></li>
                     <?php } else { ?>
