@@ -132,8 +132,8 @@
         </section>
 
         <div class="btns-group">
-            <a href="#" class="btn btn-prev">Previous</a>
-            <a href="#" class="btn btn-next">Next</a>
+            <a href="#" class="btn btn-prev"><i class="far fa-arrow-alt-circle-left"></i> Previous</a>
+            <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
         </div>
     </div>
 
@@ -154,6 +154,7 @@
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
+    
 </body>
 
 </html>
