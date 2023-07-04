@@ -44,14 +44,23 @@ if (isset($_GET['logout'])) {
 
         <ul class='navbar-nav'>
             <li class="nav-item dropdown">
-                <a class="nav-link" role="button" data-bs-toggle="dropdown"><img src="images/person.svg"
-                        height="35" width="35"></a>
+                <a class="nav-link" role="button" data-bs-toggle="dropdown">
+                    <?php if (isset($_SESSION['profile'])) {
+                        $profile = $_SESSION['profile']
+                            ?>
+                        <img src="images/profileImg/<?php echo $profile ?>" height="40" width="40"
+                            style="object-fit: cover; border-radius: 50%;">
+                    <?php } else { ?>
+                        <img src="images/person.svg" height="35" width="35">
+                    <?php } ?>
+                </a>
+
                 <ul class="dropdown-menu">
                     <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
                         <li class="ms-3">
                             <h5>Hi,
                                 <?php echo $_SESSION['firstName'] ?>
-                            <h5>
+                                <h5>
                         </li>
                         <li><a class="dropdown-item" href="accountOverview.php">View profile</a></li>
                         <li><a class="dropdown-item text2" onclick="location.href = '?logout'">Sign out <i
@@ -59,14 +68,14 @@ if (isset($_GET['logout'])) {
                     <?php } else { ?>
                         <li><a class="dropdown-item" href="signIn.php">Sign In <i class="fas fa-sign-in-alt ms-2"></i></a>
                         </li>
-                        <li ><a style="color:#1E53B3" class="dropdown-item" href="signUp.php">Create an account</a></li>
+                        <li><a style="color:#1E53B3" class="dropdown-item" href="signUp.php">Create an account</a></li>
                     <?php } ?>
 
                 </ul>
             </li>
         </ul>
         <div>
-            <button type="button" class="btn rounded-pill gradient2 req-text">Request a quote</button>
+            <button type="button" class="btn rounded-pill gradient2 req-text" onclick="document.location='requestquote.php'">Request a quote</button>
         </div>
     </div>
 </nav>
