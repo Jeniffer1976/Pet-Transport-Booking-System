@@ -59,21 +59,35 @@ if (isset($_SESSION['username'])) {
         <div class="container account">
             <div class="row">
                 <div class="col col-4 sidebar" style="height: 40em;">
-                    <a class="active nav-link nav-text" href="accountOverview.php"><i class="fa-solid fa-house"></i>Account Overview</a>
+                    <a class="active nav-link nav-text" href="accountOverview.php"><i
+                            class="fa-solid fa-house"></i>Account Overview</a>
                     <a class="nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit Account</a>
-                    <a class="nav-link nav-text" href="membershipStatus.php"><i class="fa-solid fa-crown"></i>Membership</a>
-                    <a class="nav-link nav-text" href="invoiceHist.php"><i class="fa-solid fa-clock"></i>Invoice History</a>
+                    <a class="nav-link nav-text" href="membershipStatus.php"><i
+                            class="fa-solid fa-crown"></i>Membership</a>
+                    <a class="nav-link nav-text" href="invoiceHist.php"><i class="fa-solid fa-clock"></i>Invoice
+                        History</a>
                 </div>
 
                 <div class="col col-8" style="height: 40em;">
                     <div class="row row1">
                         <div class="col-3">
-                            <img src="images/person.svg" id="profilePic">
+                            <?php if (isset($_SESSION['profile'])) {
+                                $profile = $_SESSION['profile']
+                                    ?>
+                                <img src="images/profileImg/<?php echo $profile ?>" height="80" width="80"
+                                    style="object-fit: cover; border-radius: 50%;">
+                            <?php } else { ?>
+                                <img src="images/person.svg" height="80" width="80">
+                            <?php } ?>
                         </div>
 
                         <div class="col">
-                            <h3 class="header3"><?php echo strtoupper($firstName)." ".strtoupper($lastName) ?></h3>
-                            <span class="para">aka @<?php echo $username ?></span>
+                            <h3 class="header3">
+                                <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
+                            </h3>
+                            <span class="para">aka @
+                                <?php echo $username ?>
+                            </span>
                         </div>
                     </div>
 
@@ -83,7 +97,9 @@ if (isset($_SESSION['username'])) {
                         </div>
 
                         <div class="col">
-                            <span class="para"><?php echo $username ?></span>
+                            <span class="para">
+                                <?php echo $username ?>
+                            </span>
                         </div>
                     </div>
 
@@ -95,7 +111,9 @@ if (isset($_SESSION['username'])) {
                         </div>
 
                         <div class="col">
-                            <span class="para"><?php echo ucfirst($firstName) ?></span>
+                            <span class="para">
+                                <?php echo ucfirst($firstName) ?>
+                            </span>
                         </div>
                     </div>
 
@@ -107,7 +125,9 @@ if (isset($_SESSION['username'])) {
                         </div>
 
                         <div class="col">
-                            <span class="para"><?php echo ucfirst($lastName) ?></span>
+                            <span class="para">
+                                <?php echo ucfirst($lastName) ?>
+                            </span>
                         </div>
                     </div>
 
@@ -119,7 +139,9 @@ if (isset($_SESSION['username'])) {
                         </div>
 
                         <div class="col">
-                            <span class="para"><?php echo $email ?></span>
+                            <span class="para">
+                                <?php echo $email ?>
+                            </span>
                         </div>
                     </div>
 
@@ -133,8 +155,8 @@ if (isset($_SESSION['username'])) {
                         <div class="col">
                             <span class="para">
                                 <?php
-                                    $count = strlen($password);
-                                    echo str_repeat("*", $count);
+                                $count = strlen($password);
+                                echo str_repeat("*", $count);
                                 ?>
                             </span>
                         </div>
@@ -149,12 +171,12 @@ if (isset($_SESSION['username'])) {
 
                         <div class="col">
                             <span class="para">
-                                <?php 
+                                <?php
                                 $mobile = strval($mobile);
 
                                 $arrMobile = str_split($mobile, 4);
 
-                                echo '+65 '. $arrMobile[0]." ".$arrMobile[1];
+                                echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
                                 ?>
                             </span>
                         </div>
@@ -162,10 +184,11 @@ if (isset($_SESSION['username'])) {
 
                     <hr class="rounded">
 
-                    <button type="submit" class="btn btn-primary primarybtn rounded-pill" onclick="document.location='editAccount.php'">Edit Profile</button>
+                    <button type="submit" class="btn btn-primary primarybtn rounded-pill"
+                        onclick="document.location='editAccount.php'">Edit Profile</button>
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
     <!-- -->
 
