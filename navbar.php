@@ -52,6 +52,7 @@ if (isset($_GET['logout'])) {
                             style="object-fit: cover; border-radius: 50%;">
                     <?php } else { ?>
                         <img src="images/person.svg" height="35" width="35">
+                        
                     <?php } ?>
                 </a>
 

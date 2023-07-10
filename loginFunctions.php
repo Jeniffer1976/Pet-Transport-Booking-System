@@ -27,6 +27,7 @@ function login($username, $password)
             $_SESSION['email'] = $row['email'];
             $_SESSION['mobile'] = $row['mobile'];
             $_SESSION['password'] = $row['password'];
+            $_SESSION['profile'] = $row['profile_pic'];
             header("Location: index.php");
             exit();
 
