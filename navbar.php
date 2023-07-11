@@ -43,7 +43,19 @@ if (isset($_GET['logout'])) {
         </div>
 
         <ul class='navbar-nav'>
+            <li class="nav-item">
+                <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
+                    <button type="button" class="btn btn-outline-danger rounded-pill mt-2 me-2"
+                        onclick="location.href = '?logout'">Sign Out <i class="fas fa-sign-out-alt ms-2"></i></button>
+
+                <?php } else { ?>
+                    <button type="button" class="btn btn-outline-success rounded-pill mt-2 me-2"
+                        onclick="document.location='signIn.php'">Sign In <i class="fas fa-sign-in-alt ms-2"></i></button>
+
+                <?php } ?>
+            </li>
             <li class="nav-item dropdown">
+
                 <a class="nav-link" role="button" data-bs-toggle="dropdown">
                     <?php if (isset($_SESSION['profile'])) {
                         $profile = $_SESSION['profile']
@@ -52,7 +64,7 @@ if (isset($_GET['logout'])) {
                             style="object-fit: cover; border-radius: 50%;">
                     <?php } else { ?>
                         <img src="images/person.svg" height="35" width="35">
-                        
+
                     <?php } ?>
                 </a>
 
@@ -76,7 +88,8 @@ if (isset($_GET['logout'])) {
             </li>
         </ul>
         <div>
-            <button type="button" class="btn rounded-pill gradient2 req-text" onclick="document.location='requestquote.php'">Request a quote</button>
+            <button type="button" class="btn rounded-pill gradient2 req-text"
+                onclick="document.location='requestquote.php'">Request a quote</button>
         </div>
     </div>
 </nav>
