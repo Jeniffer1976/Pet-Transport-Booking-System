@@ -3,8 +3,7 @@ session_start();
 include("dbFunctions.php");
 
 // if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
-if (isset($_POST['requestQuote']))
-{
+if (isset($_POST['requestQuote'])) {
     $message = "";
     $isSuccessful = false;
     //something was posted
@@ -99,6 +98,8 @@ if (isset($_POST['requestQuote']))
     <link rel="stylesheet" href="stylesheets/common.css">
     <link rel="stylesheet" href="stylesheets/quote.css">
 
+    <!-- jquery     -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
 </head>
@@ -260,6 +261,65 @@ if (isset($_POST['requestQuote']))
                         </div>
                     </div>
 
+                    <!-- Pet Info -->
+                    <div class="form-step petInfo">
+                        <div class="petSec">
+                            <h3 class="header2 m-0 pb-3" align="left">PET'S INFORMATION</h3>
+                            <div class="row g-3 gx-5">
+                                <div class="col-md-6">
+                                    <label for="petFname" class="form-label para" align="left">First Name:</label>
+                                    <input type="text" class="form-control rounded-pill" name="petFname[]" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="petLname" class="form-label para" align="left">Last Name:</label>
+                                    <input type="text" class="form-control rounded-pill" name="petLname[]">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="petType" class="form-label para" align="left">Type of pet:</label>
+                                    <input type="text" class="form-control rounded-pill" name="petType[]" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="breed" class="form-label para" align="left">Breed:</label>
+                                    <input type="text" class="form-control rounded-pill" name="breed[]" required>
+                                </div>
+                                <h4 class="para-it mt-5 pt-3">Size of pet</h4>
+                                <div class="col-md-6">
+                                    <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
+                                    <input type="text" class="form-control rounded-pill" name="weight[]" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="height" class="form-label para" align="left">Height (Cm):</label>
+                                    <input type="text" class="form-control rounded-pill" name="height[]" required>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <label for="width" class="form-label para" align="left">Width (Cm):</label>
+                                    <input type="text" class="form-control rounded-pill" name="width[]" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="addInfo" class="form-label para mt-4" align="left">Additional
+                                        Comments:</label>
+                                    <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded">
+                                    </textarea>
+                                </div>
+
+                                <div class="row g-3 gx-5 btns">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md petBtn">
+                                        <button class="btn btn-light rounded-circle" id="addPet" type="button">
+                                            <i class="fas fa-plus"></i></button>
+                                        <p class="para">Add Pet</p>
+                                    </div>
+
+                                    <!-- <div class="col-md petBtn">
+                                <p class="para">Delete Pet</p>
+                                <button class="btn btn-light rounded-circle" id="delPet" type="button">
+                                    <i class="fas fa-minus"></i></button>
+                            </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </section>
@@ -287,6 +347,7 @@ if (isset($_POST['requestQuote']))
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/addDelInput.js"></script>
 
 </body>
 

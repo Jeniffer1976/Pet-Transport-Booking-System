@@ -4,9 +4,9 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     text-align: center;
-}
+} */
 
 /* Global Stylings */
 label {
@@ -143,6 +143,10 @@ input {
     margin-top: 1%;
 }
 
+/* .petInfo label {
+    text-align:left !important
+} */
+
 /* Button */
 .btns-group {
     display: grid;
@@ -163,4 +167,15 @@ input {
   }
   .btn:hover {
     box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color);
+  }
+
+  .para {
+    font-style: italic;
+  }
+
+  .petBtn button, .petBtn p {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 0;
+
   }

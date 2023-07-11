@@ -54,11 +54,17 @@ hr.rounded{
     font-family: 'Nunito', sans-serif;
 }
 
-.para {
+.para, .para-it {
     color: #338762;
     font-family: 'Asap', sans-serif;
     font-size: medium;
     font-weight: 500;
+}
+
+
+.para-it {
+    font-style: italic;
+    font-weight: bold;
 }
 
 
