@@ -1,3 +1,74 @@
+<?php
+session_start();
+include("dbFunctions.php");
+
+// if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
+if (isset($_POST['requestQuote']))
+{
+    $message = "";
+    $isSuccessful = false;
+    //something was posted
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $email = $_POST['email'];
+    $servicetype = $_POST['servicetype'];
+    $pickup = $_POST['pickup'];
+    $firstpickup = $_POST['firstpickup'];
+    $secondpickup = $_POST['secondpickup'];
+    $address = $_POST['address'];
+    $firstNameSI = $_POST['firstNameSI'];
+    $lastNameSI = $_POST['lastNameSI'];
+    $contactSI = $_POST['contactSI'];
+    $emailSI = $_POST['emailSI'];
+    $tickSI = $_POST['tickSI'];
+    $firstNameRI = $_POST['firstNameRI'];
+    $lastNameRI = $_POST['lastNameRI'];
+    $contactRI = $_POST['contactRI'];
+    $emailRI = $_POST['emailRI'];
+    $tickRI = $_POST['tickRI'];
+
+    //save to database
+    $insertUsers = "INSERT INTO users
+          (username, password, role) 
+          VALUES 
+          ('$username', '$password', 'customer')";
+
+    $checkUsername = "SELECT DISTINCT username
+        FROM users
+        WHERE username = '$username'";
+
+    $checkUsernameStatus = mysqli_query($link, $checkUsername);
+
+    if (mysqli_num_rows($checkUsernameStatus)) {
+        $row = mysqli_fetch_array($checkUsernameStatus);
+        $checkUsername = $row['username'];
+
+        $message = "The username " . $checkUsername . " already exists";
+
+    } else {
+        $insertUsersStatus = mysqli_query($link, $insertUsers);
+
+        $insertPetOwners = "INSERT INTO pet_owner
+            (first_name, last_name, email, mobile, username, profile_pic) 
+            VALUES 
+            ('$firstName','$lastName','$email',
+            '$phone', '$username', '$profileImgName')";
+
+        $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
+
+        if ($insertUsersStatus && $insertPetOwnersStatus) {
+            $message = "Your new account has been successfully created";
+            $isSuccessful = true;
+            header("Location: signIn.php"); //makes it go to signIn page directly.
+
+        } else {
+            $message = "Account creation failed";
+        }
+    }
+}
+
+?>
+
 <html lang="en">
 
 <head>
@@ -66,15 +137,17 @@
                         <div class="row g-3 gx-5">
                             <div class="col-md-6">
                                 <label for="firstName" class="form-label para" align="left">First Name:</label>
-                                <input type="text" class="form-control rounded-pill" name="firstName" required>
+                                <input type="text" id="firstName" class="form-control rounded-pill" name="firstName"
+                                    required>
                             </div>
                             <div class="col-md-6">
                                 <label for="lastName" class="form-label para" align="left">Last Name:</label>
-                                <input type="text" class="form-control rounded-pill" name="lastName" required>
+                                <input type="text" id="lastName" class="form-control rounded-pill" name="lastName"
+                                    required>
                             </div>
                             <div class="col-12">
                                 <label for="email" class="form-label para" align="left">Email:</label>
-                                <input type="email" class="form-control rounded-pill" name="email" required>
+                                <input type="email" id="email" class="form-control rounded-pill" name="email" required>
                             </div>
                         </div>
                     </div>
@@ -82,9 +155,10 @@
                         <h3 class="header2 m-0 pb-3" align="left">TYPE OF SERVICE</h3>
                         <div class="row g-3 gx-5">
                             <div class="col-md-12">
-                                <label for="service" class="form-label para" align="left">Choose type of service:</label>
-                                <select id="service" class="form-control rounded-pill para dropdown-toggle"
-                                    name="service" required>
+                                <label for="servicetype" class="form-label para" align="left">Choose type of
+                                    service:</label>
+                                <select id="servicetype" class="form-control rounded-pill para dropdown-toggle"
+                                    name="servicetype" required>
                                     <option value="regular">Regular</option>
                                     <option value="adhoc">Ad-hoc</option>
                                 </select>
@@ -98,32 +172,91 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="pickup" class="form-label para" align="left">Prefered pick up date:</label>
-                                <input type="text" class="form-control rounded-pill" name="pickup" required>
+                                <input type="text" id="pickup" class="form-control rounded-pill" name="pickup" required>
                             </div>
                             <div class="col-md">
                             </div>
                             <div class="col-md-6">
-                                <label for="lastName" class="form-label para">Last Name:</label>
-                                <input type="text" class="form-control rounded-pill" name="lastName" required>
+                                <label for="firstpickup" class="form-label para" align="left">First pick up
+                                    time:</label>
+                                <input type="time" id="firstpickup" class="form-control rounded-pill para"
+                                    name="firstpickup" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="secondpickup" class="form-label para" align="left">Second pick up
+                                    time:</label>
+                                <input type="time" id="secondpickup" class="form-control rounded-pill para"
+                                    name="secondpickup" required>
                             </div>
                             <div class="col-12">
                                 <label for="address" class="form-label para" align="left">Address:</label>
-                                <input type="text" class="form-control rounded-pill" name="address" required>
+                                <input type="text" id="address" class="form-control rounded-pill" name="address"
+                                    required>
+                            </div>
+                            <br><br><br><br><br>
+                            <h3 class="para"><b>Sender's Information:</b></h3>
+                            <div class="col-md-6">
+                                <label for="firstNameSI" class="form-label para" align="left">First Name:</label>
+                                <input type="text" id="firstNameSI" class="form-control rounded-pill" name="firstNameSI"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastNameSI" class="form-label para" align="left">Last Name:</label>
+                                <input type="text" id="lastNameSI" class="form-control rounded-pill" name="lastNameSI"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label for="contactSI" class="form-label para" align="left">Contact No:</label>
+                                <input type="tel" id="contactSI" class="form-control rounded-pill" name="contactSI"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label for="emailSI" class="form-label para" align="left">Email:</label>
+                                <input type="email" id="emailSI" class="form-control rounded-pill" name="emailSI"
+                                    required>
+                            </div>
+                            <div class="col-md" align="left">
+                                <input type="checkbox" id="tickSI" name="tickSI">
+                                <label for="tick" class="para">Tick if sender is the same as owner</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-step">
-                        <div class="input-group">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" />
-                        </div>
-                        <div class="input-group">
-                            <label for="confirmPassword">Confirm Password</label>
-                            <input type="password" name="confirmPassword" id="confirmPassword" />
-                        </div>
-                        <div class="btns-group">
-                            <a href="#" class="btn btn-prev">Previous</a>
-                            <input type="submit" value="Submit" class="btn" />
+                        <h3 class="header2 m-0 pb-3" align="left">DROP OFF INFORMATION</h3>
+                        <div class="row g-3 gx-5">
+                            <div class="col-md">
+                            </div>
+                            <div class="col-12">
+                                <label for="address" class="form-label para" align="left">Address:</label>
+                                <input type="text" id="address" class="form-control rounded-pill" name="address"
+                                    required>
+                            </div>
+                            <br><br><br><br><br>
+                            <h3 class="para"><b>Recipient's Information:</b></h3>
+                            <div class="col-md-6">
+                                <label for="firstNameRI" class="form-label para" align="left">First Name:</label>
+                                <input type="text" id="firstNameRI" class="form-control rounded-pill" name="firstNameRI"
+                                    required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastNameRI" class="form-label para" align="left">Last Name:</label>
+                                <input type="text" id="lastNameRI" class="form-control rounded-pill" name="lastNameRI"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label for="contactRI" class="form-label para" align="left">Contact No:</label>
+                                <input type="tel" id="contactRI" class="form-control rounded-pill" name="contactRI"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label for="emailRI" class="form-label para" align="left">Email:</label>
+                                <input type="email" id="emailRI" class="form-control rounded-pill" name="emailRI"
+                                    required>
+                            </div>
+                            <div class="col-12" align="left">
+                                <input type="checkbox" id="tickRI" name="tickRI">
+                                <label for="tick" class="para">Tick if sender is the same as owner</label>
+                            </div>
                         </div>
                     </div>
 
@@ -154,7 +287,7 @@
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
-    
+
 </body>
 
 </html>
