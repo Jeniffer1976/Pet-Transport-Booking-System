@@ -22,9 +22,9 @@ if (isset($_POST['signUp']))
 
     //save to database
     $insertUsers = "INSERT INTO users
-          (username, password) 
+          (username, password, role) 
           VALUES 
-          ('$username', '$password')";
+          ('$username', '$password', 'customer')";
 
     $checkUsername = "SELECT DISTINCT username
         FROM users
