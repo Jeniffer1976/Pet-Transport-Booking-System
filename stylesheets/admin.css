@@ -1,0 +1,86 @@
+.menuicn {
+    cursor: pointer;
+}
+
+.main::-webkit-scrollbar-thumb {
+    background-image:
+        linear-gradient(to bottom, rgb(0, 0, 85), rgb(0, 0, 50));
+}
+
+.main::-webkit-scrollbar {
+    width: 5px;
+}
+
+.main::-webkit-scrollbar-track {
+    background-color: #9e9e9eb2;
+}
+
+.nav {
+    height: 100vh;
+    width: 15em;
+    background-color: #1E3D76;
+    position: fixed;
+    right: 0;
+    box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    padding: 30px 15px 0 15px;
+}
+
+.navcontainer {
+    height: 100vh;
+    width: 15em;
+    left: 72.1em;
+    position: sticky;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    transition: all 0.5s ease-in-out;
+    margin-bottom: -20vh;
+}
+
+.navcontainer::-webkit-scrollbar {
+    display: none;
+}
+
+.navclose {
+    width: 80px;
+}
+
+.nav-option {
+    width: 110vh;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    transition: all 0.1s ease-in-out;
+}
+
+.nav-option .nav-link:hover{
+    color: #FF9544 !important;
+}
+
+.nav-option:hover {
+    color: #FF9544 !important;
+    background-color: #1a4699;
+    border-left: 5px solid #FF9544;
+    cursor: pointer;
+}
+
+.nav-img {
+    height: 30px;
+}
+
+.nav-upper-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.active {
+    border-left: 5px solid #ffffff;
+    background-color: var(--Border-color);
+    color: white;
+    cursor: pointer;
+}

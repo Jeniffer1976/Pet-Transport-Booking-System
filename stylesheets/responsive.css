@@ -1,0 +1,61 @@
+
+/* Responsive CSS Here */
+@media screen and (max-width: 950px) {
+    .nav-img {
+      height: 25px;
+    }
+    .nav-option {
+      gap: 30px;
+    }
+    .nav-option h3 {
+      font-size: 15px;
+    }
+
+  }
+   
+  @media screen and (max-width: 850px) {
+    .nav-img {
+      height: 30px;
+    }
+    .nav-option {
+      gap: 30px;
+    }
+    .nav-option h3 {
+      font-size: 20px;
+    }
+    .navcontainer {
+      width: 100vw;
+      position: absolute;
+      transition: all 0.6s ease-in-out;
+      top: 0;
+      left: -100vw;
+    }
+    .nav {
+      width: 100%;
+      position: absolute;
+    }
+    .navclose {
+      left: 00px;
+    }
+
+  }
+   
+  @media screen and (max-width: 490px) {
+
+    .menuicn {
+      height: 25px;
+    }
+    .nav-img {
+      height: 25px;
+    }
+    .nav-option {
+      gap: 25px;
+    }
+    .nav-option h3 {
+      font-size: 12px;
+    }
+    .nav-upper-options {
+      gap: 15px;
+    }
+  }
+   
