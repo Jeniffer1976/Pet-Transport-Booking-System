@@ -9,6 +9,18 @@ if (isset($_SESSION['username'])) {
     $email = $_SESSION['email'];
     $mobile = $_SESSION['mobile'];
     $password = $_SESSION['password'];
+    $role = $_SESSION['role'];
+
+    if($role == 'admin'){
+        $gender = $_SESSION['gender'];
+        $birthdate = $_SESSION['birthDate'];
+        
+        if($gender == 'F'){
+            $gender = 'Female';
+        } else {
+            $gender = 'Male';
+        }
+    }
 
     if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
     {
@@ -20,6 +32,19 @@ if (isset($_SESSION['username'])) {
         $firstNameN = $_POST['firstName'];
         $lastNameN = $_POST['lastName'];
         $phoneN = $_POST['phone'];
+
+        if ($_SESSION['role'] == 'admin') {
+            $genderN = $_POST['gender'];
+
+            if($genderN == 'Female'){
+                $genderN = 'F';
+
+            } else {
+                $genderN = 'M';
+            }
+
+            $birthdateN = $_POST['birthdate'];
+        }
 
         //save to database
 
@@ -38,11 +63,19 @@ if (isset($_SESSION['username'])) {
 
             $updateUsersStatus = mysqli_query($link, $updateUsers);
 
-            $updatePetOwners = "UPDATE pet_owner
+            if ($_SESSION['role'] != 'admin') {  
+
+            $updateAccount = "UPDATE pet_owner
                 SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
                 WHERE username='$username'";
-
-            $updatePetOwnersStatus = mysqli_query($link, $updatePetOwners);            
+            
+            } else {
+                $updateAccount = "UPDATE staff
+                    SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'
+                    WHERE username='$username'";
+  
+            }
+            $updateAccountStatus = mysqli_query($link, $updateAccount);        
 
             $_SESSION['firstName'] = $firstNameN;
             $_SESSION['lastName'] = $lastNameN;
@@ -50,7 +83,12 @@ if (isset($_SESSION['username'])) {
             $_SESSION['mobile'] = $phoneN;
             $_SESSION['password'] = $passwordN;
 
-            if ($updateUsersStatus && $updatePetOwnersStatus) {
+            if ($_SESSION['role'] == 'admin') {
+                $_SESSION['gender'] = $genderN;
+                $_SESSION['birthDate'] = $birthdateN;
+            }
+
+            if ($updateUsersStatus && $updateAccountStatus) {
                 $message = "Your account has been successfully updated";
                 $isSuccessful = true;
                 header("Location: accountOverview.php"); //makes it go to signIn page directly.
@@ -108,6 +146,9 @@ if (isset($_SESSION['username'])) {
     <!--Account Overview Section-->
     <div class="container-fluid">
         <br>
+        <?php if ($_SESSION['role'] != 'customer') { ?>
+            <a href="admin.php" class="btn btn-back"><i class="far fa-arrow-alt-circle-left"></i> Back to Dashboard</a>
+        <?php } ?>
         <h1 class="header1">EDIT ACCOUNT</h1>
 
         <div class="container account">
@@ -153,17 +194,17 @@ if (isset($_SESSION['username'])) {
                                 <div class="col-md-6">
                                     <label for="firstName" class="form-label para">First Name:</label>
                                     <input type="text" class="form-control rounded-pill" name="firstName" placeholder="<?php echo ucfirst($firstName)?>"
-                                        required>
+                                        value='<?php echo ucfirst($firstName) ?>' required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lastName" class="form-label para">Last Name:</label>
                                     <input type="text" class="form-control rounded-pill" name="lastName" placeholder="<?php echo ucfirst($lastName) ?>"
-                                        required>
+                                    value='<?php echo ucfirst($lastName) ?>' required>
                                 </div>
                                 <div class="col-12">
                                     <label for="email" class="form-label para">Email:</label>
                                     <input type="email" class="form-control rounded-pill" name="email" placeholder="<?php echo $email ?>"
-                                        required>
+                                    value='<?php echo $email ?>' required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="password" class="form-label para">Old Password:</label>
@@ -173,11 +214,35 @@ if (isset($_SESSION['username'])) {
                                     <label for="password" class="form-label para">New Password:</label>
                                     <input type="password" class="form-control rounded-pill" name="newPassword" required>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-md-6">
                                     <label for="phone" class="form-label para">Mobile Number:</label>
                                     <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}" required
-                                        placeholder="<?php echo $mobile ?>">
+                                        placeholder="<?php echo $mobile ?>" value='<?php echo $mobile ?>'>
                                 </div>
+                                <?php if ($_SESSION['role'] == 'admin') { ?>
+                                <div class="col-md-6">
+                                    <label for="birthdate" class="form-label para">Birthdate:</label>
+                                    <input type="date" class="form-control rounded-pill" name="birthdate" required
+                                        placeholder="YYYY-mm-dd" value='<?php echo $birthdate ?>'>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label para">Gender:</label>
+
+                                    <?php
+                                    $options = array("Female", "Male");
+                                    ?>
+
+                                    <select class="form-control form-select rounded-pill" name="gender">
+                                        <?php foreach ($options as $option): ?>
+                                            <option value="<?php echo $option; ?>"<?php if ($gender== $option): ?> selected="selected"<?php endif; ?>>
+                                                <?php echo $option; ?>
+                                            </option>
+                                         <?php endforeach; ?>
+
+                                    </select>
+                                </div>
+                                <?php } ?>
+
                                 <div class="row">
                                     <div class="col">
                                         <button type="reset" class="btn btn-outline-danger btn-light primarybtn rounded-pill" style="margin-top: 15%">Cancel</button>

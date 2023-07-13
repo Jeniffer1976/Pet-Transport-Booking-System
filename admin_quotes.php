@@ -1,3 +1,12 @@
+<?php
+include "loginFunctions.php";
+
+if (!isset($_SESSION['username'])) {
+
+    header("Location: signIn.php");
+    exit();
+}
+?>
 <html lang="en">
 
 <head>

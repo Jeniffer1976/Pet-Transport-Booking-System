@@ -11,6 +11,17 @@ if (isset($_SESSION['username'])) {
     $password = $_SESSION['password'];
     $role = $_SESSION['role'];
 
+    if ($role == 'admin') {
+        $birthdate = $_SESSION['birthDate'];
+        $gender = $_SESSION['gender'];
+
+        if($gender == 'F'){
+            $gender = 'Female';
+        } else {
+            $gender = 'Male';
+        }
+    }
+
 } else {
     header("Location: signIn.php");
     exit();
@@ -48,23 +59,23 @@ if (isset($_SESSION['username'])) {
 <body>
 
     <!-- Navbar -->
-    <?php 
-
-        include("navbar.php");
-
-    
+    <?php
+    include("navbar.php");
     ?>
     <!--  -->
 
     <!--Account Overview Section-->
     <div class="container-fluid">
         <br>
+        <?php if ($_SESSION['role'] != 'customer') { ?>
+            <a href="admin.php" class="btn btn-back"><i class="far fa-arrow-alt-circle-left"></i> Back to Dashboard</a>
+        <?php } ?>
         <h1 class="header1">ACCOUNT OVERVIEW</h1>
         <h3 class="header2">PROFILE INFORMATION</h3>
 
         <div class="container account">
             <div class="row">
-                <div class="col col-4 sidebar" style="height: 40em;">
+                <div class="col col-4 sidebar" style="height: 50em;">
                     <a class="active nav-link nav-text" href="accountOverview.php"><i
                             class="fa-solid fa-house"></i>Account Overview</a>
                     <a class="nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit Account</a>
@@ -76,7 +87,7 @@ if (isset($_SESSION['username'])) {
                     <?php } ?>
                 </div>
 
-                <div class="col col-8" style="height: 40em;">
+                <div class="col col-8" style="height: 50em;">
                     <div class="row row1">
                         <div class="col-3">
                             <?php if (isset($_SESSION['profile'])) {
@@ -189,6 +200,37 @@ if (isset($_SESSION['username'])) {
                             </span>
                         </div>
                     </div>
+                    <?php if ($_SESSION['role'] != 'customer') { ?>
+
+                        <hr class="rounded">
+
+                        <div class="row">
+                            <div class="col-5">
+                                <span class="para">Gender: </span>
+                            </div>
+
+                            <div class="col">
+                                <span class="para">
+                                    <?php echo $gender ?>
+                                </span>
+                            </div>
+                        </div>
+
+                        <hr class="rounded">
+
+                        <div class="row">
+                            <div class="col-5">
+                                <span class="para">Birthdate: </span>
+                            </div>
+
+                            <div class="col">
+                                <span class="para">
+                                    <?php echo $birthdate ?>
+                                </span>
+                            </div>
+                        </div>
+
+                    <?php } ?>
 
                     <hr class="rounded">
 
