@@ -30,7 +30,7 @@
 <body>
 
     <!-- Navbar -->
-    <?php include("navbar_admin.php") ?>
+    <?php include("navbar.php") ?>
     <!--  -->
 
     <!-- Sidebar -->

@@ -37,6 +37,7 @@ function login($username, $password)
                 $_SESSION['mobile'] = $row['mobile'];
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['profile'] = $row['profile_pic'];
+                $_SESSION['role'] = $row['role'];
                 header("Location: index.php");
                 exit();
 
@@ -65,7 +66,8 @@ function login($username, $password)
                 $_SESSION['resignationDate'] = $row['resignation_date'];
                 $_SESSION['birthDate'] = $row['birth_date'];
                 $_SESSION['gender'] = $row['gender'];
-                // $_SESSION['profile'] = $row['profile_pic'];
+                $_SESSION['profile'] = $row['profile_pic'];
+                $_SESSION['role'] = $row['role'];
                 header("Location: admin.php");
                 exit();
 
