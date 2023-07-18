@@ -88,8 +88,14 @@ if (!isset($_SESSION['username'])) {
     <!-- -->
 
     <!-- Table -->
-
+    <div class="container text-center">
+        <!-- View Quote Button-->
+        <?php include('view_quote.php') ?>
+        <!-- -->
+    </div>
     <!-- -->
+
+
 
     <!-- Footer -->
     <?php include("footer.php") ?>
