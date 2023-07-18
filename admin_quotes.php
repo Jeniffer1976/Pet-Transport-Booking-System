@@ -1,3 +1,12 @@
+<?php
+include "loginFunctions.php";
+
+if (!isset($_SESSION['username'])) {
+
+    header("Location: signIn.php");
+    exit();
+}
+?>
 <html lang="en">
 
 <head>
@@ -30,7 +39,7 @@
 <body>
 
     <!-- Navbar -->
-    <?php include("navbar_admin.php") ?>
+    <?php include("navbar.php") ?>
     <!--  -->
 
     <!-- Header -->
@@ -41,7 +50,7 @@
     <div class="navcontainer">
         <nav class="nav">
             <div class="nav-upper-options">
-                <div class="nav-option active">
+                <div class="nav-option">
                     <a class="nav-link nav-text" href="admin.php">
                         <i class="fa-solid fa-gauge"></i>
                         Dashboard
@@ -49,7 +58,7 @@
 
                 </div>
 
-                <div class="option2 nav-option">
+                <div class="option2 nav-option active">
                     <a class="nav-link nav-text" href="admin_quotes.php">
                         <i class="fa-solid fa-table"></i>
                         Quotes

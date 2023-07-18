@@ -1,3 +1,13 @@
+<?php
+include "loginFunctions.php";
+
+if (!isset($_SESSION['username'])) {
+
+    header("Location: signIn.php");
+    exit();
+}
+?>
+
 <html lang="en">
 
 <head>
@@ -30,7 +40,7 @@
 <body>
 
     <!-- Navbar -->
-    <?php include("navbar_admin.php") ?>
+    <?php include("navbar.php") ?>
     <!--  -->
 
     <!-- Sidebar -->
