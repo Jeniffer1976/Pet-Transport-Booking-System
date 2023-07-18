@@ -159,9 +159,9 @@ include("dbFunctions.php");
                                     <div class="col-md">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="pickup" class="form-label para" align="left">Prefered pick up
+                                        <label for="pickupdate" class="form-label para" align="left">Prefered pick up
                                             date:</label>
-                                        <input type="date" id="pickup" class="form-control rounded-pill" name="pickup[]"
+                                        <input type="date" id="pickupdate" class="form-control rounded-pill" name="pickupdate[]"
                                             required>
                                     </div>
                                     <div class="col-md">
@@ -182,8 +182,8 @@ include("dbFunctions.php");
                                 </div>
                             </div>
                             <div class="col-12">
-                                <label for="address" class="form-label para" align="left">Address:</label>
-                                <input type="text" id="address" class="form-control rounded-pill" name="address"
+                                <label for="pickupaddress" class="form-label para" align="left">Address:</label>
+                                <input type="text" id="pickupaddress" class="form-control rounded-pill" name="pickupaddress"
                                     required>
                             </div>
                             <br><br><br><br><br>
@@ -230,8 +230,8 @@ include("dbFunctions.php");
                             <div class="col-md">
                             </div>
                             <div class="col-12">
-                                <label for="address" class="form-label para" align="left">Address:</label>
-                                <input type="text" id="address" class="form-control rounded-pill" name="address"
+                                <label for="dropoffaddress" class="form-label para" align="left">Address:</label>
+                                <input type="text" id="dropoffaddress" class="form-control rounded-pill" name="dropoffaddress"
                                     required>
                             </div>
                             <br><br><br><br><br>

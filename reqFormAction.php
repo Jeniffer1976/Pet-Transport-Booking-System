@@ -29,25 +29,30 @@ if (isset($_POST['requestQuote'])) {
     $message = "";
     $isSuccessful = false;
     //something was posted
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
+
+    // $firstName = $_POST['firstName'];
+    // $lastName = $_POST['lastName'];
+    // $email = $_POST['email'];
     $servicetype = $_POST['servicetype'];
-    $pickupdate = $_POST['pickupdate'];
-    $firstpickup = $_POST['firstpickup'];
-    $secondpickup = $_POST['secondpickup'];
+
+    // $pickupdate = $_POST['pickupdate'];
+    // $firstpickup = $_POST['firstpickup'];
+    // $secondpickup = $_POST['secondpickup'];
     $pickupaddress = $_POST['pickupaddress'];
+
     $firstNameSI = $_POST['firstNameSI'];
     $lastNameSI = $_POST['lastNameSI'];
     $contactSI = $_POST['contactSI'];
     $emailSI = $_POST['emailSI'];
-    $tickSI = $_POST['tickSI'];
+    // $tickSI = $_POST['tickSI'];
+
     $dropoffaddress = $_POST['dropoffaddress'];
     $firstNameRI = $_POST['firstNameRI'];
     $lastNameRI = $_POST['lastNameRI'];
     $contactRI = $_POST['contactRI'];
     $emailRI = $_POST['emailRI'];
-    $tickRI = $_POST['tickRI'];
+    // $tickRI = $_POST['tickRI'];
+    $owner_id = $_SESSION['owner_id'];
 
     //save to database
     $insertSI = "INSERT INTO senderrecipient_details 
@@ -55,24 +60,30 @@ if (isset($_POST['requestQuote'])) {
     VALUES 
     (NULL, '$firstNameSI', '$lastNameSI', '$contactSI', '$emailSI')";
 
-    $latest_SIid = "SELECT MAX(sr_id) AS latest_sr_id FROM senderrecipient_details";
+    $insertSIStatus = mysqli_query($link, $insertSI) or die(mysqli_error($link));
+
+    $latest_SIid = "mysqli_insert_id($link)";
 
     $insertRI = "INSERT INTO senderrecipient_details 
     (sr_id, first_name, last_name, contact, email) 
     VALUES 
     (NULL, '$firstNameRI', '$lastNameRI', '$contactRI', '$emailRI')";
 
-    $latest_RIid = "SELECT MAX(sr_id) AS latest_sr_id FROM senderrecipient_details";
+    $insertRIStatus = mysqli_query($link, $insertRI) or die(mysqli_error($link));
 
-    $insertPD = "INSERT INTO pickup_details 
-    (pickUp_id, pickUp_date, first_pickUp_time, second_pickUp_time) 
-    VALUES 
-    (NULL, '$pickupdate', '$firstpickup', '$secondpickup')";
+    $latest_RIid = "mysqli_insert_id($link)";
+
+    // $insertPD = "INSERT INTO pickup_details 
+    // (pickUp_id, pickUp_date, first_pickUp_time, second_pickUp_time) 
+    // VALUES 
+    // (NULL, '$pickupdate', '$firstpickup', '$secondpickup')";
 
     $insertQuote = "INSERT INTO quote 
-    (`quote_id`, `owner_id`, `pickUp_id`, `service_type`, `pickUp_address`, `dropOff_address`, `sender_id`, `recipient_id`) 
+    (quote_id, owner_id, service_type, pickUp_address, dropOff_address, sender_id, recipient_id) 
     VALUES 
-    (NULL, '2', '2', '$servicetype', '$pickupaddress', '$dropoffaddress', '3', '1')";
+    (NULL, '$owner_id', '$servicetype', '$pickupaddress', '$dropoffaddress', '$latest_SIid', '$latest_RIid')";
+
+    mysqli_query($link, $insertQuote) or die(mysqli_error($link));
 
 }
 
