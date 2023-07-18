@@ -3,68 +3,7 @@ session_start();
 include("dbFunctions.php");
 
 // if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
-if (isset($_POST['requestQuote'])) {
-    $message = "";
-    $isSuccessful = false;
-    //something was posted
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
-    $servicetype = $_POST['servicetype'];
-    $pickup = $_POST['pickup'];
-    $firstpickup = $_POST['firstpickup'];
-    $secondpickup = $_POST['secondpickup'];
-    $address = $_POST['address'];
-    $firstNameSI = $_POST['firstNameSI'];
-    $lastNameSI = $_POST['lastNameSI'];
-    $contactSI = $_POST['contactSI'];
-    $emailSI = $_POST['emailSI'];
-    $tickSI = $_POST['tickSI'];
-    $firstNameRI = $_POST['firstNameRI'];
-    $lastNameRI = $_POST['lastNameRI'];
-    $contactRI = $_POST['contactRI'];
-    $emailRI = $_POST['emailRI'];
-    $tickRI = $_POST['tickRI'];
 
-    //save to database
-    $insertUsers = "INSERT INTO users
-          (username, password, role) 
-          VALUES 
-          ('$username', '$password', 'customer')";
-
-    $checkUsername = "SELECT DISTINCT username
-        FROM users
-        WHERE username = '$username'";
-
-    $checkUsernameStatus = mysqli_query($link, $checkUsername);
-
-    if (mysqli_num_rows($checkUsernameStatus)) {
-        $row = mysqli_fetch_array($checkUsernameStatus);
-        $checkUsername = $row['username'];
-
-        $message = "The username " . $checkUsername . " already exists";
-
-    } else {
-        $insertUsersStatus = mysqli_query($link, $insertUsers);
-
-        $insertPetOwners = "INSERT INTO pet_owner
-            (first_name, last_name, email, mobile, username, profile_pic) 
-            VALUES 
-            ('$firstName','$lastName','$email',
-            '$phone', '$username', '$profileImgName')";
-
-        $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
-
-        if ($insertUsersStatus && $insertPetOwnersStatus) {
-            $message = "Your new account has been successfully created";
-            $isSuccessful = true;
-            header("Location: signIn.php"); //makes it go to signIn page directly.
-
-        } else {
-            $message = "Account creation failed";
-        }
-    }
-}
 
 ?>
 
@@ -106,6 +45,25 @@ if (isset($_POST['requestQuote'])) {
 
 <body>
 
+    <div class="endScreen_wrapper">
+        <div class="shadow"></div>
+        <div class="message_wrap">
+            <div style="display:flex">
+                <span class="messageIcon">
+                    <i class="fas fa-check"></i>
+                </span>
+                <p>You have successfully sent your quote. <br>We will get back to you shortly. <i
+                        class="far fa-smile-beam"></i></p>
+            </div>
+            <div align="center">
+                <button class="btn" style="display" onclick="location.href='index.php'"><i class="fas fa-home"></i>
+                    Return to home</button>
+            </div>
+        </div>
+
+
+    </div>
+
     <!-- Navbar -->
     <?php include("navbar.php") ?>
 
@@ -130,11 +88,13 @@ if (isset($_POST['requestQuote'])) {
 
         <!-- <h3 class="header2">OWNER'S INFORMATION</h3> -->
 
-        <section class="inverse full-bleed overflow-hidden" id="form">
-            <div class="container-fluid d-flex justify-content-center">
-                <form method="post" action="">
-                    <div class="form-step form-step-active">
-                        <h3 class="header2 m-0 pb-3" align="left">OWNER'S INFORMATION</h3>
+        <!-- <section class="inverse full-bleed overflow-hidden" id="form"> -->
+        <!-- <div class="container-fluid d-flex justify-content-center"> -->
+        <form method="post" action="" id="reqForm">
+            <div class="form-step form-step-active">
+                <h3 class="header2 m-0 pb-3" align="left">OWNER'S INFORMATION</h3>
+                <div class="container-fluid d-flex justify-content-center">
+                    <div class="inverse full-bleed overflow-hidden" id="form">
                         <div class="row g-3 gx-5">
                             <div class="col-md-6">
                                 <label for="firstName" class="form-label para" align="left">First Name:</label>
@@ -152,42 +112,74 @@ if (isset($_POST['requestQuote'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="form-step">
-                        <h3 class="header2 m-0 pb-3" align="left">TYPE OF SERVICE</h3>
+                </div>
+
+                <div class="btns-group">
+                    <a></a>
+                    <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="form-step">
+                <h3 class="header2 m-0 pb-3" align="left">TYPE OF SERVICE</h3>
+                <div class="container-fluid d-flex justify-content-center">
+
+                    <div class="inverse full-bleed overflow-hidden" id="form">
                         <div class="row g-3 gx-5">
-                            <div class="col-md-12">
+                            <div class="col-md">
                                 <label for="servicetype" class="form-label para" align="left">Choose type of
                                     service:</label>
-                                <select id="servicetype" class="form-control rounded-pill para dropdown-toggle"
-                                    name="servicetype" required>
-                                    <option value="regular">Regular</option>
+                                <select id="servicetype" class="rounded-pill para dropdown-toggle p-2" align="left"
+                                    style="border:none; width:200px" name="servicetype" required>
                                     <option value="adhoc">Ad-hoc</option>
+                                    <option value="regular">Regular</option>
                                 </select>
+                            </div>
+                            <div class="col-md serviceQty">
+                                <label for="serviceQty" class="form-label para" align="left">Service Quantity:</label>
+                                <input type="number" class="form-control rounded-pill" name="serviceQty" id="serviceQty"
+                                    style="width:120px" max="5" min="1">
                             </div>
                         </div>
                     </div>
-                    <div class="form-step">
-                        <h3 class="header2 m-0 pb-3" align="left">PICK UP INFORMATION</h3>
+                </div>
+                <div class="btns-group">
+                    <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
+                        Previous</a>
+                    <a href="#" class="btn btn-next" id="serviceNext">Next <i
+                            class="far fa-arrow-alt-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="form-step">
+                <h3 class="header2 m-0 pb-3" align="left">PICK UP INFORMATION</h3>
+                <div class="container-fluid d-flex justify-content-center">
+                    <div class="inverse full-bleed overflow-hidden" id="form">
                         <div class="row g-3 gx-5">
-                            <div class="col-md">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="pickup" class="form-label para" align="left">Prefered pick up date:</label>
-                                <input type="text" id="pickup" class="form-control rounded-pill" name="pickup" required>
-                            </div>
-                            <div class="col-md">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="firstpickup" class="form-label para" align="left">First pick up
-                                    time:</label>
-                                <input type="time" id="firstpickup" class="form-control rounded-pill para"
-                                    name="firstpickup" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="secondpickup" class="form-label para" align="left">Second pick up
-                                    time:</label>
-                                <input type="time" id="secondpickup" class="form-control rounded-pill para"
-                                    name="secondpickup" required>
+                            <div class="pickUpTimings">
+                                <div class="pickUpTimings-content row g-3 gx-5">
+                                    <div class="col-md">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="pickup" class="form-label para" align="left">Prefered pick up
+                                            date:</label>
+                                        <input type="date" id="pickup" class="form-control rounded-pill" name="pickup[]"
+                                            required>
+                                    </div>
+                                    <div class="col-md">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="firstpickup" class="form-label para" align="left">First pick up
+                                            time:</label>
+                                        <input type="time" id="firstpickup" class="form-control rounded-pill para"
+                                            name="firstpickup[]" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="secondpickup" class="form-label para" align="left">Second pick
+                                            up
+                                            time:</label>
+                                        <input type="time" id="secondpickup" class="form-control rounded-pill para"
+                                            name="secondpickup[]" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-12">
                                 <label for="address" class="form-label para" align="left">Address:</label>
@@ -216,14 +208,24 @@ if (isset($_POST['requestQuote'])) {
                                 <input type="email" id="emailSI" class="form-control rounded-pill" name="emailSI"
                                     required>
                             </div>
-                            <div class="col-md" align="left">
+                            <div class="col-md tick" align="left">
                                 <input type="checkbox" id="tickSI" name="tickSI">
-                                <label for="tick" class="para">Tick if sender is the same as owner</label>
+                                <label for="tick" class="para">Sender is the same as owner</label>
                             </div>
                         </div>
                     </div>
-                    <div class="form-step">
-                        <h3 class="header2 m-0 pb-3" align="left">DROP OFF INFORMATION</h3>
+                </div>
+                <div class="btns-group">
+                    <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
+                        Previous</a>
+                    <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="form-step">
+                <h3 class="header2 m-0 pb-3" align="left">DROP OFF INFORMATION</h3>
+                <div class="container-fluid d-flex justify-content-center">
+                    <div class="inverse full-bleed overflow-hidden" id="form">
+
                         <div class="row g-3 gx-5">
                             <div class="col-md">
                             </div>
@@ -254,81 +256,106 @@ if (isset($_POST['requestQuote'])) {
                                 <input type="email" id="emailRI" class="form-control rounded-pill" name="emailRI"
                                     required>
                             </div>
-                            <div class="col-12" align="left">
+                            <div class="col-12 tick" align="left">
                                 <input type="checkbox" id="tickRI" name="tickRI">
-                                <label for="tick" class="para">Tick if sender is the same as owner</label>
+                                <label for="tick" class="para">Sender is the same as owner</label>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="btns-group">
+                    <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
+                        Previous</a>
+                    <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
+                </div>
+            </div>
 
-                    <!-- Pet Info -->
-                    <div class="form-step petInfo">
-                        <div class="petSec">
-                            <h3 class="header2 m-0 pb-3" align="left">PET'S INFORMATION</h3>
-                            <div class="row g-3 gx-5">
-                                <div class="col-md-6">
-                                    <label for="petFname" class="form-label para" align="left">First Name:</label>
-                                    <input type="text" class="form-control rounded-pill" name="petFname[]" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="petLname" class="form-label para" align="left">Last Name:</label>
-                                    <input type="text" class="form-control rounded-pill" name="petLname[]">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="petType" class="form-label para" align="left">Type of pet:</label>
-                                    <input type="text" class="form-control rounded-pill" name="petType[]" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="breed" class="form-label para" align="left">Breed:</label>
-                                    <input type="text" class="form-control rounded-pill" name="breed[]" required>
-                                </div>
-                                <h4 class="para-it mt-5 pt-3">Size of pet</h4>
-                                <div class="col-md-6">
-                                    <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
-                                    <input type="text" class="form-control rounded-pill" name="weight[]" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="height" class="form-label para" align="left">Height (Cm):</label>
-                                    <input type="text" class="form-control rounded-pill" name="height[]" required>
-                                </div>
-                                <div class="col-md-6"></div>
-                                <div class="col-md-6">
-                                    <label for="width" class="form-label para" align="left">Width (Cm):</label>
-                                    <input type="text" class="form-control rounded-pill" name="width[]" required>
-                                </div>
-                                <div class="col-12">
-                                    <label for="addInfo" class="form-label para mt-4" align="left">Additional
-                                        Comments:</label>
-                                    <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded">
+            <!-- Pet Info -->
+            <div class="form-step petInfo">
+                <div class="petSec">
+                    <div>
+                        <h3 class="header2 m-0 pb-3" align="left">PET'S INFORMATION</h3>
+                        <div class="container-fluid d-flex justify-content-center">
+                            <div class="inverse full-bleed overflow-hidden" id="form">
+                                <div class="row g-3 gx-5">
+                                    <div class="col-md-6">
+                                        <label for="petFname" class="form-label para" align="left">First Name:</label>
+                                        <input type="text" class="form-control rounded-pill" name="petFname[]" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="petLname" class="form-label para" align="left">Last Name:</label>
+                                        <input type="text" class="form-control rounded-pill" name="petLname[]">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="petType" class="form-label para" align="left">Type of pet:</label>
+                                        <input type="text" class="form-control rounded-pill" name="petType[]" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="breed" class="form-label para" align="left">Breed:</label>
+                                        <input type="text" class="form-control rounded-pill" name="breed[]" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="breed" class="form-label para" align="left">Age:</label>
+                                        <input type="number" class="form-control rounded-pill" name="age[]" required>
+                                    </div>
+                                    <h4 class="para-it mt-5 pt-3">Size of pet</h4>
+                                    <div class="col-md-6">
+                                        <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
+                                        <input type="number" class="form-control rounded-pill" step="0.1"
+                                            name="weight[]" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="height" class="form-label para" align="left">Height (Cm):</label>
+                                        <input type="number" class="form-control rounded-pill" step="0.1"
+                                            name="height[]" required>
+                                    </div>
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <label for="width" class="form-label para" align="left">Width (Cm):</label>
+                                        <input type="number" class="form-control rounded-pill" step="0.1" name="width[]"
+                                            required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="addInfo" class="form-label para mt-4" align="left">Additional
+                                            Comments:</label>
+                                        <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded">
                                     </textarea>
-                                </div>
-
-                                <div class="row g-3 gx-5 btns">
-                                    <div class="col-md-10"></div>
-                                    <div class="col-md petBtn">
-                                        <button class="btn btn-light rounded-circle" id="addPet" type="button">
-                                            <i class="fas fa-plus"></i></button>
-                                        <p class="para">Add Pet</p>
                                     </div>
 
-                                    <!-- <div class="col-md petBtn">
+                                    <div class="row g-3 gx-5 btns">
+                                        <div class="col-md-10"></div>
+                                        <div class="col-md petBtn">
+                                            <button class="btn btn-light rounded-circle" id="addPet" type="button">
+                                                <i class="fas fa-plus"></i></button>
+                                            <p class="para">Add Pet</p>
+                                        </div>
+
+                                        <!-- <div class="col-md petBtn">
                                 <p class="para">Delete Pet</p>
                                 <button class="btn btn-light rounded-circle" id="delPet" type="button">
                                     <i class="fas fa-minus"></i></button>
                             </div> -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
-        </section>
+                </div>
+                <div class="btns-group">
+                    <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
+                        Previous</a>
+                    <button class="btn" id="submitReq">Submit <i class="far fa-check-circle"></i></button>
+                    <!-- <input type="submit" value="Submit" id="submitReq"> -->
+                </div>
 
-        <div class="btns-group">
-            <a href="#" class="btn btn-prev"><i class="far fa-arrow-alt-circle-left"></i> Previous</a>
-            <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
-        </div>
+            </div>
+        </form>
+        <!-- </div> -->
+        <!-- </section> -->
+
+
     </div>
+
 
     <!--  -->
 
@@ -347,7 +374,14 @@ if (isset($_POST['requestQuote'])) {
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/quoteScript.js"></script>
     <script src="scripts/addDelInput.js"></script>
+    <script type="text/javascript">
+        var firstname = "<?php echo $_SESSION['firstName'] ?>";
+        var lastname = "<?php echo $_SESSION['lastName'] ?>";
+        var email = "<?php echo $_SESSION['email'] ?>";
+        var mobile = "<?php echo $_SESSION['mobile'] ?>";
+    </script>
 
 </body>
 

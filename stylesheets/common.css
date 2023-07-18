@@ -43,7 +43,7 @@
     color: #1E53B3;
 }
 
-hr.rounded{
+hr.rounded {
     border-top: 0.1em solid #338762;
     border-radius: 5px;
     opacity: 100%;
@@ -54,7 +54,8 @@ hr.rounded{
     font-family: 'Nunito', sans-serif;
 }
 
-.para, .para-it {
+.para,
+.para-it {
     color: #338762;
     font-family: 'Asap', sans-serif;
     font-size: medium;
@@ -147,6 +148,7 @@ hr.rounded{
     background-color: #6da9fa;
     color: white;
 }
+
 /* 
 .primaryBtn1 {
     padding: 10px 50px ;
@@ -253,21 +255,72 @@ hr.rounded{
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px white; 
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px white;
     border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #6da9fa; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #6da9fa;
     border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #1E53B3; 
-  }
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #1E53B3;
+}
+
+
+/*home*/
+.grad1 {
+    height: 100%;
+    background-image: linear-gradient(to right, rgb(255, 106, 0), rgb(240, 219, 197));
+}
+
+.font1 {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    text-align: left;
+}
+
+.font2 {
+    font-family: 'Nunito', sans-serif;
+    color: rgba(184, 229, 255, 1);
+    text-align: left;
+}
+
+.text3 {
+    font-family: 'Asap', sans-serif;
+    color: black;
+    text-align: left;
+}
+
+rect {
+    width: 100%;
+    height: 100%;
+    fill: #1E53B3;
+}
+
+.text3 {
+    font-family: 'Asap', sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+.text4 {
+    font-family: 'Asap', sans-serif;
+    color: rgb(0, 0, 0);
+    text-align: left;
+}
+
+.header1 {
+    font-size: 3em;
+    font-family: 'Nunito', sans-serif;
+    text-align: center;
+    color: #ffffff;
+    letter-spacing: 0.2em;
+}
