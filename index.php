@@ -82,7 +82,7 @@
 
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1 class="header1">Testimonials</h1>
+                        <h1 class="header4">Testimonials</h1>
                         <img class="avatar" src="images/indianguy.png">
                         <h2 class="font4">From the moment I contacted them, <br>
                             their team was professional, caring, and efficient.</h2>
@@ -106,7 +106,7 @@
 
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1 class="header1">Testimonials</h1>
+                        <h1 class="header4">Testimonials</h1>
                         <img class="avatar" src="images/indianguy.png">
                         <h2 class="font4">From the moment I contacted them, <br>
                             their team was professional, caring, and efficient.</h2>
@@ -130,7 +130,7 @@
 
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1 class="header1">Testimonials</h1>
+                        <h1 class="header4">Testimonials</h1>
                         <img class="avatar" src="images/indianguy.png">
                         <h2 class="font4">From the moment I contacted them,
                             their team was <br> professional, caring, and efficient.</h2>
