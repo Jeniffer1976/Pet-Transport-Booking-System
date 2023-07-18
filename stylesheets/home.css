@@ -99,11 +99,13 @@ a:hover {
 .font1 {
     font-family: 'Nunito', sans-serif;
     color: #1E53B3;
+    text-align: left;
 }
 
 .font2 {
     font-family: 'Nunito', sans-serif;
-    color: rgba(184, 229, 255, 1);;
+    color: rgba(184, 229, 255, 1);
+    text-align: left;
 }
 
 .font4 {
@@ -116,13 +118,14 @@ a:hover {
 .text3 {
     font-family: 'Asap', sans-serif;
     color: black;
+    text-align: center;
 }
 
 .header1 {
     font-size: 3em;
     font-family: 'Nunito', sans-serif;
     text-align: center;
-    color: #1E53B3;
+    color: #ffffff;
     letter-spacing: 0.2em;
 }
 
@@ -136,4 +139,9 @@ rect {
     width: 100%;
     height: 100%;
     fill: rgba(184, 229, 255, 1);
+}
+
+.grad1 {
+    height: 100%;
+    background-image: linear-gradient(to right, rgb(255, 106, 0), rgb(240, 219, 197));
 }

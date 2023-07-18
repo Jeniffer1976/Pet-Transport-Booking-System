@@ -132,5 +132,79 @@ $(document).ready(function () {
       })
     // }
   });
+  $("#tickSI").change(function(){
+    if (this.checked) {
+      $("#firstNameSI").val(firstname)
+      $("#lastNameSI").val(lastname)
+      $("#emailSI").val(email)
+      $("#contactSI").val(mobile)
+
+      $("#firstNameSI").attr("disabled","disabled")
+      $("#lastNameSI").attr("disabled","disabled")
+      $("#emailSI").attr("disabled","disabled")
+      $("#contactSI").attr("disabled","disabled")
+    } 
+    else {
+      $("#firstNameSI").val("")
+      $("#lastNameSI").val("")
+      $("#emailSI").val("")
+      $("#contactSI").val("")
+
+      $("#firstNameSI").removeAttr("disabled","disabled")
+      $("#lastNameSI").removeAttr("disabled","disabled")
+      $("#emailSI").removeAttr("disabled","disabled")
+      $("#contactSI").removeAttr("disabled","disabled")
+    }
+  });
+
+  $("#tickSI").change(function(){
+    if (this.checked) {
+      $("#firstNameSI").val(firstname)
+      $("#lastNameSI").val(lastname)
+      $("#emailSI").val(email)
+      $("#contactSI").val(mobile)
+
+      $("#firstNameSI").attr("disabled","disabled")
+      $("#lastNameSI").attr("disabled","disabled")
+      $("#emailSI").attr("disabled","disabled")
+      $("#contactSI").attr("disabled","disabled")
+    } 
+    else {
+      $("#firstNameSI").val("")
+      $("#lastNameSI").val("")
+      $("#emailSI").val("")
+      $("#contactSI").val("")
+
+      $("#firstNameSI").removeAttr("disabled","disabled")
+      $("#lastNameSI").removeAttr("disabled","disabled")
+      $("#emailSI").removeAttr("disabled","disabled")
+      $("#contactSI").removeAttr("disabled","disabled")
+    }
+  });
+
+  $("#tickRI").change(function(){
+    if (this.checked) {
+      $("#firstNameRI").val(firstname)
+      $("#lastNameRI").val(lastname)
+      $("#emailRI").val(email)
+      $("#contactRI").val(mobile)
+
+      $("#firstNameRI").attr("disabled","disabled")
+      $("#lastNameRI").attr("disabled","disabled")
+      $("#emailRI").attr("disabled","disabled")
+      $("#contactRI").attr("disabled","disabled")
+    } 
+    else {
+      $("#firstNameRI").val("")
+      $("#lastNameRI").val("")
+      $("#emailRI").val("")
+      $("#contactRI").val("")
+
+      $("#firstNameRI").removeAttr("disabled","disabled")
+      $("#lastNameRI").removeAttr("disabled","disabled")
+      $("#emailRI").removeAttr("disabled","disabled")
+      $("#contactRI").removeAttr("disabled","disabled")
+    }
+  });
 
 });

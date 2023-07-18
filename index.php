@@ -28,6 +28,7 @@
 <body>
 
     <!-- Navbar -->
+    <div class="grad1">
     <?php include("navbar.php") ?>
 
     <!--  -->
@@ -45,7 +46,10 @@
                     <h1 class="font1 display-4 fw-bold lh-1 mb-3">Never leave your FURiends behind</h1>
                     <h5 class="font2 display-8 fw-bold lh-1 mb-3">Provide your pets with the best comfort <br>
                         and care as they travel!</h5>
-                    <p class="text3">Trust us with your pet's transportation needs, and we'll go above and beyond to ensure their safety, comfort, and happiness. Request a qoute today to discuss your requirements and let us take care of the logistics while you focus on creating wonderful memories with your furry friends.
+                    <p class="text4">Trust us with your pet's transportation needs, and we'll go above and beyond to
+                        ensure their safety, comfort, and happiness. Request a qoute today to discuss your requirements
+                        and let us take care of the logistics while you focus on creating wonderful memories with your
+                        furry friends.
                     </p>
                     <!-- Temporarily removed due to supervisor's feedback -->
                     <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-start">

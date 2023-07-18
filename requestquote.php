@@ -3,68 +3,7 @@ session_start();
 include("dbFunctions.php");
 
 // if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
-if (isset($_POST['requestQuote'])) {
-    $message = "";
-    $isSuccessful = false;
-    //something was posted
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
-    $servicetype = $_POST['servicetype'];
-    $pickup = $_POST['pickup'];
-    $firstpickup = $_POST['firstpickup'];
-    $secondpickup = $_POST['secondpickup'];
-    $address = $_POST['address'];
-    $firstNameSI = $_POST['firstNameSI'];
-    $lastNameSI = $_POST['lastNameSI'];
-    $contactSI = $_POST['contactSI'];
-    $emailSI = $_POST['emailSI'];
-    $tickSI = $_POST['tickSI'];
-    $firstNameRI = $_POST['firstNameRI'];
-    $lastNameRI = $_POST['lastNameRI'];
-    $contactRI = $_POST['contactRI'];
-    $emailRI = $_POST['emailRI'];
-    $tickRI = $_POST['tickRI'];
 
-    //save to database
-    $insertUsers = "INSERT INTO users
-          (username, password, role) 
-          VALUES 
-          ('$username', '$password', 'customer')";
-
-    $checkUsername = "SELECT DISTINCT username
-        FROM users
-        WHERE username = '$username'";
-
-    $checkUsernameStatus = mysqli_query($link, $checkUsername);
-
-    if (mysqli_num_rows($checkUsernameStatus)) {
-        $row = mysqli_fetch_array($checkUsernameStatus);
-        $checkUsername = $row['username'];
-
-        $message = "The username " . $checkUsername . " already exists";
-
-    } else {
-        $insertUsersStatus = mysqli_query($link, $insertUsers);
-
-        $insertPetOwners = "INSERT INTO pet_owner
-            (first_name, last_name, email, mobile, username, profile_pic) 
-            VALUES 
-            ('$firstName','$lastName','$email',
-            '$phone', '$username', '$profileImgName')";
-
-        $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
-
-        if ($insertUsersStatus && $insertPetOwnersStatus) {
-            $message = "Your new account has been successfully created";
-            $isSuccessful = true;
-            header("Location: signIn.php"); //makes it go to signIn page directly.
-
-        } else {
-            $message = "Account creation failed";
-        }
-    }
-}
 
 ?>
 
@@ -198,7 +137,7 @@ if (isset($_POST['requestQuote'])) {
                             <div class="col-md serviceQty">
                                 <label for="serviceQty" class="form-label para" align="left">Service Quantity:</label>
                                 <input type="number" class="form-control rounded-pill" name="serviceQty" id="serviceQty"
-                                    style="width:120px" max="5" min="1" >
+                                    style="width:120px" max="5" min="1">
                             </div>
                         </div>
                     </div>
@@ -362,16 +301,19 @@ if (isset($_POST['requestQuote'])) {
                                     <h4 class="para-it mt-5 pt-3">Size of pet</h4>
                                     <div class="col-md-6">
                                         <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
-                                        <input type="number" class="form-control rounded-pill" step="0.1"  name="weight[]" required>
+                                        <input type="number" class="form-control rounded-pill" step="0.1"
+                                            name="weight[]" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="height" class="form-label para" align="left">Height (Cm):</label>
-                                        <input type="number" class="form-control rounded-pill" step="0.1"  name="height[]" required>
+                                        <input type="number" class="form-control rounded-pill" step="0.1"
+                                            name="height[]" required>
                                     </div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
                                         <label for="width" class="form-label para" align="left">Width (Cm):</label>
-                                        <input type="number" class="form-control rounded-pill" step="0.1"  name="width[]" required>
+                                        <input type="number" class="form-control rounded-pill" step="0.1" name="width[]"
+                                            required>
                                     </div>
                                     <div class="col-12">
                                         <label for="addInfo" class="form-label para mt-4" align="left">Additional
@@ -434,6 +376,12 @@ if (isset($_POST['requestQuote'])) {
     <script src="scripts/script.js"></script>
     <script src="scripts/quoteScript.js"></script>
     <script src="scripts/addDelInput.js"></script>
+    <script type="text/javascript">
+        var firstname = "<?php echo $_SESSION['firstName'] ?>";
+        var lastname = "<?php echo $_SESSION['lastName'] ?>";
+        var email = "<?php echo $_SESSION['email'] ?>";
+        var mobile = "<?php echo $_SESSION['mobile'] ?>";
+    </script>
 
 </body>
 
