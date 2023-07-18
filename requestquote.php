@@ -258,7 +258,7 @@ include("dbFunctions.php");
                             </div>
                             <div class="col-12 tick" align="left">
                                 <input type="checkbox" id="tickRI" name="tickRI">
-                                <label for="tick" class="para">Sender is the same as owner</label>
+                                <label for="tick" class="para">Recipient is the same as owner</label>
                             </div>
                         </div>
                     </div>
