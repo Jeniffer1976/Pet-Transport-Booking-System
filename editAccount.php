@@ -55,50 +55,58 @@ if (isset($_SESSION['username'])) {
         $checkPasswordStatus = mysqli_query($link, $checkPassword);
 
         $rowPassword = mysqli_fetch_array($checkPasswordStatus);
-        if ($_POST['oldPassword'] == $rowPassword['password']) {
 
-            $updateUsers = "UPDATE users
-            SET password='$passwordN' 
-            WHERE username='$username'";
 
-            $updateUsersStatus = mysqli_query($link, $updateUsers);
+        if (!(isset($_POST['checkEditPassword']))) {
 
-            if ($_SESSION['role'] != 'admin') {
+            if ($_POST['oldPassword'] == $rowPassword['password']) {
 
-                $updateAccount = "UPDATE pet_owner
+                $updateUsers = "UPDATE users
+                SET password='$passwordN' 
+                WHERE username='$username'";
+
+                $updateUsersStatus = mysqli_query($link, $updateUsers);
+
+                $_SESSION['password'] = $passwordN;
+
+            } else {
+                $message = "The old password does not match with the one in the system";
+            }
+        }
+
+        if ($_SESSION['role'] != 'admin') {
+
+            $updateAccount = "UPDATE pet_owner
                 SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
                 WHERE username='$username'";
 
-            } else {
-                $updateAccount = "UPDATE staff
+        } else {
+            $updateAccount = "UPDATE staff
                     SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'
                     WHERE username='$username'";
 
-            }
-            $updateAccountStatus = mysqli_query($link, $updateAccount);
-
-            $_SESSION['firstName'] = $firstNameN;
-            $_SESSION['lastName'] = $lastNameN;
-            $_SESSION['email'] = $emailN;
-            $_SESSION['mobile'] = $phoneN;
-            $_SESSION['password'] = $passwordN;
-
-            if ($_SESSION['role'] == 'admin') {
-                $_SESSION['gender'] = $genderN;
-                $_SESSION['birthDate'] = $birthdateN;
-            }
-
-            if ($updateUsersStatus && $updateAccountStatus) {
-                $message = "Your account has been successfully updated";
-                $isSuccessful = true;
-                header("Location: accountOverview.php"); //makes it go to signIn page directly.
-
-            } else {
-                $message = "The account update was unsuccessful";
-            }
-        } else {
-            $message = "The old password does not match with the one in the system";
         }
+        $updateAccountStatus = mysqli_query($link, $updateAccount);
+
+        $_SESSION['firstName'] = $firstNameN;
+        $_SESSION['lastName'] = $lastNameN;
+        $_SESSION['email'] = $emailN;
+        $_SESSION['mobile'] = $phoneN;
+
+        if ($_SESSION['role'] == 'admin') {
+            $_SESSION['gender'] = $genderN;
+            $_SESSION['birthDate'] = $birthdateN;
+        }
+
+        if (($updateUsersStatus && $updateAccountStatus) || ($updateAccountStatus)) {
+            $message = "Your account has been successfully updated";
+            $isSuccessful = true;
+            header("Location: accountOverview.php"); //makes it go to signIn page directly.
+
+        } else {
+            $message = "The account update was unsuccessful";
+        }
+
 
 
     }
@@ -153,7 +161,7 @@ if (isset($_SESSION['username'])) {
 
         <div class="container account">
             <div class="row">
-                <div class="col col-4 sidebar" style="height: 48em;">
+                <div class="col col-4 sidebar" style="height: 49em;">
                     <a class="nav-link nav-text" href="accountOverview.php"><i class="fa-solid fa-house"></i>Account
                         Overview</a>
                     <a class="active nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit
@@ -166,7 +174,7 @@ if (isset($_SESSION['username'])) {
                     <?php } ?>
                 </div>
 
-                <div class="col col-8" style="height: 48em;">
+                <div class="col col-8" style="height: 49em;">
                     <div class="row row1">
                         <div class="col-3">
                             <input name="profileImg" type="file" accept="image/*" id="imgUpload"
@@ -222,16 +230,27 @@ if (isset($_SESSION['username'])) {
                                     <input type="email" class="form-control rounded-pill" name="email"
                                         placeholder="<?php echo $email ?>" value='<?php echo $email ?>' required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="password" class="form-label para">Old Password:</label>
-                                    <input type="password" class="form-control rounded-pill" name="oldPassword"
-                                        required>
+                                <div class="form-check editPassword" style='margin-left: 5%;'>
+                                    <input class="form-check-input border border-3" type="checkbox" value=""
+                                        id="checkEditPassword" name='checkEditPassword'
+                                        style="border-color: #808080 !important;">
+                                    <label class="form-check-label" for="checkEditPassword" style="color:#338762; font-weight: 500;
+                                    font-style: italic;">
+                                        Tick if not changing password
+                                    </label>
                                 </div>
-                                <div class="col-md-6">
-                                    <label for="password" class="form-label para">New Password:</label>
-                                    <input type="password" class="form-control rounded-pill" name="newPassword"
-                                        required>
-                                </div>
+                                <?php if (!(isset($_POST['checkEditPassword']))) { ?>
+                                    <div class="col-md-6 passwordShow" id='passwordOld'>
+                                        <label for="password" class="form-label para">Old Password:</label>
+                                        <input type="password" class="form-control rounded-pill" name="oldPassword" id='oPw'
+                                            required>
+                                    </div>
+                                    <div class="col-md-6 passwordShow" id='passwordNew'>
+                                        <label for="password" class="form-label para">New Password:</label>
+                                        <input type="password" class="form-control rounded-pill" name="newPassword" id='nPw'
+                                            required>
+                                    </div>
+                                <?php } ?>
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label para">Mobile Number:</label>
                                     <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"
@@ -327,6 +346,30 @@ if (isset($_SESSION['username'])) {
             }
 
         }
+
+        const checkbox = document.getElementById('checkEditPassword');
+
+        const passwordO = document.getElementById('passwordOld');
+        const passwordN = document.getElementById('passwordNew');
+        const passwordOInput = document.getElementById('oPw');
+        const passwordNInput = document.getElementById('nPw');
+
+        checkbox.addEventListener('click', function handleClick() {
+            if (checkbox.checked) {
+                passwordO.style.display = 'none';
+                passwordN.style.display = 'none';
+
+                passwordOInput.required = false;
+                passwordNInput.required = false;
+            } else {
+                passwordO.style.display = 'block';
+                passwordN.style.display = 'block';
+
+                passwordOInput.required = true;
+                passwordNInput.required = true;
+            }
+        });
+
     </script>
 </body>
 
