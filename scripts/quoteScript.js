@@ -157,30 +157,30 @@ $(document).ready(function () {
     }
   });
 
-  $("#tickSI").change(function(){
-    if (this.checked) {
-      $("#firstNameSI").val(firstname)
-      $("#lastNameSI").val(lastname)
-      $("#emailSI").val(email)
-      $("#contactSI").val(mobile)
+  // $("#tickSI").change(function(){
+  //   if (this.checked) {
+  //     $("#firstNameSI").val(firstname)
+  //     $("#lastNameSI").val(lastname)
+  //     $("#emailSI").val(email)
+  //     $("#contactSI").val(mobile)
 
-      $("#firstNameSI").attr("disabled","disabled")
-      $("#lastNameSI").attr("disabled","disabled")
-      $("#emailSI").attr("disabled","disabled")
-      $("#contactSI").attr("disabled","disabled")
-    } 
-    else {
-      $("#firstNameSI").val("")
-      $("#lastNameSI").val("")
-      $("#emailSI").val("")
-      $("#contactSI").val("")
+  //     $("#firstNameSI").attr("disabled","disabled")
+  //     $("#lastNameSI").attr("disabled","disabled")
+  //     $("#emailSI").attr("disabled","disabled")
+  //     $("#contactSI").attr("disabled","disabled")
+  //   } 
+  //   else {
+  //     $("#firstNameSI").val("")
+  //     $("#lastNameSI").val("")
+  //     $("#emailSI").val("")
+  //     $("#contactSI").val("")
 
-      $("#firstNameSI").removeAttr("disabled","disabled")
-      $("#lastNameSI").removeAttr("disabled","disabled")
-      $("#emailSI").removeAttr("disabled","disabled")
-      $("#contactSI").removeAttr("disabled","disabled")
-    }
-  });
+  //     $("#firstNameSI").removeAttr("disabled","disabled")
+  //     $("#lastNameSI").removeAttr("disabled","disabled")
+  //     $("#emailSI").removeAttr("disabled","disabled")
+  //     $("#contactSI").removeAttr("disabled","disabled")
+  //   }
+  // });
 
   $("#tickRI").change(function(){
     if (this.checked) {

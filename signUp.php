@@ -135,11 +135,12 @@ if (isset($_POST['signUp']))
                         <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}" required
                             placeholder="12345678">
                     </div>
-                    <div class="col form-group">
+                    <div class="col form-group" align="center">
                         <input name="profileImg" type="file" accept="image/*" id="imgUpload"
                             onchange="displayImage(this)" style="display:none">
                         <div class="profileImgDisplay">
-                            <img src="images/default.jpg" onclick="triggerClick()" id="imgPreview" alt="Preview">
+                            <img src="images/default.jpg"  id="imgPreview" alt="Preview">
+                            <button type="button" class="imgBtn" onclick="triggerClick()"><i class="fas fa-camera"></i></button>
                         </div>
                     </div>
                     <div class="col-12 text-center form-group">

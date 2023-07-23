@@ -30,6 +30,7 @@ function login($username, $password)
 
             if (mysqli_num_rows($customerPassStatus) == 1) { // check for correct username and password
                 $row = mysqli_fetch_array($customerPassStatus);
+                $_SESSION['owner_id'] = $row['owner_id'];
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['firstName'] = $row['first_Name'];
                 $_SESSION['lastName'] = $row['last_Name'];

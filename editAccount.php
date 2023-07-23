@@ -11,11 +11,11 @@ if (isset($_SESSION['username'])) {
     $password = $_SESSION['password'];
     $role = $_SESSION['role'];
 
-    if($role == 'admin'){
+    if ($role == 'admin') {
         $gender = $_SESSION['gender'];
         $birthdate = $_SESSION['birthDate'];
-        
-        if($gender == 'F'){
+
+        if ($gender == 'F') {
             $gender = 'Female';
         } else {
             $gender = 'Male';
@@ -36,7 +36,7 @@ if (isset($_SESSION['username'])) {
         if ($_SESSION['role'] == 'admin') {
             $genderN = $_POST['gender'];
 
-            if($genderN == 'Female'){
+            if ($genderN == 'Female') {
                 $genderN = 'F';
 
             } else {
@@ -55,7 +55,7 @@ if (isset($_SESSION['username'])) {
         $checkPasswordStatus = mysqli_query($link, $checkPassword);
 
         $rowPassword = mysqli_fetch_array($checkPasswordStatus);
-        if ($_POST['oldPassword'] == $rowPassword['password']){
+        if ($_POST['oldPassword'] == $rowPassword['password']) {
 
             $updateUsers = "UPDATE users
             SET password='$passwordN' 
@@ -63,19 +63,19 @@ if (isset($_SESSION['username'])) {
 
             $updateUsersStatus = mysqli_query($link, $updateUsers);
 
-            if ($_SESSION['role'] != 'admin') {  
+            if ($_SESSION['role'] != 'admin') {
 
-            $updateAccount = "UPDATE pet_owner
+                $updateAccount = "UPDATE pet_owner
                 SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
                 WHERE username='$username'";
-            
+
             } else {
                 $updateAccount = "UPDATE staff
                     SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'
                     WHERE username='$username'";
-  
+
             }
-            $updateAccountStatus = mysqli_query($link, $updateAccount);        
+            $updateAccountStatus = mysqli_query($link, $updateAccount);
 
             $_SESSION['firstName'] = $firstNameN;
             $_SESSION['lastName'] = $lastNameN;
@@ -96,11 +96,11 @@ if (isset($_SESSION['username'])) {
             } else {
                 $message = "The account update was unsuccessful";
             }
-        }  else {
+        } else {
             $message = "The old password does not match with the one in the system";
         }
 
-    
+
     }
 
 } else {
@@ -154,8 +154,10 @@ if (isset($_SESSION['username'])) {
         <div class="container account">
             <div class="row">
                 <div class="col col-4 sidebar" style="height: 48em;">
-                    <a class="nav-link nav-text" href="accountOverview.php"><i class="fa-solid fa-house"></i>Account Overview</a>
-                    <a class="active nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit Account</a>
+                    <a class="nav-link nav-text" href="accountOverview.php"><i class="fa-solid fa-house"></i>Account
+                        Overview</a>
+                    <a class="active nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit
+                        Account</a>
                     <?php if ($_SESSION['role'] == 'customer') { ?>
                         <a class="nav-link nav-text" href="membershipStatus.php"><i
                                 class="fa-solid fa-crown"></i>Membership</a>
@@ -167,19 +169,29 @@ if (isset($_SESSION['username'])) {
                 <div class="col col-8" style="height: 48em;">
                     <div class="row row1">
                         <div class="col-3">
-                        <?php if (isset($_SESSION['profile'])) {
-                                $profile = $_SESSION['profile']
-                                    ?>
-                                <img src="images/profileImg/<?php echo $profile ?>" height="80" width="80"
-                                    style="object-fit: cover; border-radius: 50%;">
-                            <?php } else { ?>
-                                <img src="images/person.svg" height="80" width="80">
-                            <?php } ?>
+                            <input name="profileImg" type="file" accept="image/*" id="imgUpload"
+                                onchange="displayImage(this)" style="display:none">
+                            <div class="profileImgDisplay">
+                                <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
+                                <?php if (isset($_SESSION['profile'])) {
+                                    $profile = $_SESSION['profile']
+                                        ?>
+                                    <img src="images/profileImg/<?php echo $profile ?>" id="imgPreview">
+                                <?php } else { ?>
+                                    <img src="images/person.svg" id="imgPreview">
+                                <?php } ?>
+                                <button type="button" class="imgBtn" onclick="triggerClick()"><i
+                                        class="fas fa-pen"></i></button>
+                            </div>
                         </div>
 
                         <div class="col">
-                            <h3 class="header3"><?php echo strtoupper($firstName)." ".strtoupper($lastName) ?></h3>
-                            <span class="para">aka @<?php echo $username ?></span>
+                            <h3 class="header3">
+                                <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
+                            </h3>
+                            <span class="para">aka @
+                                <?php echo $username ?>
+                            </span>
                         </div>
                     </div>
                     <div class="row row2">
@@ -189,67 +201,77 @@ if (isset($_SESSION['username'])) {
                                     <label for="username" class="form-label para">Username:</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <span class="para"><?php echo $username ?></span>
+                                    <span class="para">
+                                        <?php echo $username ?>
+                                    </span>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="firstName" class="form-label para">First Name:</label>
-                                    <input type="text" class="form-control rounded-pill" name="firstName" placeholder="<?php echo ucfirst($firstName)?>"
+                                    <input type="text" class="form-control rounded-pill" name="firstName"
+                                        placeholder="<?php echo ucfirst($firstName) ?>"
                                         value='<?php echo ucfirst($firstName) ?>' required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="lastName" class="form-label para">Last Name:</label>
-                                    <input type="text" class="form-control rounded-pill" name="lastName" placeholder="<?php echo ucfirst($lastName) ?>"
-                                    value='<?php echo ucfirst($lastName) ?>' required>
+                                    <input type="text" class="form-control rounded-pill" name="lastName"
+                                        placeholder="<?php echo ucfirst($lastName) ?>"
+                                        value='<?php echo ucfirst($lastName) ?>' required>
                                 </div>
                                 <div class="col-12">
                                     <label for="email" class="form-label para">Email:</label>
-                                    <input type="email" class="form-control rounded-pill" name="email" placeholder="<?php echo $email ?>"
-                                    value='<?php echo $email ?>' required>
+                                    <input type="email" class="form-control rounded-pill" name="email"
+                                        placeholder="<?php echo $email ?>" value='<?php echo $email ?>' required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="password" class="form-label para">Old Password:</label>
-                                    <input type="password" class="form-control rounded-pill" name="oldPassword" required>
-                                </div>                                
+                                    <input type="password" class="form-control rounded-pill" name="oldPassword"
+                                        required>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="password" class="form-label para">New Password:</label>
-                                    <input type="password" class="form-control rounded-pill" name="newPassword" required>
+                                    <input type="password" class="form-control rounded-pill" name="newPassword"
+                                        required>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label para">Mobile Number:</label>
-                                    <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}" required
-                                        placeholder="<?php echo $mobile ?>" value='<?php echo $mobile ?>'>
+                                    <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"
+                                        required placeholder="<?php echo $mobile ?>" value='<?php echo $mobile ?>'>
                                 </div>
                                 <?php if ($_SESSION['role'] == 'admin') { ?>
-                                <div class="col-md-6">
-                                    <label for="birthdate" class="form-label para">Birthdate:</label>
-                                    <input type="date" class="form-control rounded-pill" name="birthdate" required
-                                        placeholder="YYYY-mm-dd" value='<?php echo $birthdate ?>'>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="gender" class="form-label para">Gender:</label>
+                                    <div class="col-md-6">
+                                        <label for="birthdate" class="form-label para">Birthdate:</label>
+                                        <input type="date" class="form-control rounded-pill" name="birthdate" required
+                                            placeholder="YYYY-mm-dd" value='<?php echo $birthdate ?>'>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="gender" class="form-label para">Gender:</label>
 
-                                    <?php
-                                    $options = array("Female", "Male");
-                                    ?>
+                                        <?php
+                                        $options = array("Female", "Male");
+                                        ?>
 
-                                    <select class="form-control form-select rounded-pill" name="gender">
-                                        <?php foreach ($options as $option): ?>
-                                            <option value="<?php echo $option; ?>"<?php if ($gender== $option): ?> selected="selected"<?php endif; ?>>
-                                                <?php echo $option; ?>
-                                            </option>
-                                         <?php endforeach; ?>
+                                        <select class="form-control form-select rounded-pill" name="gender">
+                                            <?php foreach ($options as $option): ?>
+                                                <option value="<?php echo $option; ?>" <?php if ($gender == $option): ?>
+                                                       selected="selected" <?php endif; ?>>
+                                                    <?php echo $option; ?>
+                                                </option>
+                                            <?php endforeach; ?>
 
-                                    </select>
-                                </div>
+                                        </select>
+                                    </div>
                                 <?php } ?>
 
                                 <div class="row">
                                     <div class="col">
-                                        <button type="reset" class="btn btn-outline-danger btn-light primarybtn rounded-pill" style="margin-top: 15%">Cancel</button>
+                                        <button type="reset"
+                                            class="btn btn-outline-danger btn-light primarybtn rounded-pill"
+                                            style="margin-top: 15%">Cancel</button>
                                     </div>
 
                                     <div class="col" style="">
-                                        <button type="submit" class="btn btn-primary primarybtn rounded-pill" style="float: right; margin-top: 15%">Save Profile</button>
+                                        <button type="submit" class="btn btn-primary primarybtn rounded-pill"
+                                            style="float: right; margin-top: 15%">Save Profile</button>
                                     </div>
                                 </div>
                             </form>
@@ -272,7 +294,7 @@ if (isset($_SESSION['username'])) {
 
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
     <!-- -->
 
@@ -289,6 +311,23 @@ if (isset($_SESSION['username'])) {
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
+    <script>
+        function triggerClick() {
+            document.querySelector("#imgUpload").click();
+        }
+
+        function displayImage(i) {
+            if (i.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (i) {
+                    document.querySelector("#imgPreview").setAttribute('src', i.target.result);
+                }
+                reader.readAsDataURL(i.files[0]);
+            }
+
+        }
+    </script>
 </body>
 
 </html>
