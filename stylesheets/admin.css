@@ -19,9 +19,8 @@
     height: 100vh;
     width: 15em;
     background-color: #1E3D76;
-    margin-bottom: -20vh;
     left: 0;
-    position: absolute;
+    position: fixed;
     box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
     display: flex;
     flex-direction: column;
@@ -33,10 +32,8 @@
 .navcontainer {
     height: 100vh;
     width: 15em;
-    overflow-y: scroll;
     overflow-x: hidden;
     transition: all 0.5s ease-in-out;
-    margin-bottom: -20vh;
 }
 
 .navcontainer::-webkit-scrollbar {
