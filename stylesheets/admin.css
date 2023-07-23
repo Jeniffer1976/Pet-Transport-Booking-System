@@ -83,3 +83,8 @@
     color: white;
     cursor: pointer;
 }
+
+.td-text{
+    font-family: 'Asap', sans-serif;
+    color: rgb(0, 0, 0);
+}
