@@ -52,7 +52,7 @@
     transition: all 0.1s ease-in-out;
 }
 
-.nav-option .nav-link:hover{
+.nav-option .nav-link:hover {
     color: #FF9544 !important;
 }
 
@@ -81,7 +81,69 @@
     cursor: pointer;
 }
 
-.td-text{
+/* .td-text {
     font-family: 'Asap', sans-serif;
-    color: rgb(0, 0, 0);
+    color: #1E3D76;
+} */
+
+.quoteTable table tbody {
+    font-family: 'Asap', sans-serif;
 }
+
+.tb-header {
+    top: 11.25vh;
+}
+
+.quoteTable table th {
+    top: 12vh;
+    background-color: #1e3d76 !important;;
+    color: white !important;;
+}
+
+.quoteTable {
+    margin-top: -90vh;
+    margin-left: 30vw;
+    width: 64vw;
+
+}
+
+.petCol div:first-child {
+    text-align: right;
+}
+
+.quoteTable table {
+    text-align: center;
+    line-height: 1.7;
+}
+
+.action {
+    width: 50px;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.actionBtns {
+    margin-top: 10px;
+    background-color: #BFE7FF;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    transition: .3s;
+}
+
+.actionBtns:hover {
+    background-color: #96d1f6;
+}
+.action button:last-child{
+    margin-bottom: 10px;
+}
+#wabtn {
+    background-color: #00C307;
+    color: white;
+    transition: .3s;
+}
+#watbtn:hover {
+    background-color: #214522;
+}
+
