@@ -2,7 +2,48 @@
 session_start();
 include("dbFunctions.php");
 
+// getting owner info from session
+$owner_idSession = $_SESSION['owner_id'];
+$owner_fnameSession = $_SESSION['firstName'];
+$owner_lnameSession = $_SESSION['lastName'];
+$owner_emailSession = $_SESSION['email'];
+
 // if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
+
+$oneOwnerQuery = "SELECT * FROM quote Q 
+INNER JOIN pet_owner PO
+ON Q.owner_id = PO.owner_id
+WHERE Q.owner_id = '$owner_idSession'";
+
+$oneOwnerStatus = mysqli_query($link, $oneOwnerQuery) or die(mysqli_error($link));
+
+while ($oneOwnerRow = mysqli_fetch_array($oneOwnerStatus)) { // check for correct owner_id
+    $quoteContent[] = $oneOwnerRow;
+}
+
+// getting sender && recipient info from the sender recipient table
+$senderRecipientQuery = "SELECT * FROM quote Q
+    INNER JOIN senderrecipient_details SR
+    ON Q.recipient_id = SR.sr_id
+    OR Q.sender_id = SR.sr_id
+    WHERE Q.owner_id = '$owner_idSession'";
+
+// getting pet info from pet table
+$petQuery = "SELECT * FROM pet P
+    INNER JOIN quote Q
+    ON P.quote_id = Q.quote_id
+    WHERE Q.owner_id = '$owner_idSession'";
+
+$senderRecipientStatus = mysqli_query($link, $senderRecipientQuery) or die(mysqli_error($link));
+$petStatus = mysqli_query($link, $petQuery) or die(mysqli_error($link));
+
+while ($senderRecipientRow = mysqli_fetch_array($senderRecipientStatus)) {
+    $senderRecipientContent[] = $senderRecipientRow;
+}
+
+while ($petRow = mysqli_fetch_array($petStatus)) {
+    $petContent[] = $petRow;
+}
 
 
 ?>
@@ -37,7 +78,7 @@ include("dbFunctions.php");
     <link rel="stylesheet" href="stylesheets/common.css">
     <link rel="stylesheet" href="stylesheets/quote.css">
 
-    <!-- jquery     -->
+    <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -99,16 +140,17 @@ include("dbFunctions.php");
                             <div class="col-md-6">
                                 <label for="firstName" class="form-label para" align="left">First Name:</label>
                                 <input type="text" id="firstName" class="form-control rounded-pill" name="firstName"
-                                    required>
+                                    value='<?php echo $owner_fnameSession ?>' required>
                             </div>
                             <div class="col-md-6">
                                 <label for="lastName" class="form-label para" align="left">Last Name:</label>
                                 <input type="text" id="lastName" class="form-control rounded-pill" name="lastName"
-                                    required>
+                                    value='<?php echo $owner_lnameSession ?>' required>
                             </div>
                             <div class="col-12">
                                 <label for="email" class="form-label para" align="left">Email:</label>
-                                <input type="email" id="email" class="form-control rounded-pill" name="email" required>
+                                <input type="email" id="email" class="form-control rounded-pill" name="email"
+                                    value='<?php echo $owner_emailSession ?>' required>
                             </div>
                         </div>
                     </div>
@@ -161,8 +203,8 @@ include("dbFunctions.php");
                                     <div class="col-md-6">
                                         <label for="pickupdate" class="form-label para" align="left">Prefered pick up
                                             date:</label>
-                                        <input type="date" id="pickupdate" class="form-control rounded-pill" name="pickupdate[]"
-                                            required>
+                                        <input type="date" id="pickupdate" class="form-control rounded-pill"
+                                            name="pickupdate[]" required>
                                     </div>
                                     <div class="col-md">
                                     </div>
@@ -183,30 +225,75 @@ include("dbFunctions.php");
                             </div>
                             <div class="col-12">
                                 <label for="pickupaddress" class="form-label para" align="left">Address:</label>
-                                <input type="text" id="pickupaddress" class="form-control rounded-pill" name="pickupaddress"
-                                    required>
+                                <input id="pickupaddress" class="form-control rounded-pill" name="pickupaddress"
+                                    list="pickupAddressList" required>
+
+                                <datalist id="pickupAddressList">
+                                    <?php for ($i = 0; $i < count($quoteContent); $i++) {
+                                        // getting info from the quote table
+                                        $pickUp_address = $quoteContent[$i]['pickUp_address'];
+                                        ?>
+                                        <option value="<?php echo $pickUp_address ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <br><br><br><br><br>
                             <h3 class="para"><b>Sender's Information:</b></h3>
                             <div class="col-md-6">
                                 <label for="firstNameSI" class="form-label para" align="left">First Name:</label>
-                                <input type="text" id="firstNameSI" class="form-control rounded-pill" name="firstNameSI"
-                                    required>
+                                <input list='firstNameList' id="firstNameSI" class="form-control rounded-pill"
+                                    name="firstNameSI" required>
+
+                                <datalist id="firstNameList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $first_name = $senderRecipientContent[$sr]['first_name'];
+                                        ?>
+                                        <option value="<?php echo $first_name ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-md-6">
                                 <label for="lastNameSI" class="form-label para" align="left">Last Name:</label>
-                                <input type="text" id="lastNameSI" class="form-control rounded-pill" name="lastNameSI"
-                                    required>
+                                <input list='lastNameList' id="lastNameSI" class="form-control rounded-pill"
+                                    name="lastNameSI" required>
+
+                                <datalist id="lastNameList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $last_name = $senderRecipientContent[$sr]['last_name'];
+                                        ?>
+                                        <option value="<?php echo $last_name ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-12">
                                 <label for="contactSI" class="form-label para" align="left">Contact No:</label>
-                                <input type="tel" id="contactSI" class="form-control rounded-pill" name="contactSI"
-                                    required>
+                                <input type="tel" list='contactList' id="contactSI" class="form-control rounded-pill"
+                                    name="contactSI" required>
+
+                                <datalist id="contactList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $contact = $senderRecipientContent[$sr]['contact'];
+                                        ?>
+                                        <option value="<?php echo $contact ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-12">
                                 <label for="emailSI" class="form-label para" align="left">Email:</label>
-                                <input type="email" id="emailSI" class="form-control rounded-pill" name="emailSI"
-                                    required>
+                                <input type="email" list='emailList' id="emailSI" class="form-control rounded-pill"
+                                    name="emailSI" required>
+
+                                <datalist id="emailList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $email = $senderRecipientContent[$sr]['email'];
+                                        ?>
+                                        <option value="<?php echo $email ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-md tick" align="left">
                                 <input type="checkbox" id="tickSI" name="tickSI">
@@ -231,30 +318,75 @@ include("dbFunctions.php");
                             </div>
                             <div class="col-12">
                                 <label for="dropoffaddress" class="form-label para" align="left">Address:</label>
-                                <input type="text" id="dropoffaddress" class="form-control rounded-pill" name="dropoffaddress"
-                                    required>
+                                <input type="text" id="dropoffaddress" class="form-control rounded-pill"
+                                    list='dropoffList' name="dropoffaddress" required>
+
+                                <datalist id="dropoffList">
+                                    <?php for ($i = 0; $i < count($quoteContent); $i++) {
+                                        // getting info from the quote table
+                                        $dropOff_address = $quoteContent[$i]['dropOff_address'];
+                                        ?>
+                                        <option value="<?php echo $dropOff_address ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <br><br><br><br><br>
                             <h3 class="para"><b>Recipient's Information:</b></h3>
                             <div class="col-md-6">
                                 <label for="firstNameRI" class="form-label para" align="left">First Name:</label>
                                 <input type="text" id="firstNameRI" class="form-control rounded-pill" name="firstNameRI"
-                                    required>
+                                    list='firstNameList' required>
+
+                                <datalist id="firstNameList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $first_name = $senderRecipientContent[$sr]['first_name'];
+                                        ?>
+                                        <option value="<?php echo $first_name ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-md-6">
                                 <label for="lastNameRI" class="form-label para" align="left">Last Name:</label>
                                 <input type="text" id="lastNameRI" class="form-control rounded-pill" name="lastNameRI"
-                                    required>
+                                    list='lastNameList' required>
+
+                                <datalist id="lastNameList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $last_name = $senderRecipientContent[$sr]['last_name'];
+                                        ?>
+                                        <option value="<?php echo $last_name ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-12">
                                 <label for="contactRI" class="form-label para" align="left">Contact No:</label>
                                 <input type="tel" id="contactRI" class="form-control rounded-pill" name="contactRI"
-                                    required>
+                                    list='contactList' required>
+
+                                <datalist id="contactList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $contact = $senderRecipientContent[$sr]['contact'];
+                                        ?>
+                                        <option value="<?php echo $contact ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-12">
                                 <label for="emailRI" class="form-label para" align="left">Email:</label>
                                 <input type="email" id="emailRI" class="form-control rounded-pill" name="emailRI"
-                                    required>
+                                    list='emailList' required>
+
+                                <datalist id="emailList">
+                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                        // getting info from the quote table
+                                        $email = $senderRecipientContent[$sr]['email'];
+                                        ?>
+                                        <option value="<?php echo $email ?>">
+                                        <?php } ?>
+                                </datalist>
                             </div>
                             <div class="col-12 tick" align="left">
                                 <input type="checkbox" id="tickRI" name="tickRI">
@@ -280,46 +412,123 @@ include("dbFunctions.php");
                                 <div class="row g-3 gx-5">
                                     <div class="col-md-6">
                                         <label for="petFname" class="form-label para" align="left">First Name:</label>
-                                        <input type="text" class="form-control rounded-pill" name="petFname[]" required>
+                                        <input type="text" class="form-control rounded-pill" name="petFname[]"
+                                            list='petfNameList' required>
+
+                                        <datalist id="petfNameList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $first_name = $petContent[$p]['first_name'];
+                                                ?>
+                                                <option value="<?php echo $first_name ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="petLname" class="form-label para" align="left">Last Name:</label>
-                                        <input type="text" class="form-control rounded-pill" name="petLname[]">
+                                        <input type="text" class="form-control rounded-pill" name="petLname[]"
+                                            list='petlNameList'>
+
+                                        <datalist id="petlNameList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $last_name = $petContent[$p]['last_name'];
+                                                ?>
+                                                <option value="<?php echo $last_name ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="petType" class="form-label para" align="left">Type of pet:</label>
-                                        <input type="text" class="form-control rounded-pill" name="petType[]" required>
+                                        <input type="text" class="form-control rounded-pill" name="petType[]" required
+                                            list='petTypeList'>
+
+                                        <datalist id="petTypeList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $type = $petContent[$p]['type'];
+                                                ?>
+                                                <option value="<?php echo $type ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="breed" class="form-label para" align="left">Breed:</label>
-                                        <input type="text" class="form-control rounded-pill" name="breed[]" required>
+                                        <input type="text" class="form-control rounded-pill" name="breed[]" required
+                                            list='breedList'>
+
+                                        <datalist id="breedList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $breed = $petContent[$p]['breed'];
+                                                ?>
+                                                <option value="<?php echo $breed ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="breed" class="form-label para" align="left">Age:</label>
-                                        <input type="number" class="form-control rounded-pill" name="age[]" required>
+                                        <label for="age" class="form-label para" align="left">Age:</label>
+                                        <input type="number" class="form-control rounded-pill" name="age[]" required
+                                            list='ageList'>
+
+                                        <datalist id="ageList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $age = $petContent[$p]['age'];
+                                                ?>
+                                                <option value="<?php echo $age ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <h4 class="para-it mt-5 pt-3">Size of pet</h4>
                                     <div class="col-md-6">
                                         <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
                                         <input type="number" class="form-control rounded-pill" step="0.1"
-                                            name="weight[]" required>
+                                            name="weight[]" list='weightList' required>
+
+                                        <datalist id="weightList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $weight = $petContent[$p]['weight'];
+                                                ?>
+                                                <option value="<?php echo $weight ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="height" class="form-label para" align="left">Height (Cm):</label>
                                         <input type="number" class="form-control rounded-pill" step="0.1"
-                                            name="height[]" required>
+                                            name="height[]" list='heightList' required>
+
+                                        <datalist id="heightList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $height = $petContent[$p]['height'];
+                                                ?>
+                                                <option value="<?php echo $height ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
                                         <label for="width" class="form-label para" align="left">Width (Cm):</label>
                                         <input type="number" class="form-control rounded-pill" step="0.1" name="width[]"
-                                            required>
+                                            required list='widthList'>
+
+                                        <datalist id="widthList">
+                                            <?php for ($p = 0; $p < count($petContent); $p++) {
+                                                // getting info from the quote table
+                                                $width = $petContent[$p]['width'];
+                                                ?>
+                                                <option value="<?php echo $width ?>">
+                                                <?php } ?>
+                                        </datalist>
                                     </div>
                                     <div class="col-12">
                                         <label for="addInfo" class="form-label para mt-4" align="left">Additional
                                             Comments:</label>
-                                        <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded">
-                                    </textarea>
+                                        <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded" list='addInfoList'>
+                                        </textarea>
                                     </div>
 
                                     <div class="row g-3 gx-5 btns">
