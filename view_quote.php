@@ -20,6 +20,9 @@ if ($role == 'admin') {
 }
 
 ?>
+<style>
+    <?php include("stylesheets/view_quoteBtn.css") ?>
+</style>
 
 <!--Bootstrap CSS link take note of version-->
 <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -37,7 +40,7 @@ if ($role == 'admin') {
 
 <!-- Owner's Info Modal -->
 <div class="modal fade" id="ownerInfoModal" aria-labelledby="ownerInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="ownerInfoModalLabel">Owner's Infomation</h1>
@@ -117,7 +120,7 @@ if ($role == 'admin') {
 
 <!-- Type of Service Modal -->
 <div class="modal fade" id="serviceModal" aria-hidden="true" aria-labelledby="serviceModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="serviceModalLabel">Type of Service</h1>
@@ -158,7 +161,7 @@ if ($role == 'admin') {
             <div class="modal-footer">
                 <button class="btn btn-danger" data-bs-target="#ownerInfoModal" data-bs-toggle="modal">Back to Owner's
                     Information</button>
-                <button class="btn btn-primary" data-bs-target="#pickUpModal" data-bs-toggle="modal">To Drop Off
+                <button class="btn btn-primary" data-bs-target="#pickUpModal" data-bs-toggle="modal">To Pick Up
                     Information</button>
             </div>
         </div>
@@ -168,7 +171,7 @@ if ($role == 'admin') {
 
 <!-- Pick Up Info Modal -->
 <div class="modal fade" id="pickUpModal" aria-hidden="true" aria-labelledby="pickUpModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="pickUpModalLabel">Pick Up Information</h1>
@@ -176,6 +179,11 @@ if ($role == 'admin') {
             </div>
             <div class="modal-body">
                 <?php // for loop for multiple pick up times ?>
+
+                <hr class="rounded">
+                <span class="para"><b>Preferred pick up date: <?php //echo the number of pet? ?></b></span>
+                <hr class="rounded">
+
                 <div class="row">
                     <div class="col-5">
                         <span class="para"><b>Preferred pick up date:</b></span>
@@ -235,9 +243,27 @@ if ($role == 'admin') {
                     </div>
                 </div>
 
-                <hr class="rounded">
-                <span class="para"><b>Sender's Info:</b></span>
-                <hr class="rounded">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-bs-target="#serviceModal" data-bs-toggle="modal">Back to Type of
+                    Service Section</button>
+                <button class="btn btn-primary" data-bs-target="#senderModal" data-bs-toggle="modal">To Sender's
+                    Information</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -->
+
+<!-- Sender's Info Modal -->
+<div class="modal fade" id="senderModal" aria-hidden="true" aria-labelledby="pickUpModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="pickUpModalLabel">Sender's Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
                 <!-- Sender's info -->
                 <?php //if statement if owner is the sender ?>
@@ -304,8 +330,7 @@ if ($role == 'admin') {
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#serviceModal" data-bs-toggle="modal">Back to Type of
-                    Service Section</button>
+                <button class="btn btn-danger" data-bs-target="#pickUpModal" data-bs-toggle="modal">Back to Pick Up Section</button>
                 <button class="btn btn-primary" data-bs-target="#dropOffModal" data-bs-toggle="modal">To Drop Off
                     Information</button>
             </div>
@@ -316,7 +341,7 @@ if ($role == 'admin') {
 
 <!-- Drop Off Info Modal -->
 <div class="modal fade" id="dropOffModal" aria-hidden="true" aria-labelledby="dropOffModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="dropOffModalLabel">Drop Off Information</h1>
@@ -336,10 +361,28 @@ if ($role == 'admin') {
                         </span>
                     </div>
                 </div>
+            
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-bs-target="#senderModal" data-bs-toggle="modal">Back to Sender's
+                    Information</button>
+                <button class="btn btn-primary" data-bs-target="#petinfoModal" data-bs-toggle="modal">To Recipient's
+                    Information</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- -->
 
-                <hr class="rounded">
-                <span class="para"><b>Recipient's Info:</b></span>
-                <hr class="rounded">
+<!-- Recipient's Info Modal -->
+<div class="modal fade" id="recipientModal" aria-hidden="true" aria-labelledby="dropOffModalLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="dropOffModalLabel">Recipient's Information</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
                 <!-- Recipient's info -->
                 <?php //if statement if owner is the recipient ?>
@@ -405,7 +448,7 @@ if ($role == 'admin') {
                 <?php //end of if statement ?>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#pickUpModal" data-bs-toggle="modal">Back to Pick Up
+                <button class="btn btn-danger" data-bs-target="#dropOffModal" data-bs-toggle="modal">Back to Drop Off
                     Information</button>
                 <button class="btn btn-primary" data-bs-target="#petinfoModal" data-bs-toggle="modal">To Pets'
                     Information</button>
@@ -417,7 +460,7 @@ if ($role == 'admin') {
 
 <!-- Pet Info Modal -->
 <div class="modal fade" id="petinfoModal" aria-hidden="true" aria-labelledby="petinfoModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="petinfoModalLabel">Pets' Information</h1>
@@ -547,7 +590,7 @@ if ($role == 'admin') {
                 <?php //end of for loop ?>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#dropOffModal" data-bs-toggle="modal">Back to Drop Off
+                <button class="btn btn-danger" data-bs-target="#recipientModal" data-bs-toggle="modal">Back to Recipient's
                     Information</button>
             </div>
         </div>
