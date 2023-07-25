@@ -1,0 +1,30 @@
+.full-bleed {
+    box-shadow: 0 0 0 100vmax #87f8d2cc;
+    clip-path: inset(0 -100vmax);
+}
+
+.inverse {
+    background-color: #87f8d2cc;
+}
+
+#signUpForm {
+    margin-left: 15%;
+    margin-right: 15%;
+    padding-bottom: 5%;
+    padding-top: 2%;
+    margin-top: 1%;
+}
+
+.primarybtn {
+    padding: 6px 50px 6px 50px;
+    margin-top: 3%;
+}
+
+.header2 {
+    margin-top: 2%;
+}
+
+.header1 {
+    margin-bottom: 3%;
+    margin-top: 2%;
+}

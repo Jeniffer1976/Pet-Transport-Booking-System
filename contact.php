@@ -31,9 +31,81 @@
     <?php include "navbar.php" ?>
     <!--  -->
 
-
     <!-- Contact Form -->
+    <div class="container-fluid" id="signUpSection">
+        <br>
+        <h1 class="header1">CONTACT US</h1>
 
+        <section class="inverse full-bleed overflow-hidden" id="signUpForm">
+            <div class="container-fluid d-flex justify-content-center">
+                <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label para">First Name:</label>
+
+                        <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
+                            <input type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny"
+                                required value='<?php echo $_SESSION['firstName'] ?>'>
+
+                        <?php } else { ?>
+                            <input type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny"
+                                required>
+                        <?php } ?>
+
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label para">Last Name:</label>
+
+                        <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
+                            <input type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis"
+                                required value='<?php echo $_SESSION['lastName'] ?>'>
+
+                        <?php } else { ?>
+                            <input type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis"
+                                required>
+                        <?php } ?>
+
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label para">Email:</label>
+
+                        <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
+                            <input type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com"
+                                required value='<?php echo $_SESSION['email'] ?>'>
+
+                        <?php } else { ?>
+                            <input type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com"
+                                required>
+                        <?php } ?>
+
+                    </div>
+                    <div class="col-12">
+                        <label for="addInfo" class="form-label para mt-4" align="left">Additional
+                            Comments:</label>
+                        <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded" list='addInfoList'>
+                        </textarea>
+                    </div>
+                    <div class="col-12 text-center form-group">
+                        <button type="submit" name="signUp"
+                            class="btn btn-primary primarybtn rounded-pill">Submit</button>
+                    </div>
+                </form>
+
+
+            </div>
+
+            <?php if (isset($message)) { ?>
+                <?php if ($isSuccessful == true) { ?>
+                    <div class="alert alert-success errorMsg" role="alert">
+                        <?php echo $message ?>
+                    </div>
+                <?php } else { ?>
+                    <div class="alert alert-danger errorMsg" role="alert">
+                        <?php echo $message ?>
+                    </div>
+                <?php } ?>
+            <?php } ?>
+        </section>
+    </div>
     <!--  -->
 
 
