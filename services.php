@@ -140,11 +140,11 @@
                 </div>
             </div>
         </div>
-    <!--  -->
+        <!--  -->
 
 
-    <!-- Ad-hoc Service Section -->
-    <hr>
+        <!-- Ad-hoc Service Section -->
+        <hr>
         <div class="container" id="adhoc">
             <div class="row">
                 <div class="col-4">
@@ -221,27 +221,29 @@
                     </div>
                     </p>
                 </div>
-    <!--  -->
+            </div>
+        </div>
+        <!--  -->
 
 
-    <!-- Request a Quote button -->
+        <!-- Request a Quote button -->
 
-    <!--  -->
+        <!--  -->
 
 
-    <!-- Footer -->
-    <?php include("footer.php") ?>
-    <!--  -->
+        <!-- Footer -->
+        <?php include("footer.php") ?>
+        <!--  -->
 
-    <!-- Background -->
-    <div class="bgclass">
-        <div class="gradient"></div>
-    </div>
-    <!--  -->
+        <!-- Background -->
+        <div class="bgclass">
+            <div class="gradient"></div>
+        </div>
+        <!--  -->
 
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scripts/script.js"></script>
+        <!-- Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="scripts/script.js"></script>
 
 </body>
 
