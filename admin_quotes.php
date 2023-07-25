@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 
 global $link;
 
-$quoteQuery = "SELECT * FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id ORDER BY PD.pickUp_date DESC";
+$quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id ORDER BY PD.pickUp_date DESC";
 
 $quoteStatus = mysqli_query($link, $quoteQuery) or die(mysqli_error($link));
 
@@ -119,6 +119,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                 <?php for ($i = 0; $i < count($quoteContent); $i++) {
                     $quote_id = $quoteContent[$i]['quote_id'];
                     $owner_id = $quoteContent[$i]['owner_id'];
+                    // $_SESSION['temp_owner_id'] = $owner_id;
 
                     $service_type = $quoteContent[$i]['service_type'];
                     $pickUp_address = $quoteContent[$i]['pickUp_address'];
@@ -126,15 +127,23 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                     $sender_id = $quoteContent[$i]['sender_id'];
                     $recipient_id = $quoteContent[$i]['recipient_id'];
 
-                    $ownerQuery = "SELECT first_Name, last_Name, mobile FROM pet_owner WHERE owner_id = '$owner_id'";
+                    $ownerQuery = "SELECT first_Name, last_Name, email, mobile, profile_pic FROM pet_owner WHERE owner_id = '$owner_id'";
 
                     $ownerStatus = mysqli_query($link, $ownerQuery) or die(mysqli_error($link));
 
                     $ownerRow = mysqli_fetch_array($ownerStatus);
                     $po_firstName = $ownerRow['first_Name'];
                     $po_lastName = $ownerRow['last_Name'];
+                    $po_email = $ownerRow['email'];
                     $po_mobile = $ownerRow['mobile'];
+                    $po_profile = $ownerRow['profile_pic'];
                     $owner_name = $po_firstName . " " . $po_lastName;
+
+                    $ownerInfo = array(
+                        "po_firstName" => $po_firstName,
+                        "po_lastName" => $po_lastName,
+                    );
+
 
                     $petQuery = "SELECT * FROM pet WHERE quote_id = '$quote_id'";
                     $petStatus = mysqli_query($link, $petQuery) or die(mysqli_error($link));
@@ -151,6 +160,29 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                     while ($pickupRow = mysqli_fetch_array($pickupStatus)) {
                         $pickupContent[] = $pickupRow;
                     }
+
+                    $senderQuery = "SELECT  SR.first_name, SR.last_name, SR.contact, SR.email FROM senderrecipient_details SR 
+                    INNER JOIN quote Q ON Q.sender_id = SR.sr_id 
+                    WHERE Q.owner_id = '$owner_id'";
+                    $senderStatus = mysqli_query($link, $senderQuery) or die(mysqli_error($link));
+
+                    $senderRow = mysqli_fetch_array($senderStatus);
+
+                    $s_firstName = $senderRow['first_name'];
+                    $s_lastName = $senderRow['last_name'];
+                    $s_contact = $senderRow['contact'];
+                    $s_email = $senderRow['email'];
+
+                    $recipientQuery = "SELECT SR.first_name, SR.last_name, SR.contact, SR.email FROM senderrecipient_details SR 
+                                INNER JOIN quote Q ON Q.recipient_id = SR.sr_id 
+                                WHERE Q.owner_id = '$owner_id'";
+                    $recipientStatus = mysqli_query($link, $recipientQuery) or die(mysqli_error($link));
+
+                    $recipientRow = mysqli_fetch_array($recipientStatus);
+                    $r_firstName = $recipientRow['first_name'];
+                    $r_lastName = $recipientRow['last_name'];
+                    $r_contact = $recipientRow['contact'];
+                    $r_email = $recipientRow['email'];
 
                     ?>
                     <tr>
@@ -181,7 +213,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                     echo $pet_name . "<br>";
                                     echo $type . "<br>";
                                     echo $breed . "<br>";
-                                    echo $weight . " &nbsp;&nbsp;&nbsp;&nbsp;" . $width . " x " . $height . "cm<br><br>";
+                                    echo $weight . "Kg &nbsp;&nbsp;&nbsp;&nbsp;" . $width . " x " . $height . "cm<br><br>";
                                     ?>
                                 </div>
                                 <?php
@@ -223,15 +255,25 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                 <button class="actionBtns">
                                     <i class="fas fa-times text-danger"></i>
                                 </button>
-                                <?php include('view_quote.php'); 
-                                echo $po_firstName?>
-                                <!-- <button>   
-                                    <i class="fas fa-eye text-secondary"></i>
-                                </button> -->
+
+
+                                <form method="post" action="view_quote.php" id="passOwnerId" style="margin-bottom:-10px" >
+                                    <input type="hidden" id="ownerid" name="ownerid" value="<?php echo $owner_id ?>" />
+                                    <button type="submit" id="viewQuoteBtn" class="actionBtns">
+                                        <i class="fas fa-eye text-secondary"></i>
+                                    </button>
+                                </form>
+
+                                <?php //include('view_quote.php'); ?>
+
+
 
                                 <button class="actionBtns" id="wabtn"
                                     onclick="window.open('https://wa.me/+65<?php echo $po_mobile ?>', '_blank')">
                                     <i class="fab fa-whatsapp fa-l"></i>
+                                </button>
+                                <button class="actionBtns" onclick="location.href='mailto:<?php echo $po_email ?>'">
+                                    <i class="fas fa-envelope fa-l text-secondary"></i>
                                 </button>
                             </div>
                         </td>
@@ -244,11 +286,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
 
     </div>
 
-    <div class="container text-center">
-        <!-- View Quote Button-->
-        <?php include('view_quote.php') ?>
-        <!-- -->
-    </div>
+
     <!-- -->
 
     <!-- Footer -->
@@ -265,6 +303,8 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/sidebarscript.js"></script>
+    <!-- <script src="scripts/defineVariable.js"></script> -->
+
 </body>
 
 </html>
