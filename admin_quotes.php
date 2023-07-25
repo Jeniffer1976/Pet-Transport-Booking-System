@@ -258,7 +258,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
 
 
                                 <form method="post" action="view_quote.php" id="passOwnerId" style="margin-bottom:-10px" >
-                                    <input type="hidden" id="ownerid" name="ownerid" value="<?php echo $owner_id ?>" />
+                                    <input type="hidden" id="quote_id" name="quote_id" value="<?php echo $quote_id ?>" />
                                     <button type="submit" id="viewQuoteBtn" class="actionBtns">
                                         <i class="fas fa-eye text-secondary"></i>
                                     </button>
