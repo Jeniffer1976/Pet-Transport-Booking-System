@@ -1,599 +1,505 @@
-<?php
+<html lang="en">
 
-$username = $_SESSION['username'];
-$firstName = $_SESSION['firstName'];
-$lastName = $_SESSION['lastName'];
-$email = $_SESSION['email'];
-$mobile = $_SESSION['mobile'];
-$password = $_SESSION['password'];
-$role = $_SESSION['role'];
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Quote | Waggin Wheels</title>
+    <link rel="icon" type="image/x-icon" href="/images/logoNoText.ico">
 
-if ($role == 'admin') {
-    $birthdate = $_SESSION['birthDate'];
-    $gender = $_SESSION['gender'];
+    <!--Bootstrap CSS link take note of version-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
-    if ($gender == 'F') {
-        $gender = 'Female';
-    } else {
-        $gender = 'Male';
+    <!--Boostrap JS link-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="stylesheets/common.css">
+    <link rel="stylesheet" href="stylesheets/view_quote.css">
+
+</head>
+
+<body>
+
+    <?php
+    include "dbFunctions.php";
+    $quote_id = $_POST['quote_id'];
+
+    $generalInfoQuery = "SELECT * FROM quote Q
+    INNER JOIN pet_owner PO ON PO.owner_id = Q.owner_id
+    WHERE Q.quote_id = '$quote_id'";
+
+    $generalInfoStatus = mysqli_query($link, $generalInfoQuery) or die(mysqli_error($link));
+
+    $infoRow = mysqli_fetch_array($generalInfoStatus);
+    $owner_id = $infoRow['owner_id'];
+    $po_fname = $infoRow['first_Name'];
+    $po_lname = $infoRow['last_Name'];
+    $po_email = $infoRow['email'];
+    $po_mobile = $infoRow['mobile'];
+    $po_username = $infoRow['username'];
+    $profile = $infoRow['profile_pic'];
+
+    $service_type = $infoRow['service_type'];
+    $pickUp_address = $infoRow['pickUp_address'];
+    $dropOff_address = $infoRow['dropOff_address'];
+
+    $sender_id = $infoRow['sender_id'];
+    $recipient_id = $infoRow['recipient_id'];
+    // $ = $infoRow[''];
+    
+    $petQuery = "SELECT * FROM pet WHERE quote_id = '$quote_id'";
+    $petStatus = mysqli_query($link, $petQuery) or die(mysqli_error($link));
+
+    $petContent = [];
+    while ($petRow = mysqli_fetch_array($petStatus)) {
+        $petContent[] = $petRow;
     }
-}
 
-?>
-<style>
-    <?php include("stylesheets/view_quoteBtn.css") ?>
-</style>
+    $senderQuery = "SELECT  SR.first_name, SR.last_name, SR.contact, SR.email FROM senderrecipient_details SR 
+                    INNER JOIN quote Q ON Q.sender_id = SR.sr_id 
+                    WHERE Q.owner_id = '$owner_id'";
+    $senderStatus = mysqli_query($link, $senderQuery) or die(mysqli_error($link));
 
-<!--Bootstrap CSS link take note of version-->
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"> -->
+    $senderRow = mysqli_fetch_array($senderStatus);
 
-<!--Boostrap JS link-->
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-    crossorigin="anonymous"></script> -->
+    $s_firstName = $senderRow['first_name'];
+    $s_lastName = $senderRow['last_name'];
+    $s_contact = $senderRow['contact'];
+    $s_email = $senderRow['email'];
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ownerInfoModal">
-    View Quote
-</button>
+    $recipientQuery = "SELECT SR.first_name, SR.last_name, SR.contact, SR.email FROM senderrecipient_details SR 
+                                INNER JOIN quote Q ON Q.recipient_id = SR.sr_id 
+                                WHERE Q.owner_id = '$owner_id'";
+    $recipientStatus = mysqli_query($link, $recipientQuery) or die(mysqli_error($link));
 
-<!-- Owner's Info Modal -->
-<div class="modal fade" id="ownerInfoModal" aria-labelledby="ownerInfoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="ownerInfoModalLabel">Owner's Infomation</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    $recipientRow = mysqli_fetch_array($recipientStatus);
+    $r_firstName = $recipientRow['first_name'];
+    $r_lastName = $recipientRow['last_name'];
+    $r_contact = $recipientRow['contact'];
+    $r_email = $recipientRow['email'];
+
+    $pickupQuery = "SELECT * FROM pickup_details WHERE quote_id = '$quote_id'";
+    $pickupStatus = mysqli_query($link, $pickupQuery) or die(mysqli_error($link));
+
+    $pickupContent = [];
+    while ($pickupRow = mysqli_fetch_array($pickupStatus)) {
+        $pickupContent[] = $pickupRow;
+    }
+
+
+    ?>
+
+
+    <div class="quoteScreen_wrapper">
+        <div class="shadow"></div>
+        <div class="quote_wrap">
+            <div class="row">
+                <div class="col-11"></div>
+                <div class="col">
+                    <button type="button" onclick="exitAnim()" class="exitBtn">
+                        <i class="fas fa-times text-secondary"></i>
+                    </button>
+                </div>
             </div>
-            <div class="modal-body">
+            <div class="row">
+                <div class="col-4 box petInfo">
+                    <p class="boxHeader">Pet</p>
+                    <div class="petInfo-container">
+                        <?php
+                        $pet_count = count($petContent);
+                        for ($p = 0; $p < count($petContent); $p++) {
+                            $p_firstName = $petContent[$p]['first_name'];
+                            $p_lastName = $petContent[$p]['last_name'];
 
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>First Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo ucfirst($firstName) ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Last Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo ucfirst($lastName) ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Email:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo $email ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Contact No.:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php
-                            $mobile = strval($mobile);
-
-                            $arrMobile = str_split($mobile, 4);
-
-                            echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                            // $pet_name = $p_firstName . " " . $p_lastName;
+                        
+                            $type = $petContent[$p]['type'];
+                            $breed = $petContent[$p]['breed'];
+                            $age = $petContent[$p]['age'];
+                            $weight = $petContent[$p]['weight'];
+                            $height = $petContent[$p]['height'];
+                            $width = $petContent[$p]['width'];
+                            $addInfo = $petContent[$p]['additional_info'];
                             ?>
-                        </span>
+
+                            <?php if ($pet_count > 1) { ?>
+                                <hr>
+                                <p>
+                                    Pet
+                                    <?php echo $p + 1 ?>
+                                </p>
+                                <hr>
+                            <?php } ?>
+                            <div class="row">
+                                <div class="col">
+                                    <p>First Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($p_firstName) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Last Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($p_lastName) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Type of pet:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $type ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Breed:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $breed ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Age:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $age ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Weight(Kg):</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $weight . "Kg" ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Height(Cm):</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $height . "Cm" ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Width(Cm):</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $width . "Cm" ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Additional Comments:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $addInfo ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col-7 box ownerInfo">
+                            <p class="boxHeader">Owner</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Username:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $po_username ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>First Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($po_fname) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Last Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($po_lname) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Email:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $po_email ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Contact No.</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php
+                                        $mobile = strval($po_mobile);
+                                        $arrMobile = str_split($mobile, 4);
+                                        echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                                        ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 mt-4 profilebox">
+                            <!-- <p class="boxHeader">Profile</p> -->
+                            <?php if (isset($profile)) { ?>
+                                <img src="images/profileImg/<?php echo $profile ?>" height="150" width="150"
+                                    style="object-fit: cover; border-radius: 50%;">
+                            <?php } else { ?>
+                                <img src="images/person.svg" height="80" width="80">
+                            <?php } ?>
+                        </div>
+                        <div class="col-5 box senderInfo">
+                            <p class="boxHeader">Sender</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p>First Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($s_firstName) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Last Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($s_lastName) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Email:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $s_email ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Contact No.</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php
+                                        $mobile = strval($s_contact);
+                                        $arrMobile = str_split($mobile, 4);
+                                        echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                                        ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5 box reciInfo">
+                            <p class="boxHeader">Recipient</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p>First Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($r_firstName) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Last Name:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo ucfirst($r_lastName) ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Email:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $r_email ?>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Contact No.</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php
+                                        $mobile = strval($r_contact);
+                                        $arrMobile = str_split($mobile, 4);
+                                        echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                                        ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5 box pickInfo">
+                            <p class="boxHeader">Pick-Up</p>
+                            <div class="pickInfo-container">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Address:</p>
+                                    </div>
+                                    <div class="col">
+                                        <p>
+                                            <?php echo $pickUp_address ?>
+                                        </p>
+                                    </div>
+                                </div>
+                                <?php
+                                for ($u = 0; $u < count($pickupContent); $u++) {
+                                    $pickUp_date = $pickupContent[$u]['pickUp_date'];
+                                    $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
+                                    $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
+                                    ?>
+                                    <div class="row mt-4">
+                                        <div class="col">
+                                            <p>Type of service:</p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                <?php echo $service_type ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p>Pickup date:</p>
+                                        </div>
+                                        <div class="col">
+                                            <p>
+                                                <?php echo $pickUp_date ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
 
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" data-bs-target="#serviceModal" data-bs-toggle="modal">To Type of Service
-                    Section</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- -->
+                                        <?php if (is_null($second_pickUp_time)) { ?>
+                                            <div class="col">
+                                                <p>Pick-Up Time:</p>
+                                            </div>
 
-<!-- Type of Service Modal -->
-<div class="modal fade" id="serviceModal" aria-hidden="true" aria-labelledby="serviceModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="serviceModalLabel">Type of Service</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Type of Service:</b></span>
-                    </div>
+                                            <div class="col">
+                                                <p>
+                                                    <?php echo date("H:i a", strtotime($first_pickUp_time)) ?>
+                                                </p>
+                                            </div>
+                                        <?php } else { ?>
+                                            <p style="margin-bottom:-1px;text-align:center;">Pick-Up Time:</p>
+                                            <p style="display:none"></p>
+                                            <div class="col">
+                                                <p>1st: <span style="font-weight: 500; color: #525151;">
+                                                        <?php echo date("H:i a", strtotime($first_pickUp_time)) ?>
+                                                    </span></p>
+                                            </div>
+                                            <p style="display:none"></p>
+                                            <div class="col">
+                                                <p style="text-align: end;">2nd:<span style="font-weight: 500; color: #525151;">
+                                                        <?php echo date("H:i a", strtotime($second_pickUp_time)) ?>
+                                                    </span></p>
+                                            </div>
 
-                    <div class="col">
-                        <span class="para">
-                            <?php // echo $service ?>
-                            Regular
-                        </span>
-                    </div>
-                </div>
+                                        <?php } ?>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
 
-                <hr class="rounded">
-
-                <?php //if statement if service adhoc or regular ?>
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Service Quantity:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $serviceQuantity ?>
-                            1
-                        </span>
-                    </div>
-                </div>
-                <?php //end of if statement ?>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#ownerInfoModal" data-bs-toggle="modal">Back to Owner's
-                    Information</button>
-                <button class="btn btn-primary" data-bs-target="#pickUpModal" data-bs-toggle="modal">To Pick Up
-                    Information</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- -->
-
-<!-- Pick Up Info Modal -->
-<div class="modal fade" id="pickUpModal" aria-hidden="true" aria-labelledby="pickUpModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="pickUpModalLabel">Pick Up Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <?php // for loop for multiple pick up times ?>
-
-                <hr class="rounded">
-                <span class="para"><b>Preferred pick up date: <?php //echo the number of pet? ?></b></span>
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Preferred pick up date:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $pickUpDate[0] ?>
-                            18/7/2023
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>First pick up time:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo ($pickUptime[0])[0] ?>
-                            12:00
-                        </span>
-                    </div>
-                </div>
-                <hr class="rounded">
-
-                <?php //if statement for one-way or two-way ?>
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Second pick up time:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo ($pickUptime[0])[1] ?>
-                            16:00
-                        </span>
-                    </div>
-                </div>
-                <?php //end of if statement ?>
-                <hr class="rounded">
-                <?php //end of for loop ?>
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Address:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $pickUpAddress ?>
-                            Blk 9 #01-12 Dempsey Road, Dempsey Hill
-                        </span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#serviceModal" data-bs-toggle="modal">Back to Type of
-                    Service Section</button>
-                <button class="btn btn-primary" data-bs-target="#senderModal" data-bs-toggle="modal">To Sender's
-                    Information</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- -->
-
-<!-- Sender's Info Modal -->
-<div class="modal fade" id="senderModal" aria-hidden="true" aria-labelledby="pickUpModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="pickUpModalLabel">Sender's Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <!-- Sender's info -->
-                <?php //if statement if owner is the sender ?>
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>First Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo ucfirst($firstName) ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Last Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo ucfirst($lastName) ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Email:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo $email ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Contact No.:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php
-                            $mobile = strval($mobile);
-
-                            $arrMobile = str_split($mobile, 4);
-
-                            echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
-                            ?>
-                        </span>
-                    </div>
-                </div>
-                <?php //end of if statement ?>
-
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#pickUpModal" data-bs-toggle="modal">Back to Pick Up Section</button>
-                <button class="btn btn-primary" data-bs-target="#dropOffModal" data-bs-toggle="modal">To Drop Off
-                    Information</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- -->
-
-<!-- Drop Off Info Modal -->
-<div class="modal fade" id="dropOffModal" aria-hidden="true" aria-labelledby="dropOffModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="dropOffModalLabel">Drop Off Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Address:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $dropOffAddress ?>
-                            7 Bukit Batok Street 22
-                        </span>
+                        <div class="col-5 box dropInfo">
+                            <p class="boxHeader">Drop-Off</p>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Address:</p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        <?php echo $dropOff_address ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#senderModal" data-bs-toggle="modal">Back to Sender's
-                    Information</button>
-                <button class="btn btn-primary" data-bs-target="#petinfoModal" data-bs-toggle="modal">To Recipient's
-                    Information</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- -->
-
-<!-- Recipient's Info Modal -->
-<div class="modal fade" id="recipientModal" aria-hidden="true" aria-labelledby="dropOffModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="dropOffModalLabel">Recipient's Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <!-- Recipient's info -->
-                <?php //if statement if owner is the recipient ?>
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>First Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo ucfirst($firstName) ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Last Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo ucfirst($lastName) ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Email:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php echo $email ?>
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Contact No.:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php
-                            $mobile = strval($mobile);
-
-                            $arrMobile = str_split($mobile, 4);
-
-                            echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
-                            ?>
-                        </span>
-                    </div>
-                </div>
-                <?php //end of if statement ?>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#dropOffModal" data-bs-toggle="modal">Back to Drop Off
-                    Information</button>
-                <button class="btn btn-primary" data-bs-target="#petinfoModal" data-bs-toggle="modal">To Pets'
-                    Information</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- -->
-
-<!-- Pet Info Modal -->
-<div class="modal fade" id="petinfoModal" aria-hidden="true" aria-labelledby="petinfoModalLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="petinfoModalLabel">Pets' Information</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <?php // for loop for multiple pick up times ?>
-
-                <hr class="rounded">
-                <span class="para"><b>Pet<?php //echo the number of pet? ?>'s Info:</b></span>
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>First Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo ucfirst($firstNamePet) ?>
-                            George
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Last Name:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo ucfirst($lastNamePet) ?>
-                            The Second
-                        </span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Type of pet:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $petType ?>
-                            Dog
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Breed:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $petBreed ?>
-                            German Shepherd
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Size of pet -->
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Weight (Kg):</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $petWeight ?>
-                            32.5Kg
-                        </span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Height (Cm):</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php // echo $petHeight ?>
-                            62Cm
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Width (Cm):</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //ecjp $petWidth ?>
-                            107Cm
-                        </span>
-                    </div>
-                </div>
-
-                <hr class="rounded">
-
-                <div class="row">
-                    <div class="col-5">
-                        <span class="para"><b>Addtional Comments:</b></span>
-                    </div>
-
-                    <div class="col">
-                        <span class="para">
-                            <?php //echo $petComment ?>
-                            Allergic to chocolate
-                        </span>
-                    </div>
-                </div>
-
-                <?php //end of for loop ?>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger" data-bs-target="#recipientModal" data-bs-toggle="modal">Back to Recipient's
-                    Information</button>
             </div>
         </div>
     </div>
-</div>
-<!-- -->
+
+
+    <!-- Footer -->
+    <?php //include("footer.php") ?>
+    <!--  -->
+
+    <!-- Background -->
+    <!-- <div class="bgclass">
+        <div class="gradient"></div>
+    </div> -->
+    <!--  -->
+
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="scripts/viewQuote.js"></script>
+
+</body>
+
+</html>

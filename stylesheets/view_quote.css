@@ -1,0 +1,158 @@
+/* body {
+    animation: fadeInAnimation ease .1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+}
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+} */
+
+.quoteScreen_wrapper,
+.quoteScreen_wrapper .shadow {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+}
+
+.quoteScreen_wrapper {
+    position: fixed;
+}
+
+.quoteScreen_wrapper .shadow {
+    position: absolute;
+    background: rgb(0, 0, 0);
+    transition: 0.2s ease;
+    /* opacity: 0; */
+}
+
+.quoteScreen_wrapper .quote_wrap {
+    position: absolute;
+    top: 3%;
+    left: 5%;
+    /* transform: translate(-50%, -800px); */
+    background-color: white;
+    padding: 5px 5px 10px 30px;
+    /* display: flex; */
+    align-items: center;
+    border-radius: 20px;
+    transition: 0.5s ease;
+    z-index: 2;
+    color: green;
+
+}
+
+.quote_wrap {
+    width: 90vw;
+    height: 95vh;
+
+}
+
+.petInfo-container {
+    overflow: auto;
+    height: 65vh;
+    /* width: 30vw; */
+    padding: 15px;
+}
+
+.pickInfo-container {
+    overflow: auto;
+    overflow-x: hidden;
+    height: 25vh;
+    padding: 5px;
+}
+
+.box {
+    margin: 5px;
+    background-color: #F0FAFF;
+    border: 2px solid #387FFF;
+    border-radius: 15px;
+}
+
+.boxHeader {
+    font-family: 'Nunito', sans-serif;
+    font-size: 25px;
+    color: #387FFF;
+}
+
+.ownerInfo .row,
+.petInfo .row,
+.senderInfo .row,
+.reciInfo .row,
+.pickInfo .row,
+.dropInfo .row {
+    margin-bottom: -12px;
+}
+
+.ownerInfo .row p,
+.petInfo .row p,
+.senderInfo .row p,
+.reciInfo .row p,
+.pickInfo .row p,
+.dropInfo .row p {
+    font-weight: 400;
+    color: gray;
+
+}
+
+.ownerInfo .row .col:nth-child(even) p,
+.petInfo .row .col:nth-child(even) p,
+.senderInfo .row .col:nth-child(even) p,
+.reciInfo .row .col:nth-child(even) p,
+.dropInfo .row .col:nth-child(even) p,
+.pickInfo .row .col:nth-child(even) p {
+    text-align: end;
+    font-weight: 500;
+    color: #525151;
+
+}
+
+.ownerInfo .row .col:nth-child(odd) p,
+.petInfo .row .col:nth-child(odd) p,
+.senderInfo .row .col:nth-child(odd) p,
+.reciInfo .row .col:nth-child(odd) p,
+.dropInfo .row .col:nth-child(odd) p,
+.pickInfo .row .col:nth-child(odd) p {
+    text-align: start;
+}
+
+hr,
+hr+p {
+    color: gray;
+}
+
+.profilebox img {
+    border: 3px solid #387FFF;
+}
+
+.exitBtn {
+    background-color: #BFE7FF;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    transition: .3s;
+}
+
+.exitBtn:hover {
+    background-color: #96d1f6;
+}
+
+/* .quoteScreen_wrapper.active {
+    visibility: visible;
+}
+
+.quoteScreen_wrapper.active .shadow {
+    opacity: 1;
+}
+
+.quoteScreen_wrapper.active .quote_wrap {
+    transform: translate(-50%, -50%);
+} */
