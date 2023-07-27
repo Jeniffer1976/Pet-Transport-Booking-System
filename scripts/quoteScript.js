@@ -221,6 +221,30 @@ $(document).ready(function () {
   // });
 });
 
+// function toggleclicked() {
+//   var checkBox = document.getElementById("switch");
+//   var secondpickup = document.getElementById("wholesecpickup");
+
+//   if (checkBox.checked == true) {
+    
+//     // secondpickup.style.display = "block";
+//     $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
+//       display: "block"
+//     });
+//     $('.wholepickup').css({
+//       display: "none"
+//     });
+//   } else {
+   
+//     $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
+//       display: "none"
+//     });
+//     $('.wholepickup').css({
+//       display: "block"
+//     });
+//   }
+// }
+
 function toggleclicked() {
   var checkBox = document.getElementById("switch");
   var secondpickup = document.getElementById("wholesecpickup");
@@ -228,7 +252,7 @@ function toggleclicked() {
   if (checkBox.checked == true) {
     
     // secondpickup.style.display = "block";
-    $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
+    $('.twopickups').css({
       display: "block"
     });
     $('.wholepickup').css({
@@ -236,7 +260,7 @@ function toggleclicked() {
     });
   } else {
    
-    $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
+    $('.twopickups').css({
       display: "none"
     });
     $('.wholepickup').css({

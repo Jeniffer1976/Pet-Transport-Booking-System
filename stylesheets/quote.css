@@ -345,10 +345,10 @@ input {
     display: block;
 } */
 
-.pickups {
+.twopickups {
     display: none;
 }
 
-.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5){
+/* .pickUpTimings-content div:nth-child(n+4):nth-child(-n+5){
     display: none;
-}
+} */
