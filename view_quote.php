@@ -44,7 +44,7 @@
     $po_email = $infoRow['email'];
     $po_mobile = $infoRow['mobile'];
     $po_username = $infoRow['username'];
-    $profile = $infoRow['profile_pic'];
+    $profile = $infoRow['profile'];
 
     $service_type = $infoRow['service_type'];
     $pickUp_address = $infoRow['pickUp_address'];
@@ -292,7 +292,7 @@
                         <div class="col-3 mt-4 profilebox">
                             <!-- <p class="boxHeader">Profile</p> -->
                             <?php if (isset($profile)) { ?>
-                                <img src="images/profileImg/<?php echo $profile ?>" height="150" width="150"
+                                <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile))?>" height="150" width="150"
                                     style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
                                 <img src="images/person.svg" height="80" width="80">

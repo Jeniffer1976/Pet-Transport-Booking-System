@@ -16,9 +16,11 @@ if (isset($_POST['signUp']))
     $phone = $_POST['phone'];
 
     // profile pic update
-    $profileImgName = time() . '_' . $_FILES['profileImg']['name'];
-    $target = 'images/profileImg/' . $profileImgName;
-    move_uploaded_file($_FILES['profileImg']['tmp_name'], $target);
+    // $profileImgName = time() . '_' . $_FILES['profileImg']['name'];
+    // $target = 'images/profileImg/' . $profileImgName;
+    // move_uploaded_file($_FILES['profileImg']['tmp_name'], $target);
+    $image = $_FILES['profileImg']['tmp_name'];
+    $profilePic = addslashes(file_get_contents($image)); 
 
     //save to database
     $insertUsers = "INSERT INTO users
@@ -42,10 +44,10 @@ if (isset($_POST['signUp']))
         $insertUsersStatus = mysqli_query($link, $insertUsers);
 
         $insertPetOwners = "INSERT INTO pet_owner
-            (first_name, last_name, email, mobile, username, profile_pic) 
+            (first_name, last_name, email, mobile, username, profile) 
             VALUES 
             ('$firstName','$lastName','$email',
-            '$phone', '$username', '$profileImgName')";
+            '$phone', '$username', '$profilePic')";
 
         $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
 

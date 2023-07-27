@@ -93,7 +93,7 @@ if (isset($_SESSION['username'])) {
                             <?php if (isset($_SESSION['profile'])) {
                                 $profile = $_SESSION['profile']
                                     ?>
-                                <img src="images/profileImg/<?php echo $profile ?>" height="80" width="80"
+                                <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile))?>" height="80" width="80"
                                     style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
                                 <img src="images/person.svg" height="80" width="80">
