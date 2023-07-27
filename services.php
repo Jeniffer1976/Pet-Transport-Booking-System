@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services | Waggin Wheels</title>
 
-    <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
+    <link rel="icon" type="image/x-icon" href="/images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -27,18 +27,6 @@
 
 <body>
 
-    <div class="errScreen_wrapper">
-        <div class="shadow"></div>
-        <div class="err_wrap">
-            <p>Please login to request a quote.
-                <i class="far fa-smile"></i>
-            </p>
-            <div align="center">
-                <button class="btn" style="display" onclick="location.href='signIn.php'">
-                    Login <i class="fas fa-sign-in-alt"></i></button>
-            </div>
-        </div>
-    </div>
     <!-- Navbar -->
     <?php include "navbar.php" ?>
     <!--  -->
@@ -48,20 +36,23 @@
     <div class="grad1">
         <div class="container gap1"></div>
         <div class="font7">SERVICES</div>
-        <div class="container">
-            <div class="row"></div>
-            <div class="row p-3">
+        <div class="container con3">
+            <div align="center">
                 <div class="row">
-                    <div class="col p-5 themed-grid-col font6 col2">
-                        <img class="three" src="images/schedule.png">
-                        <p class="font8">Regular</p>
-                        <a class="font8" href="#regular">Read More</a>
+                    <div class="col-lg-5">
+                        <div class="regular">
+                            <img src="images/schedule.png" alt="">
+                            <p class="font8">Regular</p>
+                            <a class="font8" href="#regular">Read More</a>
+                        </div>
                     </div>
-                    <div class="col-sm-1"></div>
-                    <div class="col p-5 themed-grid-col font6 col2">
-                        <img class="three" src="images/calendar.png">
-                        <p class="font8">Ad-hoc</p>
-                        <a class="font8" href="#adhoc">Read More</a>
+                    <div class="col-sm-2"></div>
+                    <div class="col-lg-5">
+                        <div class="regular">
+                            <img src="images/calendar.png" alt="">
+                            <p class="font8">Ad-hoc</p>
+                            <a class="font8" href="#adhoc">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -152,11 +143,11 @@
                 </div>
             </div>
         </div>
-        <!--  -->
+    <!--  -->
 
 
-        <!-- Ad-hoc Service Section -->
-        <hr>
+    <!-- Ad-hoc Service Section -->
+    <hr>
         <div class="container" id="adhoc">
             <div class="row">
                 <div class="col-4">
@@ -233,29 +224,27 @@
                     </div>
                     </p>
                 </div>
-            </div>
-        </div>
-        <!--  -->
+    <!--  -->
 
 
-        <!-- Request a Quote button -->
+    <!-- Request a Quote button -->
 
-        <!--  -->
+    <!--  -->
 
 
-        <!-- Footer -->
-        <?php include("footer.php") ?>
-        <!--  -->
+    <!-- Footer -->
+    <?php include("footer.php") ?>
+    <!--  -->
 
-        <!-- Background -->
-        <div class="bgclass">
-            <div class="gradient"></div>
-        </div>
-        <!--  -->
+    <!-- Background -->
+    <div class="bgclass">
+        <div class="gradient"></div>
+    </div>
+    <!--  -->
 
-        <!-- Scripts -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="scripts/script.js"></script>
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="scripts/script.js"></script>
 
 </body>
 

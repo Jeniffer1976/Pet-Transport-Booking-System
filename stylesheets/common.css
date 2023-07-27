@@ -499,3 +499,16 @@ rect {
 .col15 {
     background-color: #fff200;
 }
+
+.regular {
+    height: 500px;
+    width: 500x;
+    border-radius: 50%;
+    background-color: #1E53B3;
+    padding-top: 15%;
+}
+
+.regular img {
+    height: 250px;
+    width: 250px;
+}
