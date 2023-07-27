@@ -13,3 +13,19 @@ function displayImage(i) {
     }
 
 }
+
+function openReqErr() {
+    const nav = document.querySelector("nav");
+    const errScreen_wrapper = document.querySelector(".errScreen_wrapper");
+
+    nav.classList.contains("sticky-top") &&
+      nav.classList.remove("sticky-top");
+
+      errScreen_wrapper.classList.add("active");
+
+    $('html, body').css({
+      overflow: 'hidden'
+    });
+
+
+}

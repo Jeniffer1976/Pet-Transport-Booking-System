@@ -3,8 +3,7 @@ session_start();
 include("dbFunctions.php");
 
 // if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
-if (isset($_POST['signUp']))
-{
+if (isset($_POST['signUp'])) {
     $message = "";
     $isSuccessful = false;
     //something was posted
@@ -16,9 +15,11 @@ if (isset($_POST['signUp']))
     $phone = $_POST['phone'];
 
     // profile pic update
-    $profileImgName = time() . '_' . $_FILES['profileImg']['name'];
-    $target = 'images/profileImg/' . $profileImgName;
-    move_uploaded_file($_FILES['profileImg']['tmp_name'], $target);
+    // $profileImgName = time() . '_' . $_FILES['profileImg']['name'];
+    // $target = 'images/profileImg/' . $profileImgName;
+    // move_uploaded_file($_FILES['profileImg']['tmp_name'], $target);
+    $image = $_FILES['profileImg']['tmp_name'];
+    $profilePic = addslashes(file_get_contents($image));
 
     //save to database
     $insertUsers = "INSERT INTO users
@@ -42,10 +43,10 @@ if (isset($_POST['signUp']))
         $insertUsersStatus = mysqli_query($link, $insertUsers);
 
         $insertPetOwners = "INSERT INTO pet_owner
-            (first_name, last_name, email, mobile, username, profile_pic) 
+            (first_name, last_name, email, mobile, username, profile) 
             VALUES 
             ('$firstName','$lastName','$email',
-            '$phone', '$username', '$profileImgName')";
+            '$phone', '$username', '$profilePic')";
 
         $insertPetOwnersStatus = mysqli_query($link, $insertPetOwners);
 
@@ -71,7 +72,7 @@ if (isset($_POST['signUp']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up | Waggin Wheels</title>
 
-    <link rel="icon" type="image/x-icon" href="/images/logoNoText.ico">
+    <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -91,7 +92,18 @@ if (isset($_POST['signUp']))
 </head>
 
 <body>
-
+    <div class="errScreen_wrapper">
+        <div class="shadow"></div>
+        <div class="err_wrap">
+            <p>Please login to request a quote.
+                <i class="far fa-smile"></i>
+            </p>
+            <div align="center">
+                <button class="btn" style="display" onclick="location.href='signIn.php'">
+                    Login <i class="fas fa-sign-in-alt"></i></button>
+            </div>
+        </div>
+    </div>
     <!-- Navbar -->
     <?php include "navbar.php" ?>
     <!--  -->
@@ -139,12 +151,14 @@ if (isset($_POST['signUp']))
                         <input name="profileImg" type="file" accept="image/*" id="imgUpload"
                             onchange="displayImage(this)" style="display:none">
                         <div class="profileImgDisplay">
-                            <img src="images/default.jpg"  id="imgPreview" alt="Preview">
-                            <button type="button" class="imgBtn" onclick="triggerClick()"><i class="fas fa-camera"></i></button>
+                            <img src="images/default.jpg" id="imgPreview" alt="Preview">
+                            <button type="button" class="imgBtn" onclick="triggerClick()"><i
+                                    class="fas fa-camera"></i></button>
                         </div>
                     </div>
                     <div class="col-12 text-center form-group">
-                        <button type="submit" name="signUp" class="btn btn-primary primarybtn rounded-pill">Sign Up</button>
+                        <button type="submit" name="signUp" class="btn btn-primary primarybtn rounded-pill">Sign
+                            Up</button>
                     </div>
                 </form>
 

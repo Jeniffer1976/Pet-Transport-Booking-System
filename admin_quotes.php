@@ -9,8 +9,14 @@ if (!isset($_SESSION['username'])) {
 
 global $link;
 
-$quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id ORDER BY PD.pickUp_date DESC";
+echo "<div id='div_session_write'> </div>";
 
+if (isset($_SESSION['filterMonth'])) {
+    $month = $_SESSION['filterMonth'];
+    $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id WHERE MONTH(PD.pickUp_date) = '$month' ORDER BY PD.pickUp_date DESC";
+} else {
+    $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id ORDER BY PD.pickUp_date DESC";
+}
 $quoteStatus = mysqli_query($link, $quoteQuery) or die(mysqli_error($link));
 
 while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
@@ -120,14 +126,14 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                     $quote_id = $quoteContent[$i]['quote_id'];
                     $owner_id = $quoteContent[$i]['owner_id'];
                     // $_SESSION['temp_owner_id'] = $owner_id;
-
+                
                     $service_type = $quoteContent[$i]['service_type'];
                     $pickUp_address = $quoteContent[$i]['pickUp_address'];
                     $dropOff_address = $quoteContent[$i]['dropOff_address'];
                     $sender_id = $quoteContent[$i]['sender_id'];
                     $recipient_id = $quoteContent[$i]['recipient_id'];
 
-                    $ownerQuery = "SELECT first_Name, last_Name, email, mobile, profile_pic FROM pet_owner WHERE owner_id = '$owner_id'";
+                    $ownerQuery = "SELECT first_Name, last_Name, email, mobile, profile FROM pet_owner WHERE owner_id = '$owner_id'";
 
                     $ownerStatus = mysqli_query($link, $ownerQuery) or die(mysqli_error($link));
 
@@ -136,7 +142,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                     $po_lastName = $ownerRow['last_Name'];
                     $po_email = $ownerRow['email'];
                     $po_mobile = $ownerRow['mobile'];
-                    $po_profile = $ownerRow['profile_pic'];
+                    $po_profile = $ownerRow['profile'];
                     $owner_name = $po_firstName . " " . $po_lastName;
 
                     $ownerInfo = array(
@@ -229,7 +235,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                 $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
                                 $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
 
-                                echo $pickUp_date . "<br>";
+                                echo date("d/m/Y", strtotime($pickUp_date)) . "<br>";
                                 if (is_null($second_pickUp_time)) {
                                     echo date("H:i a", strtotime($first_pickUp_time)) . "<br><br>";
                                 } else {
@@ -257,7 +263,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                 </button>
 
 
-                                <form method="post" action="view_quote.php" id="passOwnerId" style="margin-bottom:-10px" >
+                                <form method="post" action="view_quote.php" id="passOwnerId" style="margin-bottom:-10px">
                                     <input type="hidden" id="quote_id" name="quote_id" value="<?php echo $quote_id ?>" />
                                     <button type="submit" id="viewQuoteBtn" class="actionBtns">
                                         <i class="fas fa-eye text-secondary"></i>
@@ -282,6 +288,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                 <?php } ?>
             </tbody>
         </table>
+        <input type="button" id="monthfilter" name="7" value="July">
 
 
     </div>
@@ -303,6 +310,14 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/sidebarscript.js"></script>
+    <script>
+        $('#monthfilter').click(function () {
+            month = $(this).val();
+            jQuery('#div_session_write').load('session_write.php?filterMonth=7');
+            location.reload();
+
+        });
+    </script>
     <!-- <script src="scripts/defineVariable.js"></script> -->
 
 </body>

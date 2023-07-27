@@ -44,7 +44,7 @@
     $po_email = $infoRow['email'];
     $po_mobile = $infoRow['mobile'];
     $po_username = $infoRow['username'];
-    $profile = $infoRow['profile_pic'];
+    $profile = $infoRow['profile'];
 
     $service_type = $infoRow['service_type'];
     $pickUp_address = $infoRow['pickUp_address'];
@@ -292,7 +292,7 @@
                         <div class="col-3 mt-4 profilebox">
                             <!-- <p class="boxHeader">Profile</p> -->
                             <?php if (isset($profile)) { ?>
-                                <img src="images/profileImg/<?php echo $profile ?>" height="150" width="150"
+                                <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile))?>" height="150" width="150"
                                     style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
                                 <img src="images/person.svg" height="80" width="80">
@@ -405,13 +405,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <?php
-                                for ($u = 0; $u < count($pickupContent); $u++) {
-                                    $pickUp_date = $pickupContent[$u]['pickUp_date'];
-                                    $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
-                                    $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
-                                    ?>
-                                    <div class="row mt-4">
+                                <div class="row">
                                         <div class="col">
                                             <p>Type of service:</p>
                                         </div>
@@ -421,13 +415,20 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                <?php
+                                for ($u = 0; $u < count($pickupContent); $u++) {
+                                    $pickUp_date = $pickupContent[$u]['pickUp_date'];
+                                    $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
+                                    $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
+                                    ?>
+                                    
+                                    <div class="row mt-4">
                                         <div class="col">
                                             <p>Pickup date:</p>
                                         </div>
                                         <div class="col">
                                             <p>
-                                                <?php echo $pickUp_date ?>
+                                                <?php echo date("d/m/Y", strtotime($pickUp_date)) ?>
                                             </p>
                                         </div>
                                     </div>

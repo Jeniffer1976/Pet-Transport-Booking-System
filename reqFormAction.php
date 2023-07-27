@@ -93,6 +93,11 @@ include("dbFunctions.php");
 // $firstName = $_POST['firstName'];
 // $lastName = $_POST['lastName'];
 // $email = $_POST['email'];
+$owner_fnameSession = $_SESSION['firstName'];
+$owner_lnameSession = $_SESSION['lastName'];
+$owner_emailSession = $_SESSION['email'];
+$owner_mobileSession = $_SESSION['mobile'];
+
 $servicetype = $_POST['servicetype'];
 
 // $pickupdate = $_POST['pickupdate'];
@@ -104,21 +109,29 @@ $firstNameSI = $_POST['firstNameSI'];
 $lastNameSI = $_POST['lastNameSI'];
 $contactSI = $_POST['contactSI'];
 $emailSI = $_POST['emailSI'];
-// $tickSI = $_POST['tickSI'];
+$tickSI = $_POST['tickSI'];
 
 $dropoffaddress = $_POST['dropoffaddress']; //what is this
 $firstNameRI = $_POST['firstNameRI'];
 $lastNameRI = $_POST['lastNameRI'];
 $contactRI = $_POST['contactRI'];
 $emailRI = $_POST['emailRI'];
-// $tickRI = $_POST['tickRI'];
+
+$tripToggle = $_POST['tripToggle'];
+$tickRI = $_POST['tickRI'];
 
 //save to database
-$insertSIQuery = "INSERT INTO senderrecipient_details 
+if (isset($tickSI)) {
+    $insertSIQuery = "INSERT INTO senderrecipient_details 
+    (sr_id, first_name, last_name, contact, email) 
+    VALUES 
+    (NULL, '$owner_fnameSession', '$owner_lnameSession', '$owner_mobileSession', '$owner_emailSession');";
+} else {
+    $insertSIQuery = "INSERT INTO senderrecipient_details 
     (sr_id, first_name, last_name, contact, email) 
     VALUES 
     (NULL, '$firstNameSI', '$lastNameSI', '$contactSI', '$emailSI');";
-
+}
 
 $insertSIStatus = mysqli_query($link, $insertSIQuery) or die(mysqli_error($link));
 // $SIrow = mysqli_fetch_array($insertSIStatus);
@@ -126,12 +139,20 @@ $insertSIStatus = mysqli_query($link, $insertSIQuery) or die(mysqli_error($link)
 $lastest_SIid = mysqli_insert_id($link);
 
 // $latest_SIidQuery = "SELECT MAX(sr_id) AS latest_sr_id FROM senderrecipient_details";
-
-$insertRIQuery = "INSERT INTO senderrecipient_details 
+if (isset($tickRI)) {
+    $insertRIQuery = "INSERT INTO senderrecipient_details 
+    (sr_id, first_name, last_name, contact, email) 
+    VALUES 
+    (NULL, '$owner_fnameSession', '$owner_lnameSession', '$owner_mobileSession', '$owner_emailSession');
+    ";
+} else {
+    $insertRIQuery = "INSERT INTO senderrecipient_details 
     (sr_id, first_name, last_name, contact, email) 
     VALUES 
     (NULL, '$firstNameRI', '$lastNameRI', '$contactRI', '$emailRI');
     ";
+}
+
 
 $insertRIStatus = mysqli_query($link, $insertRIQuery) or die(mysqli_error($link));
 // $RIrow = mysqli_fetch_array($insertRIStatus);
@@ -164,17 +185,28 @@ $lastest_quoteId = mysqli_insert_id($link);
 
 $conn = new PDO('mysql:host=localhost;dbname=id20783214_wagginwheeldb', 'root', '');
 
-foreach ($_POST['pickup'] as $key => $value) {
+foreach ($_POST['pickupdate'] as $key => $value) {
     $pickUpSql = "INSERT INTO  pickup_details (quote_id, pickUp_date, first_pickUp_time, second_pickUp_time) 
                                     VALUES (:quoteid, :pickupDate, :firstPickup, :secondPickup )";
 
     $petStmt = $conn->prepare($pickUpSql);
-    $petStmt->execute([
-        'quoteid' => $lastest_quoteId,
-        'pickupDate' => $value,
-        'firstPickup' => $_POST['firstpickup'][$key],
-        'secondPickup' => $_POST['secondpickup'][$key],
-    ]);
+
+    if (isset($tripToggle)) {
+        $petStmt->execute([
+            'quoteid' => $lastest_quoteId,
+            'pickupDate' => $value,
+            'firstPickup' => $_POST['firstpickup'][$key],
+            'secondPickup' => $_POST['secondpickup'][$key],
+        ]);
+    } else {
+        $petStmt->execute([
+            'quoteid' => $lastest_quoteId,
+            'pickupDate' => $value,
+            'firstPickup' => $_POST['onepickup'][$key],
+            'secondPickup' => null
+        ]);
+    }
+
 }
 
 

@@ -15,7 +15,7 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In | Waggin Wheels</title>
 
-    <link rel="icon" type="image/x-icon" href="/images/logoNoText.ico">
+    <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -35,6 +35,19 @@ if (isset($_POST['login'])) {
 </head>
 
 <body>
+
+<div class="errScreen_wrapper">
+        <div class="shadow"></div>
+        <div class="err_wrap">
+            <p>Please login to request a quote.
+                <i class="far fa-smile"></i>
+            </p>
+            <div align="center">
+                <button class="btn" style="display" onclick="location.href='signIn.php'">
+                    Login <i class="fas fa-sign-in-alt"></i></button>
+            </div>
+        </div>
+    </div>
 
     <!-- Navbar -->
     <?php include "navbar.php" ?>
