@@ -1,0 +1,50 @@
+.paw {
+    color: #FF9544;
+    font-size: 30px;
+}
+
+.box {
+    margin: 5px;
+    background-color: #87f8d2cc;
+    border: 2px solid #338762;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.boxHeader {
+    font-family: 'Nunito', sans-serif;
+    font-size: 25px;
+    color: #338762;
+    padding-top: 10px;
+}
+
+/* .ownerInfo .row,
+.petInfo .row,
+.senderInfo .row,
+.reciInfo .row,
+.pickInfo .row,
+.dropInfo .row {
+    margin-bottom: -12px;
+} */
+
+.inbox .row p {
+    font-weight: 400;
+    color: #338762;
+
+}
+
+.inbox .row .col:nth-child(even) p {
+    text-align: end;
+    font-weight: 400;
+    color: #338762;
+
+}
+
+.inbox .row .col:nth-child(odd) p {
+    text-align: start;
+}
+
+.cfmbtn {
+    padding-bottom: 20px;
+}
