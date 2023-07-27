@@ -35,6 +35,7 @@ if (!isset($_SESSION['username'])) {
 
     <link rel="stylesheet" href="stylesheets/common.css">
     <link rel="stylesheet" href="stylesheets/admin.css">
+    <link rel="stylesheet" href="stylesheets/admin_dashboard.css">
     <link rel="stylesheet" href="stylesheets/responsive.css">
 </head>
 
@@ -86,55 +87,22 @@ if (!isset($_SESSION['username'])) {
     <!-- -->
 
     <div class="container dashb">
-    <div class="container dashboard">
-        <div class="row">
-            <div class="col-6">
-                <div class="container recentupdate">
-                    <div class="container">
+        <div class="container dashboard">
+            <div class="row">
+                <div class="col-6">
+                    <div class="container recentupdate">
                         <div class="container">
                             <div class="container">
-                                <div class="col">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div align="left">
-                                                <h2 class="font12 display-6 fw-bold lh-1 mb-3 bi bi-arrow-clockwise">
-                                                    RECENT
-                                                    UPDATES
-                                                </h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="container col5">
-                            <div class="row">
-                                <div class="col-4 col8">
-                                    <div class="container col6">
-                                        <div align="center">
-                                            <div class="date font7 h3">20/07</div>
-                                            <div class="time font7 h4">3:00PM</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div align="left">
-                                                <h2 class="font12 h3">Pending payment</h2>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div align="left">
-                                                            <h2 class="text6 bi bi-person-fill"> -
-                                                            </h2>
-                                                        </div>
-                                                    </div>
+                                <div class="container">
+                                    <div class="col">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div align="left">
+                                                    <h2
+                                                        class="font12 display-6 fw-bold lh-1 mb-3 bi bi-arrow-clockwise">
+                                                        RECENT
+                                                        UPDATES
+                                                    </h2>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,235 +110,122 @@ if (!isset($_SESSION['username'])) {
                                 </div>
                             </div>
                         </div>
-                        <br>
-
-                        <div class="container col5">
-                            <div class="row">
-                                <div class="col-4 col8">
-                                    <div class="container col6">
-                                        <div align="center">
-                                            <div class="date font7 h3">19/07</div>
-                                            <div class="time font7 h4">9:00PM</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div align="left">
-                                                <h2 class="font12 h3">Completed order</h2>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div align="left">
-                                                            <h2 class="text6 bi bi-person-fill"> -
-                                                            </h2>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="container col5">
-                            <div class="row">
-                                <div class="col-4 col8">
-                                    <div class="container col6">
-                                        <div align="center">
-                                            <div class="date font7 h3">18/07</div>
-                                            <div class="time font7 h4">2:20PM</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div align="left">
-                                                <h2 class="font12 h3">New request quote</h2>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col">
-                                                <div class="container">
-                                                    <div class="row">
-                                                        <div align="left">
-                                                            <h2 class="text6 bi bi-person-fill"> -
-                                                            </h2>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                    </div>
-                </div>
-
-                <div class="container myorders">
-                    <div class="container">
                         <div class="container">
-                            <div class="container">
-                                <div class="col">
-                                    <div class="container">
-                                        <div align="left">
-                                            <h2 class="font12 display-6 fw-bold lh-1 mb-3 bi bi-calendar3"> MY ORDERS
-                                            </h2>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container">
-                        <div class="container col9">
-                            <div class="row">
-                                <div class="col8">
-                                    <div class="container card1">
-                                        <div align="left">
-                                            <p class="d-inline-flex gap-1">
-                                                <button
-                                                    class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
-                                                    type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseExample1" aria-expanded="false"
-                                                    aria-controls="collapseExample"> Last 7 days (1)
-                                                </button>
-                                            </p>
-                                            <div class="collapse" id="collapseExample1">
-                                                <div class="card card-body card1">
-                                                    <table class="table table-hover">
-                                                        <thead class="font11">
-                                                            <tr>
-                                                                <th scope="col">DATE AND TIME</th>
-                                                                <th scope="col">ORDER #</th>
-                                                                <th scope="col">PICK UP</th>
-                                                                <th scope="col">DROP OFF</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="font10">
-                                                            <tr>
-                                                                <th scope="row">FRI 21/07 <br>
-                                                                3:00PM</th>
-                                                                <td>7090</td>
-                                                                <td>Bedok</td>
-                                                                <td>Jurong</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="container col9">
-                            <div class="row">
-                                <div class="col8">
-                                    <div class="container card1">
-                                        <div align="left">
-                                            <p class="d-inline-flex gap-1">
-                                                <button
-                                                    class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
-                                                    type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseExample2" aria-expanded="false"
-                                                    aria-controls="collapseExample"> Today (0)
-                                                </button>
-                                            </p>
-                                            <div class="collapse" id="collapseExample2">
-                                                <div class="card card-body card1">
-                                                    <table class="table table-hover">
-                                                        <thead class="font11">
-                                                            <tr>
-                                                                <th scope="col">DATE AND TIME</th>
-                                                                <th scope="col">ORDER #</th>
-                                                                <th scope="col">PICK UP</th>
-                                                                <th scope="col">DROP OFF</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="font10">
-                                                        
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-
-                        <div class="container col9">
-                            <div class="row">
-                                <div class="col8">
-                                    <div class="container card1">
-                                        <div align="left">
-                                            <p class="d-inline-flex gap-1">
-                                                <button
-                                                    class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
-                                                    type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapseExample3" aria-expanded="false"
-                                                    aria-controls="collapseExample"> Next 7 days (2)
-                                                </button>
-                                            </p>
-                                            <div class="collapse" id="collapseExample3">
-                                                <div class="card card-body card1">
-                                                    <table class="table table-hover">
-                                                        <thead class="font11">
-                                                            <tr>
-                                                                <th scope="col">DATE AND TIME</th>
-                                                                <th scope="col">ORDER #</th>
-                                                                <th scope="col">PICK UP</th>
-                                                                <th scope="col">DROP OFF</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="font10">
-                                                            <tr>
-                                                                <th scope="row">FRI 21/07 <br>
-                                                                3:00PM</th>
-                                                                <td>7092</td>
-                                                                <td>Bedok South</td>
-                                                                <td>Pioneer</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">THUR 20/07 3:00PM</th>
-                                                                <td>7021</td>
-                                                                <td>Tuas</td>
-                                                                <td>Loyang Point</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="col-6">
-                <div class="container OVERVIEW">
-                    <div class="container">
-                        <div class="container">
-                            <div class="container">
-                                <div class="col">
-                                    <div class="container">
-                                        <div class="row">
+                            <div class="container col5">
+                                <div class="row">
+                                    <div class="col-4 col8">
+                                        <div class="container col6">
                                             <div align="center">
-                                                <h2 class="font17 display-6 fw-bold lh-1 mb-3">OVERVIEW
+                                                <div class="date font7 h3">20/07</div>
+                                                <div class="time font7 h4">3:00PM</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div align="left">
+                                                    <h2 class="font12 h3">Pending payment</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div align="left">
+                                                                <h2 class="text16 bi bi-person-fill"> -
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="container col5">
+                                <div class="row">
+                                    <div class="col-4 col8">
+                                        <div class="container col6">
+                                            <div align="center">
+                                                <div class="date font7 h3">19/07</div>
+                                                <div class="time font7 h4">9:00PM</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div align="left">
+                                                    <h2 class="font12 h3">Completed order</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div align="left">
+                                                                <h2 class="text16 bi bi-person-fill"> -
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="container col5">
+                                <div class="row">
+                                    <div class="col-4 col8">
+                                        <div class="container col6">
+                                            <div align="center">
+                                                <div class="date font7 h3">18/07</div>
+                                                <div class="time font7 h4">2:20PM</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div align="left">
+                                                    <h2 class="font12 h3">New request quote</h2>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <div class="container">
+                                                        <div class="row">
+                                                            <div align="left">
+                                                                <h2 class="text16 bi bi-person-fill"> -
+                                                                </h2>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+
+                    <div class="container myorders">
+                        <div class="container">
+                            <div class="container">
+                                <div class="container">
+                                    <div class="col">
+                                        <div class="container">
+                                            <div align="left">
+                                                <h2 class="font12 display-6 fw-bold lh-1 mb-3 bi bi-calendar3"> MY
+                                                    ORDERS
                                                 </h2>
                                             </div>
                                         </div>
@@ -378,57 +233,206 @@ if (!isset($_SESSION['username'])) {
                                 </div>
                             </div>
                         </div>
+                        <div class="container">
+                            <div class="container col9">
+                                <div class="row">
+                                    <div class="col8">
+                                        <div class="container card1">
+                                            <div align="left">
+                                                <p class="d-inline-flex gap-1">
+                                                    <button
+                                                        class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseExample1" aria-expanded="false"
+                                                        aria-controls="collapseExample"> Last 7 days (1)
+                                                    </button>
+                                                </p>
+                                                <div class="collapse" id="collapseExample1">
+                                                    <div class="card card-body card1">
+                                                        <table class="table table-hover">
+                                                            <thead class="font11">
+                                                                <tr>
+                                                                    <th scope="col">DATE AND TIME</th>
+                                                                    <th scope="col">ORDER #</th>
+                                                                    <th scope="col">PICK UP</th>
+                                                                    <th scope="col">DROP OFF</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="font10">
+                                                                <tr>
+                                                                    <th scope="row">FRI 21/07 <br>
+                                                                        3:00PM</th>
+                                                                    <td>7090</td>
+                                                                    <td>Bedok</td>
+                                                                    <td>Jurong</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="container col9">
+                                <div class="row">
+                                    <div class="col8">
+                                        <div class="container card1">
+                                            <div align="left">
+                                                <p class="d-inline-flex gap-1">
+                                                    <button
+                                                        class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseExample2" aria-expanded="false"
+                                                        aria-controls="collapseExample"> Today (0)
+                                                    </button>
+                                                </p>
+                                                <div class="collapse" id="collapseExample2">
+                                                    <div class="card card-body card1">
+                                                        <table class="table table-hover">
+                                                            <thead class="font11">
+                                                                <tr>
+                                                                    <th scope="col">DATE AND TIME</th>
+                                                                    <th scope="col">ORDER #</th>
+                                                                    <th scope="col">PICK UP</th>
+                                                                    <th scope="col">DROP OFF</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="font10">
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="container col9">
+                                <div class="row">
+                                    <div class="col8">
+                                        <div class="container card1">
+                                            <div align="left">
+                                                <p class="d-inline-flex gap-1">
+                                                    <button
+                                                        class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseExample3" aria-expanded="false"
+                                                        aria-controls="collapseExample"> Next 7 days (2)
+                                                    </button>
+                                                </p>
+                                                <div class="collapse" id="collapseExample3">
+                                                    <div class="card card-body card1">
+                                                        <table class="table table-hover">
+                                                            <thead class="font11">
+                                                                <tr>
+                                                                    <th scope="col">DATE AND TIME</th>
+                                                                    <th scope="col">ORDER #</th>
+                                                                    <th scope="col">PICK UP</th>
+                                                                    <th scope="col">DROP OFF</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="font10">
+                                                                <tr>
+                                                                    <th scope="row">FRI 21/07 <br>
+                                                                        3:00PM</th>
+                                                                    <td>7092</td>
+                                                                    <td>Bedok South</td>
+                                                                    <td>Pioneer</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">THUR 20/07 3:00PM</th>
+                                                                    <td>7021</td>
+                                                                    <td>Tuas</td>
+                                                                    <td>Loyang Point</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="container">
+                </div>
+                <br>
+                <div class="col-6">
+                    <div class="container OVERVIEW">
                         <div class="container">
-                            <div class="row p-3">
-                                <div class="row">
-                                    <div class="col"></div>
-                                    <div class="col-6 p-3 themed-grid-col col16 col14">10
-                                        <div class="text6">New quote request
+                            <div class="container">
+                                <div class="container">
+                                    <div class="col">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div align="center">
+                                                    <h2 class="font17 display-6 fw-bold lh-1 mb-3">OVERVIEW
+                                                    </h2>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container">
-                            <div class="row p-3">
-                                <div class="row">
-                                    <div class="col p-3 themed-grid-col col16 col10">0
-                                        <div class="text6">Rejected orders
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1"></div>
-                                    <div class="col p-3 themed-grid-col col16 col11">2
-                                        <div class="text6">Confirmed orders</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="container">
-                            <div class="row p-3">
-                                <div class="row">
-                                    <div class="col p-3 themed-grid-col col16 col12">4
-                                        <div class="text6">Pending payment
+                            <div class="container">
+                                <div class="row p-3">
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col-6 p-3 themed-grid-col col16 col14">10
+                                            <div class="text6">New quote request
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-1"></div>
-                                    <div class="col p-3 themed-grid-col col16 col13">1
-                                        <div class="text6">Completed orders</div>
+                                        <div class="col"></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="container">
-                            <div class="row p-3">
-                                <div class="row">
-                                    <div class="col"></div>
-                                    <div class="col-6 p-3 themed-grid-col col16 col15">1
-                                        <div class="text6">Completed orders
+                            <div class="container">
+                                <div class="row p-3">
+                                    <div class="row">
+                                        <div class="col p-3 themed-grid-col col16 col10">0
+                                            <div class="text6">Rejected orders
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col p-3 themed-grid-col col16 col11">2
+                                            <div class="text6">Confirmed orders</div>
                                         </div>
                                     </div>
-                                    <div class="col"></div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row p-3">
+                                    <div class="row">
+                                        <div class="col p-3 themed-grid-col col16 col12">4
+                                            <div class="text6">Pending payment
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                        <div class="col p-3 themed-grid-col col16 col13">1
+                                            <div class="text6">Completed orders</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="row p-3">
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col-6 p-3 themed-grid-col col16 col15">1
+                                            <div class="text6">Completed orders
+                                            </div>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -436,7 +440,6 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
         </div>
-        <div>
     </div>
     <br>
     <!-- Footer -->
