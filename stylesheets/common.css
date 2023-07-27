@@ -379,3 +379,123 @@ rect {
 .errScreen_wrapper.active .err_wrap {
     transform: translate(-50%, -50%);
 }
+
+/* dashboard */
+.dashb table tbody {
+    font-family: 'Asap', sans-serif;
+}
+
+.dashb table th {
+    top: 12vh;
+    background-color: #1e3d76 !important;;
+    color: white !important;;
+}
+
+.dashb {
+    margin-top: -90vh;
+    margin-left: 25vw;
+    width: 70vw;
+
+}
+
+.dashb table {
+    text-align: center;
+    line-height: 1.7;
+}
+
+.col5 {
+    border: 1px solid #1c4a36;
+    border-radius: 5px;
+    background-color: rgb(255, 255, 255)
+}
+
+.col8 {
+    padding: 0%;
+}
+
+.col6 {
+    border: 1px solid #ff9100;
+    border-radius: 5px;
+    background-color: #ffb85b;
+}
+
+.font7 {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    text-align: center;
+}
+
+.font12 {
+    font-weight: bold;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    font-size:  1.5em;
+}
+
+.text6 {
+    font-family: 'Asap', sans-serif;
+    color: #1E53B3;
+    text-align: left;
+    font-size: medium;
+}
+
+.col9 {
+    border-radius: 5px;
+    background-color:#ffb85b;
+}
+
+.person1 {
+    color: #1a4699;
+}
+
+.card1 {
+    padding: 0%;
+    margin: 0%;
+}
+
+.font17 {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    text-align: center;
+}
+
+.col10 {
+    border-radius: 5px;
+    background-color: rgb(255, 122, 122);
+    font-weight: bold;
+    font-size: 60px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    padding: 10px;
+}
+
+.col16 {
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 50px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+}
+
+.col11 {
+    background-color: rgb(135, 255, 189);
+}
+
+.col12 {
+    background-color: rgb(255, 80, 80);
+}
+
+.col13 {
+    background-color: rgb(7, 220, 103);
+}
+
+.col14 {
+    background-color: #ff9100;
+}
+
+.col15 {
+    background-color: #fff200;
+}
