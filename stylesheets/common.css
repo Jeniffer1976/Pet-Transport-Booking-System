@@ -324,3 +324,56 @@ rect {
     color: #ffffff;
     letter-spacing: 0.2em;
 }
+
+
+.errScreen_wrapper,
+.errScreen_wrapper .shadow {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+}
+
+.errScreen_wrapper {
+    position: fixed;
+    visibility: hidden;
+}
+
+.errScreen_wrapper .shadow {
+    position: absolute;
+    background: rgba(0, 0, 0, .8);
+    transition: 0.2s ease;
+    opacity: 0;
+}
+
+.errScreen_wrapper .err_wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FF9544;
+    padding: 50px;
+    /* display: flex; */
+    align-items: center;
+    border-radius: 20px;
+    transition: 0.5s ease;
+    z-index: 2;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: large;
+
+}
+
+.errScreen_wrapper.active {
+    visibility: visible;
+}
+
+.errScreen_wrapper.active .shadow {
+    opacity: 1;
+}
+
+.errScreen_wrapper.active .err_wrap {
+    transform: translate(-50%, -50%);
+}

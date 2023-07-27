@@ -99,8 +99,8 @@ if ($role != 'admin') { ?>
                                     style="object-fit: cover; border-radius: 50%;"> -->
                                 <!-- <img src="data:image/jpg;charset=utf8;base64,<?php // echo base64_encode($profile); ?>" height="40" width="40"
                                     style="object-fit: cover; border-radius: 50%;"> -->
-                                    <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile))?>" height="40" width="40"
-                                    style="object-fit: cover; border-radius: 50%;">
+                                <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile)) ?>"
+                                    height="40" width="40" style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
                                 <img src="images/person.svg" height="35" width="35">
 
@@ -139,10 +139,22 @@ if ($role != 'admin') { ?>
                 </ul>
                 <div>
                     <?php
-                    if ($role != 'admin') { ?>
-                        <button type="button" class="btn rounded-pill gradient2 req-text"
-                            onclick="document.location='requestquote.php'">Request a quote</button>
-                    <?php } ?>
+                    if ($role != 'admin') {
+                        if (isset($_SESSION['username'])) {
+                            ?>
+
+                            <button type="button" class="btn rounded-pill gradient2 req-text" onclick="location.href='requestquote.php'">Request a
+                                quote</button>
+                            <?php
+                        } else {
+                            ?>
+                            <button type="button" class="btn rounded-pill gradient2 req-text" onclick="openReqErr()">Request a
+                                quote</button>
+                            
+                            <?php
+                        }
+                    } 
+                    ?>
                 </div>
             </div>
         </nav>

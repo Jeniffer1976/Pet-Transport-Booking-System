@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Waggin Wheels</title>
 
-    <link rel="icon" type="image/x-icon" href="/images/logoNoText.ico">
+    <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -26,6 +26,18 @@
 </head>
 
 <body>
+    <div class="errScreen_wrapper">
+        <div class="shadow"></div>
+        <div class="err_wrap">
+            <p>Please login to request a quote.
+                <i class="far fa-smile"></i>
+            </p>
+            <div align="center">
+                <button class="btn" style="display" onclick="location.href='signIn.php'">
+                    Login <i class="fas fa-sign-in-alt"></i></button>
+            </div>
+        </div>
+    </div>
 
     <!-- Navbar -->
     <?php include "navbar.php" ?>
@@ -43,12 +55,12 @@
                         <label for="firstName" class="form-label para">First Name:</label>
 
                         <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
-                            <input id='firstName' type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny"
-                                required value='<?php echo $_SESSION['firstName'] ?>'>
+                            <input id='firstName' type="text" class="form-control rounded-pill" name="firstName"
+                                placeholder="Johnny" required value='<?php echo $_SESSION['firstName'] ?>'>
 
                         <?php } else { ?>
-                            <input id='firstName' type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny"
-                            required  >
+                            <input id='firstName' type="text" class="form-control rounded-pill" name="firstName"
+                                placeholder="Johnny" required>
                         <?php } ?>
 
                     </div>
@@ -56,12 +68,12 @@
                         <label for="lastName" class="form-label para">Last Name:</label>
 
                         <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
-                            <input id='lastName' type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis"
-                            required value='<?php echo $_SESSION['lastName'] ?>'>
+                            <input id='lastName' type="text" class="form-control rounded-pill" name="lastName"
+                                placeholder="Leuwis" required value='<?php echo $_SESSION['lastName'] ?>'>
 
                         <?php } else { ?>
-                            <input id='lastName'  type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis"
-                            required >
+                            <input id='lastName' type="text" class="form-control rounded-pill" name="lastName"
+                                placeholder="Leuwis" required>
                         <?php } ?>
 
                     </div>
@@ -69,19 +81,20 @@
                         <label for="email" class="form-label para">Email:</label>
 
                         <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
-                            <input id='email' type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com"
-                            required  value='<?php echo $_SESSION['email'] ?>'>
+                            <input id='email' type="email" class="form-control rounded-pill" name="email"
+                                placeholder="test@email.com" required value='<?php echo $_SESSION['email'] ?>'>
 
                         <?php } else { ?>
-                            <input id='email' type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com"
-                            required  >
+                            <input id='email' type="email" class="form-control rounded-pill" name="email"
+                                placeholder="test@email.com" required>
                         <?php } ?>
 
                     </div>
                     <div class="col-12">
                         <label for="message" class="form-label para mt-4" align="left">
                             Message:</label>
-                        <textarea name="message" rows="4" cols="50" class="form-control rounded" list='addInfoList' required >
+                        <textarea name="message" rows="4" cols="50" class="form-control rounded" list='addInfoList'
+                            required>
                         </textarea>
                     </div>
                     <div class="col-12 text-center form-group">
