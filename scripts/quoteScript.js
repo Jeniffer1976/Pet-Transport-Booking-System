@@ -86,74 +86,74 @@ function validateForm() {
 
 $(document).ready(function () {
 
-  $("#servicetype").change(function(){
+  $("#servicetype").change(function () {
     if (this.value == "regular") {
       $('.serviceQty').css({
         opacity: '1'
-       });
+      });
     } else {
       $('.serviceQty').css({
         opacity: '0'
-       });  
-       $('#serviceQty').val("1");
+      });
+      $('#serviceQty').val("1");
     }
   });
 
   $('#submitReq').click(function () {
     // if (validateForm == false) {
-      $('#reqForm').submit(function (e) {
-        e.preventDefault();
-        $.ajax({
-          url: 'reqFormAction.php',
-          method: 'post',
-          data: $(this).serialize(),
-          success: function (response) {
-            console.log(response);
-          }
+    $('#reqForm').submit(function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: 'reqFormAction.php',
+        method: 'post',
+        data: $(this).serialize(),
+        success: function (response) {
+          console.log(response);
+        }
 
-        })
-      });
-
-      const nav = document.querySelector("nav");
-      const endScreen_wrapper = document.querySelector(".endScreen_wrapper");
-
-      nav.classList.contains("sticky-top") &&
-        nav.classList.remove("sticky-top");
-
-      endScreen_wrapper.classList.add("active");
-
-      $('html, body').css({
-        overflow: 'hidden'
-       });
-      $('.endScreen_wrapper').on('scroll touchmove mousewheel', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
       })
+    });
+
+    const nav = document.querySelector("nav");
+    const endScreen_wrapper = document.querySelector(".endScreen_wrapper");
+
+    nav.classList.contains("sticky-top") &&
+      nav.classList.remove("sticky-top");
+
+    endScreen_wrapper.classList.add("active");
+
+    $('html, body').css({
+      overflow: 'hidden'
+    });
+    $('.endScreen_wrapper').on('scroll touchmove mousewheel', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    })
     // }
   });
-  $("#tickSI").change(function(){
+  $("#tickSI").change(function () {
     if (this.checked) {
       $("#firstNameSI").val(firstname)
       $("#lastNameSI").val(lastname)
       $("#emailSI").val(email)
       $("#contactSI").val(mobile)
 
-      $("#firstNameSI").attr("disabled","disabled")
-      $("#lastNameSI").attr("disabled","disabled")
-      $("#emailSI").attr("disabled","disabled")
-      $("#contactSI").attr("disabled","disabled")
-    } 
+      $("#firstNameSI").attr("disabled", "disabled")
+      $("#lastNameSI").attr("disabled", "disabled")
+      $("#emailSI").attr("disabled", "disabled")
+      $("#contactSI").attr("disabled", "disabled")
+    }
     else {
       $("#firstNameSI").val("")
       $("#lastNameSI").val("")
       $("#emailSI").val("")
       $("#contactSI").val("")
 
-      $("#firstNameSI").removeAttr("disabled","disabled")
-      $("#lastNameSI").removeAttr("disabled","disabled")
-      $("#emailSI").removeAttr("disabled","disabled")
-      $("#contactSI").removeAttr("disabled","disabled")
+      $("#firstNameSI").removeAttr("disabled", "disabled")
+      $("#lastNameSI").removeAttr("disabled", "disabled")
+      $("#emailSI").removeAttr("disabled", "disabled")
+      $("#contactSI").removeAttr("disabled", "disabled")
     }
   });
 
@@ -182,29 +182,65 @@ $(document).ready(function () {
   //   }
   // });
 
-  $("#tickRI").change(function(){
+  $("#tickRI").change(function () {
     if (this.checked) {
       $("#firstNameRI").val(firstname)
       $("#lastNameRI").val(lastname)
       $("#emailRI").val(email)
       $("#contactRI").val(mobile)
 
-      $("#firstNameRI").attr("disabled","disabled")
-      $("#lastNameRI").attr("disabled","disabled")
-      $("#emailRI").attr("disabled","disabled")
-      $("#contactRI").attr("disabled","disabled")
-    } 
+      $("#firstNameRI").attr("disabled", "disabled")
+      $("#lastNameRI").attr("disabled", "disabled")
+      $("#emailRI").attr("disabled", "disabled")
+      $("#contactRI").attr("disabled", "disabled")
+    }
     else {
       $("#firstNameRI").val("")
       $("#lastNameRI").val("")
       $("#emailRI").val("")
       $("#contactRI").val("")
 
-      $("#firstNameRI").removeAttr("disabled","disabled")
-      $("#lastNameRI").removeAttr("disabled","disabled")
-      $("#emailRI").removeAttr("disabled","disabled")
-      $("#contactRI").removeAttr("disabled","disabled")
+      $("#firstNameRI").removeAttr("disabled", "disabled")
+      $("#lastNameRI").removeAttr("disabled", "disabled")
+      $("#emailRI").removeAttr("disabled", "disabled")
+      $("#contactRI").removeAttr("disabled", "disabled")
     }
   });
 
+  // $(".switch").change(function(){
+  //   if (document.getElementById("switch").checked) {
+  //     $('.secondpickup').css({
+  //       opacity: '1'
+  //      });
+  //   } else {
+  //     $('.secondpickup').css({
+  //       opacity: '0'
+  //      });  
+  //      $('#secondpickup').val("1");
+  //   }
+  // });
 });
+
+function toggleclicked() {
+  var checkBox = document.getElementById("switch");
+  var secondpickup = document.getElementById("wholesecpickup");
+
+  if (checkBox.checked == true) {
+    
+    // secondpickup.style.display = "block";
+    $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
+      display: "block"
+    });
+    $('.wholepickup').css({
+      display: "none"
+    });
+  } else {
+   
+    $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
+      display: "none"
+    });
+    $('.wholepickup').css({
+      display: "block"
+    });
+  }
+}

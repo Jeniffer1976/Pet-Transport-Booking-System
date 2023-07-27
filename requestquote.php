@@ -192,7 +192,23 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                 </div>
             </div>
             <div class="form-step">
-                <h3 class="header2 m-0 pb-3" align="left">PICK UP INFORMATION</h3>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="header2 m-0 pb-3" align="left">PICK UP INFORMATION</h3>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-8 toggletext" align="right">One-Way</div>
+                            <div class="col-sm-2">
+                                <label class="switch">
+                                    <input type="checkbox" id="switch" onclick="toggleclicked()">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="col-sm-2 toggletext" align="left">Two-Way</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container-fluid d-flex justify-content-center">
                     <div class="inverse full-bleed overflow-hidden" id="form">
                         <div class="row g-3 gx-5">
@@ -208,21 +224,48 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                     <div class="col-md">
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="firstpickup" class="form-label para" align="left">First pick up
-                                            time:</label>
-                                        <input type="time" id="firstpickup" class="form-control rounded-pill para"
-                                            name="firstpickup[]" required>
+                                    <!-- <div class="pickups" style="display:none"> -->
+                                        <!-- <div class="pickups row"> -->
+                                            <div class="col-md-6">
+                                                <label for="firstpickup" class="form-label para" align="left">First pick
+                                                    up
+                                                    time:</label>
+                                                <input type="time" id="firstpickup"
+                                                    class="form-control rounded-pill para" name="firstpickup[]"
+                                                    >
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="secondpickup" class="form-label para" align="left">Second
+                                                    pick
+                                                    up
+                                                    time:</label>
+                                                <input type="time" id="secondpickup"
+                                                    class="form-control rounded-pill para" name="secondpickup[]"
+                                                    >
+                                            </div>
+                                        <!-- </div> -->
+                                    <!-- </div> -->
+
+                                </div>
+
+                            </div>
+                            <div class="wholepickup">
+                                <div class="row">
+                                    <div class="col-md">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="secondpickup" class="form-label para" align="left">Second pick
-                                            up
-                                            time:</label>
-                                        <input type="time" id="secondpickup" class="form-control rounded-pill para"
-                                            name="secondpickup[]" required>
+                                                <label for="firstpickup" class="form-label para" align="left">Pick
+                                                    up
+                                                    time:</label>
+                                                <input type="time" id="firstpickup"
+                                                    class="form-control rounded-pill para" name="firstpickup[]"
+                                                    >
+                                            </div>
+                                    <div class="col-md">
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12">
                                 <label for="pickupaddress" class="form-label para" align="left">Address:</label>
                                 <input id="pickupaddress" class="form-control rounded-pill" name="pickupaddress"
@@ -527,7 +570,8 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     <div class="col-12">
                                         <label for="addInfo" class="form-label para mt-4" align="left">Additional
                                             Comments:</label>
-                                        <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded" list='addInfoList'>
+                                        <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded"
+                                            list='addInfoList'>
                                         </textarea>
                                     </div>
 
