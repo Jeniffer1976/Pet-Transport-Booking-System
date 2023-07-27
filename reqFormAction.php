@@ -162,7 +162,7 @@ mysqli_query($link, $insertQuoteQuery) or die(mysqli_error($link));
 
 $lastest_quoteId = mysqli_insert_id($link);
 
-$conn = new PDO('mysql:host=localhost;dbname=waggingwheel_v1', 'root', '');
+$conn = new PDO('mysql:host=localhost;dbname=id20783214_wagginwheeldb', 'root', '');
 
 foreach ($_POST['pickup'] as $key => $value) {
     $pickUpSql = "INSERT INTO  pickup_details (quote_id, pickUp_date, first_pickUp_time, second_pickUp_time) 
