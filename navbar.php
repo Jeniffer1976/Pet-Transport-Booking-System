@@ -138,22 +138,26 @@ if ($role != 'admin') { ?>
                     </li>
                 </ul>
                 <div>
+                <i class="fas fa-bell inboxicon" onclick="document.location='inbox.php'"></i>
+                </div>
+                <div>
                     <?php
                     if ($role != 'admin') {
                         if (isset($_SESSION['username'])) {
                             ?>
 
-                            <button type="button" class="btn rounded-pill gradient2 req-text" onclick="location.href='requestquote.php'">Request a
+                            <button type="button" class="btn rounded-pill gradient2 req-text"
+                                onclick="location.href='requestquote.php'">Request a
                                 quote</button>
                             <?php
                         } else {
                             ?>
                             <button type="button" class="btn rounded-pill gradient2 req-text" onclick="openReqErr()">Request a
                                 quote</button>
-                            
+
                             <?php
                         }
-                    } 
+                    }
                     ?>
                 </div>
             </div>
