@@ -19,12 +19,23 @@ function openReqErr() {
     const errScreen_wrapper = document.querySelector(".errScreen_wrapper");
 
     nav.classList.contains("sticky-top") &&
-      nav.classList.remove("sticky-top");
+        nav.classList.remove("sticky-top");
 
-      errScreen_wrapper.classList.add("active");
+    errScreen_wrapper.classList.add("active");
 
     $('html, body').css({
-      overflow: 'hidden'
+        overflow: 'hidden'
+    });
+
+    $('.shadow').click(function () {
+        // if (validateForm == false) {
+        nav.classList.add("sticky-top")
+        // errScreen_wrapper.classList.contains("active") &&
+        errScreen_wrapper.classList.remove("active");
+        $('body').css({
+            overflow: 'auto'
+        });
+
     });
 
 
