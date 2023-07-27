@@ -405,13 +405,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <?php
-                                for ($u = 0; $u < count($pickupContent); $u++) {
-                                    $pickUp_date = $pickupContent[$u]['pickUp_date'];
-                                    $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
-                                    $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
-                                    ?>
-                                    <div class="row mt-4">
+                                <div class="row">
                                         <div class="col">
                                             <p>Type of service:</p>
                                         </div>
@@ -421,13 +415,20 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                <?php
+                                for ($u = 0; $u < count($pickupContent); $u++) {
+                                    $pickUp_date = $pickupContent[$u]['pickUp_date'];
+                                    $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
+                                    $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
+                                    ?>
+                                    
+                                    <div class="row mt-4">
                                         <div class="col">
                                             <p>Pickup date:</p>
                                         </div>
                                         <div class="col">
                                             <p>
-                                                <?php echo $pickUp_date ?>
+                                                <?php echo date("d/m/Y", strtotime($pickUp_date)) ?>
                                             </p>
                                         </div>
                                     </div>
