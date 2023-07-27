@@ -102,8 +102,8 @@
 
 .quoteTable {
     margin-top: -90vh;
-    margin-left: 30vw;
-    width: 64vw;
+    margin-left: 20vw;
+    width: 75vw;
 
 }
 
@@ -147,3 +147,28 @@
     background-color: #214522;
 }
 
+.filterMonth select{
+    border: 3px solid #1e3d76;
+    border-radius: 25px;
+    padding: 5px;
+    color: #1a4699;
+}
+
+#submitFilter {
+    background-color: #1a4699;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 25px;
+    width: 110px;
+    transition: .2s;
+
+}
+
+#submitFilter:hover {
+    background-color: #1E53B3;
+}
+
+.filterMonth-text {
+    color:#1a4699
+}
