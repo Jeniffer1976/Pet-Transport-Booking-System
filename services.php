@@ -26,7 +26,23 @@
 </head>
 
 <body>
-
+    <div class="errScreen_wrapper">
+        <div class="shadow"></div>
+        <div class="err_wrap">
+            <p>Please login to request a quote.
+                <i class="far fa-smile"></i>
+            </p>
+            <div align="center">
+                <button class="btn" style="display" onclick="location.href='signIn.php'">
+                    Login <i class="fas fa-sign-in-alt"></i>
+                </button>
+                <br>
+                <button class="btn" style="display" onclick="location.href='signUp.php'">
+                    New user? Sign up now! <i class="fas fa-user-plus"></i>
+                </button>
+            </div>
+        </div>
+    </div>
     <!-- Navbar -->
     <?php include "navbar.php" ?>
     <!--  -->
@@ -143,11 +159,11 @@
                 </div>
             </div>
         </div>
-    <!--  -->
+        <!--  -->
 
 
-    <!-- Ad-hoc Service Section -->
-    <hr>
+        <!-- Ad-hoc Service Section -->
+        <hr>
         <div class="container" id="adhoc">
             <div class="row">
                 <div class="col-4">
@@ -224,27 +240,29 @@
                     </div>
                     </p>
                 </div>
-    <!--  -->
+            </div>
+        </div>
+        <!--  -->
 
 
-    <!-- Request a Quote button -->
+        <!-- Request a Quote button -->
 
-    <!--  -->
+        <!--  -->
 
 
-    <!-- Footer -->
-    <?php include("footer.php") ?>
-    <!--  -->
+        <!-- Footer -->
+        <?php include("footer.php") ?>
+        <!--  -->
 
-    <!-- Background -->
-    <div class="bgclass">
-        <div class="gradient"></div>
-    </div>
-    <!--  -->
+        <!-- Background -->
+        <div class="bgclass">
+            <div class="gradient"></div>
+        </div>
+        <!--  -->
 
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scripts/script.js"></script>
+        <!-- Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="scripts/script.js"></script>
 
 </body>
 

@@ -121,43 +121,113 @@ $tripToggle = $_POST['tripToggle'];
 $tickRI = $_POST['tickRI'];
 
 //save to database
+$SIExists = false;
+$SRExists = false;
+
+$SIExistId = "";
+$SRExistId = "";
+
+// $insertSIQuery = "";
+// $insertRIQuery = "";
+
 if (isset($tickSI)) {
-    $insertSIQuery = "INSERT INTO senderrecipient_details 
-    (sr_id, first_name, last_name, contact, email) 
-    VALUES 
-    (NULL, '$owner_fnameSession', '$owner_lnameSession', '$owner_mobileSession', '$owner_emailSession');";
+    $SIExistQuery = "SELECT sr_id FROM senderrecipient_details 
+                    WHERE contact = '$owner_mobileSession' 
+                    AND email = '$owner_emailSession'";
+    $SIExistStatus = mysqli_query($link, $SIExistQuery) or die(mysqli_error($link));
+
+
+    if (mysqli_num_rows($SIExistStatus) == 1) {
+        $row = mysqli_fetch_array($SIExistStatus);
+        $SIExistId = $row['sr_id'];
+        $SIExists = true;
+    } else {
+        $insertSIQuery = "INSERT INTO senderrecipient_details 
+        (sr_id, first_name, last_name, contact, email)  
+        VALUES 
+        (NULL, '$owner_fnameSession', '$owner_lnameSession', '$owner_mobileSession', '$owner_emailSession');";
+        $insertSIStatus = mysqli_query($link, $insertSIQuery) or die(mysqli_error($link));
+        $lastest_SIid = mysqli_insert_id($link);
+
+    }
+
+
 } else {
-    $insertSIQuery = "INSERT INTO senderrecipient_details 
-    (sr_id, first_name, last_name, contact, email) 
-    VALUES 
-    (NULL, '$firstNameSI', '$lastNameSI', '$contactSI', '$emailSI');";
+
+    $SIExistQuery = "SELECT sr_id FROM senderrecipient_details 
+                    WHERE contact = '$contactSI' 
+                    AND email = '$emailSI'";
+    $SIExistStatus = mysqli_query($link, $SIExistQuery) or die(mysqli_error($link));
+
+
+    if (mysqli_num_rows($SIExistStatus) == 1) {
+        $row = mysqli_fetch_array($SIExistStatus);
+        $SIExistId = $row['sr_id'];
+        $SIExists = true;
+    } else {
+        $insertSIQuery = "INSERT INTO senderrecipient_details 
+        (sr_id, first_name, last_name, contact, email) 
+        VALUES 
+        (NULL, '$firstNameSI', '$lastNameSI', '$contactSI', '$emailSI');";
+        $insertSIStatus = mysqli_query($link, $insertSIQuery) or die(mysqli_error($link));
+        $lastest_SIid = mysqli_insert_id($link);
+
+    }
+
 }
 
-$insertSIStatus = mysqli_query($link, $insertSIQuery) or die(mysqli_error($link));
 // $SIrow = mysqli_fetch_array($insertSIStatus);
 // $lastest_SIid = $SIrow['last_insert_id()'];
-$lastest_SIid = mysqli_insert_id($link);
+
 
 // $latest_SIidQuery = "SELECT MAX(sr_id) AS latest_sr_id FROM senderrecipient_details";
 if (isset($tickRI)) {
-    $insertRIQuery = "INSERT INTO senderrecipient_details 
-    (sr_id, first_name, last_name, contact, email) 
-    VALUES 
-    (NULL, '$owner_fnameSession', '$owner_lnameSession', '$owner_mobileSession', '$owner_emailSession');
-    ";
+    $SRExistQuery = "SELECT sr_id FROM senderrecipient_details 
+                    WHERE contact = '$owner_mobileSession' 
+                    AND email = '$owner_emailSession'";
+    $SRExistStatus = mysqli_query($link, $SRExistQuery) or die(mysqli_error($link));
+
+    if (mysqli_num_rows($SRExistStatus) == 1) {
+        $row = mysqli_fetch_array($SRExistStatus);
+        $SRExistId = $row['sr_id'];
+        $SRExists = true;
+    } else {
+        $insertRIQuery = "INSERT INTO senderrecipient_details 
+        (sr_id, first_name, last_name, contact, email) 
+        VALUES 
+        (NULL, '$owner_fnameSession', '$owner_lnameSession', '$owner_mobileSession', '$owner_emailSession');
+        ";
+        $insertRIStatus = mysqli_query($link, $insertRIQuery) or die(mysqli_error($link));
+        $lastest_RIid = mysqli_insert_id($link);
+
+    }
+
 } else {
-    $insertRIQuery = "INSERT INTO senderrecipient_details 
-    (sr_id, first_name, last_name, contact, email) 
-    VALUES 
-    (NULL, '$firstNameRI', '$lastNameRI', '$contactRI', '$emailRI');
-    ";
+
+    $SRExistQuery = "SELECT sr_id FROM senderrecipient_details 
+    WHERE contact = '$contactRI' 
+    AND email = '$emailRI'";
+    $SRExistStatus = mysqli_query($link, $SRExistQuery) or die(mysqli_error($link));
+
+    if (mysqli_num_rows($SRExistStatus) == 1) {
+        $row = mysqli_fetch_array($SRExistStatus);
+        $SRExistId = $row['sr_id'];
+        $SRExists = true;
+    } else {
+        $insertRIQuery = "INSERT INTO senderrecipient_details 
+        (sr_id, first_name, last_name, contact, email) 
+        VALUES 
+        (NULL, '$firstNameRI', '$lastNameRI', '$contactRI', '$emailRI');
+        ";
+        $insertRIStatus = mysqli_query($link, $insertRIQuery) or die(mysqli_error($link));
+        $lastest_RIid = mysqli_insert_id($link);
+
+    }
 }
 
 
-$insertRIStatus = mysqli_query($link, $insertRIQuery) or die(mysqli_error($link));
 // $RIrow = mysqli_fetch_array($insertRIStatus);
 // $lastest_RIid = $RIrow['last_insert_id()'];
-$lastest_RIid = mysqli_insert_id($link);
 // $latest_RIidQuery = "SELECT MAX(sr_id) AS latest_sr_id FROM senderrecipient_details";
 
 // $insertPDQuery = "INSERT INTO pickup_details 
@@ -174,16 +244,26 @@ $lastest_RIid = mysqli_insert_id($link);
 // $latest_picukUpidQuery = "SELECT MAX(pickUp_id) AS latest_pickUp_id FROM pickup_details";
 $owner_id = $_SESSION['owner_id'];
 
+if ($SIExists) {
+    $insertSIid = $SIExistId;
+} else {
+    $insertSIid = $lastest_SIid;
+}
+
+if ($SRExists) {
+    $insertSRid = $SRExistId;
+} else {
+    $insertSRid = $lastest_RIid;
+}
+
 $insertQuoteQuery = "INSERT INTO quote 
-    (`quote_id`, `owner_id`, `service_type`, `pickUp_address`, `dropOff_address`, `sender_id`, `recipient_id`) 
+    (`quote_id`, `owner_id`, `service_type`, `pickUp_address`, `dropOff_address`, `sender_id`, `recipient_id`, `status`) 
     VALUES 
-    (NULL, '$owner_id', '$servicetype', '$pickupaddress', '$dropoffaddress', '$lastest_SIid', '$lastest_RIid')";
+    (NULL, '$owner_id', '$servicetype', '$pickupaddress', '$dropoffaddress', '$insertSIid', '$insertSRid', 'unassigned')";
 
 mysqli_query($link, $insertQuoteQuery) or die(mysqli_error($link));
 
 $lastest_quoteId = mysqli_insert_id($link);
-
-$conn = new PDO('mysql:host=localhost;dbname=id20783214_wagginwheeldb', 'root', '');
 
 foreach ($_POST['pickupdate'] as $key => $value) {
     $pickUpSql = "INSERT INTO  pickup_details (quote_id, pickUp_date, first_pickUp_time, second_pickUp_time) 
