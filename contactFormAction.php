@@ -19,8 +19,6 @@ $mail = new PHPMailer(true);
 try {
     $to = base64_decode('bWlsa3RvYXN0dGVhbUBnbWFpbC5jb20=');
     $email_subject = 'New Query submission for Waggin Wheels';
-    $email_body = "You have received a new message from the user: $fname $lname.\n" .
-    "Here is the message:\n $message" .
 
     // Server settings
     $mail->SMTPDebug = SMTP::DEBUG_SERVER; // for detailed debug output
@@ -41,7 +39,8 @@ try {
     //Setting the email content
     $mail->IsHTML(true);
     $mail->Subject=$email_subject;
-    $mail->Body=$email_body;
+    $mail->Body="You have received a new message from the user: <b>$fname $lname</b>.<br><br>" .
+    "Here is the message:<br> $message";
 
     $mail->send();
     echo "Email message sent.";

@@ -50,64 +50,71 @@
 
         <section class="inverse full-bleed overflow-hidden" id="contactForm">
             <div class="container-fluid d-flex justify-content-center">
-                <form class="row g-3 gx-5" method="post" action="contactFormAction.php" enctype="multipart/form-data">
-                    <div class="col-md-6">
-                        <label for="firstName" class="form-label para">First Name:</label>
-
-                        <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
-                            <input id='firstName' type="text" class="form-control rounded-pill" name="firstName"
-                                placeholder="Johnny" required value='<?php echo $_SESSION['firstName'] ?>'>
-
-                        <?php } else { ?>
-                            <input id='firstName' type="text" class="form-control rounded-pill" name="firstName"
-                                placeholder="Johnny" required>
-                        <?php } ?>
-
+                <div class='row'>
+                    <div class='col-md-6'>
+                        <img src="images/callDog.png" alt="Dog Calling" width='450' height='450'>
                     </div>
-                    <div class="col-md-6">
-                        <label for="lastName" class="form-label para">Last Name:</label>
 
-                        <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
-                            <input id='lastName' type="text" class="form-control rounded-pill" name="lastName"
-                                placeholder="Leuwis" required value='<?php echo $_SESSION['lastName'] ?>'>
+                    <div class='col-md-6'>
+                        <form class="row g-3 gx-5" method="POST" action="https://formspree.io/f/mqkvezng">
+                            <div class="col-md-6">
+                                <label for="firstName" class="form-label para">First Name:</label>
 
-                        <?php } else { ?>
-                            <input id='lastName' type="text" class="form-control rounded-pill" name="lastName"
-                                placeholder="Leuwis" required>
-                        <?php } ?>
+                                <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
+                                    <input id='firstName' type="text" class="form-control rounded-pill" name="firstName"
+                                        placeholder="Johnny" required value='<?php echo $_SESSION['firstName'] ?>'>
 
-                    </div>
-                    <div class="col-12">
-                        <label for="email" class="form-label para">Email:</label>
+                                <?php } else { ?>
+                                    <input id='firstName' type="text" class="form-control rounded-pill" name="firstName"
+                                     placeholder="Johnny" required>
+                                <?php } ?>
 
-                        <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
-                            <input id='email' type="email" class="form-control rounded-pill" name="email"
-                                placeholder="test@email.com" required value='<?php echo $_SESSION['email'] ?>'>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastName" class="form-label para">Last Name:</label>
 
-                        <?php } else { ?>
-                            <input id='email' type="email" class="form-control rounded-pill" name="email"
-                                placeholder="test@email.com" required>
-                        <?php } ?>
+                                <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
+                                    <input id='lastName' type="text" class="form-control rounded-pill" name="lastName"
+                                        placeholder="Leuwis" required value='<?php echo $_SESSION['lastName'] ?>'>
 
-                    </div>
-                    <div class="col-12">
-                        <label for="message" class="form-label para mt-4" align="left">
-                            Message:</label>
-                        <textarea name="message" rows="4" cols="50" class="form-control rounded" list='addInfoList'
-                            required>
+                                <?php } else { ?>
+                                    <input id='lastName' type="text" class="form-control rounded-pill" name="lastName"
+                                        placeholder="Leuwis" required>
+                                <?php } ?>
+
+                            </div>
+                            <div class="col-12">
+                                <label for="email" class="form-label para">Email:</label>
+
+                                <?php if (isset($_SESSION['username'])) { ?> <!-- if user is logged in -->
+                                    <input id='email' type="email" class="form-control rounded-pill" name="email"
+                                        placeholder="test@email.com" required value='<?php echo $_SESSION['email'] ?>'>
+
+                                <?php } else { ?>
+                                    <input id='email' type="email" class="form-control rounded-pill" name="email"
+                                        placeholder="test@email.com" required>
+                                <?php } ?>
+
+                            </div>
+                            <div class="col-12">
+                                <label for="message" class="form-label para mt-4" align="left">
+                                    Message:</label>
+                                <textarea name="message" rows="4" cols="50" class="form-control rounded"
+                                    required>
                         </textarea>
-                    </div>
-                    <div class="col-12 text-center form-group">
-                        <button id='contact' name="contact" class="btn btn-primary primarybtn rounded-pill">
-                            Submit
-                        </button>
-                        <!-- <button type="submit" name="signUp" class="btn btn-primary primarybtn rounded-pill">Submit
+                            </div>
+                            <div class="col-12 text-start form-group">
+                                <button id='contact' name="contact" class="btn btn-primary primarybtn rounded-pill">
+                                    Submit
+                                </button>
+                                <!-- <button type="submit" name="signUp" class="btn btn-primary primarybtn rounded-pill">Submit
                             <a id='contact' href=''></a>
                         </button> -->
+                            </div>
+                        </form>
                     </div>
-                </form>
 
-
+                </div>
             </div>
 
             <!-- <?php //if (isset($message)) { ?>
