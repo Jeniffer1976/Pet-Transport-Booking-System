@@ -1,5 +1,6 @@
 <?php
-include "loginFunctions.php";
+session_start();
+include("dbFunctions.php");
 
 if (isset($_SESSION['username'])) {
     if (!($role = "admin")) {
@@ -9,6 +10,82 @@ if (isset($_SESSION['username'])) {
 } else {
     header("Location: signIn.php");
     exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed wait then
+
+    $message = "";
+    $isSuccessful = false;
+    $pickupaddress = $_POST['pickUpAddress'];
+    $firstNameSI = $_POST['s_fname'];
+    $lastNameSI = $_POST['s_lname'];
+    $contactSI = $_POST['s_phone'];
+    $emailSI = $_POST['s_email'];
+
+    $quoteId = $_GET['quote_id'];
+
+    // Get the SR_id
+    $getSRId = "SELECT sr_id FROM senderrecipient_details SR
+    INNER JOIN quote Q
+    ON Q.sender_id = SR.sr_id
+    WHERE Q.quote_id = '$quoteId'";
+
+    $getSRidStatus = mysqli_query($link, $getSRId) or die(mysqli_error($link));
+
+    while ($row = mysqli_fetch_row($getSRidStatus)) {
+        $sr_id = $row[0];
+    }
+
+    if ($getSRId) {
+        // Sender's Information
+        $updateSIQuery = "UPDATE senderrecipient_details
+        SET first_name = '$firstNameSI', last_name = '$lastNameSI', 
+        contact='$contactSI', email = '$emailSI'
+        WHERE sr_id = '$sr_id';";
+
+        $updateSIStatus = mysqli_query($link, $updateSIQuery) or die(mysqli_error($link));
+    }
+
+    // Pick Up Address
+    $updatePickUpQuery = "UPDATE quote 
+    SET pickUp_address = '$pickupaddress'
+    WHERE quote_id='$quoteId'";
+
+    $updatePickUpStatus = mysqli_query($link, $updatePickUpQuery) or die(mysqli_error($link));
+
+    $conn = new PDO('mysql:host=localhost;dbname=id20783214_wagginwheeldb', 'root', '');
+
+    // Pick Up Information (Time & Date)
+    foreach ($_POST['pickUpDate'] as $key => $value) {
+        $pickUpSql = "UPDATE pickup_details 
+        SET pickUp_date = :pickupDate, first_pickUp_time = :firstPickup, second_pickUp_time = :secondPickup
+        WHERE quote_id='$quoteId'";
+
+        $petStmt = $conn->prepare($pickUpSql);
+
+        if ($_POST['secondpickup'] != 'null') {
+            $petStmt->execute([
+                'pickupDate' => $value,
+                'firstPickup' => $_POST['firstpickup'][$key],
+                'secondPickup' => $_POST['secondpickup'][$key],
+            ]);
+        } else {
+            $petStmt->execute([
+                'pickupDate' => $value,
+                'firstPickup' => $_POST['onepickup'][$key],
+                'secondPickup' => null,
+            ]);
+        }
+
+    }
+
+    if ($updatePickUpStatus && $petStmt) {
+        $message = "Pick Up Details have successfully been updated";
+        $isSuccessful = true;
+    } else {
+        $message = "The update was unsuccessful";
+    }
+
 }
 
 ?>
@@ -98,7 +175,7 @@ if (isset($_SESSION['username'])) {
                                     $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
                                     ?>
 
-                                    <div class="col-md-6" id="service" >
+                                    <div class="col-md-6" id="service">
                                         <label for="service" class="form-label para">Type of Service:</label>
                                         <input type="text" class="form-control rounded-pill" name="service"
                                             placeholder="<?php echo $service_type ?>" value='<?php echo $service_type ?>'
@@ -106,28 +183,30 @@ if (isset($_SESSION['username'])) {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="pickUpDate" class="form-label para">Pick Up Date:</label>
-                                        <input type="date" class="form-control rounded-pill" name="pickUpDate"
+                                        <input type="date" class="form-control rounded-pill" name="pickUpDate[]"
                                             placeholder="<?php echo $pickUp_date ?>" value='<?php echo $pickUp_date ?>'>
                                     </div>
 
                                     <?php if (is_null($second_pickUp_time)) { ?>
                                         <div class="col-md-6">
-                                            <label for="pickUpTime1" class="form-label para">Pick Up Time:</label>
-                                            <input type="time" class="form-control rounded-pill" name="pickUpTime1"
+                                            <label for="onepickup" class="form-label para">Pick Up Time:</label>
+                                            <input type="time" class="form-control rounded-pill" name="onepickup[]"
                                                 placeholder="<?php echo $first_pickUp_time ?>"
                                                 value='<?php echo $first_pickUp_time ?>'>
                                         </div>
 
+                                        <input type="hidden" class="form-control rounded-pill" name="secondpickup" value='null'>
+
                                     <?php } else { ?>
                                         <div class="col-md-6">
-                                            <label for="pickUpTime1" class="form-label para">Pick Up Time 1:</label>
-                                            <input type="time" class="form-control rounded-pill" name="pickUpTime1"
+                                            <label for="firstpickup" class="form-label para">Pick Up Time 1:</label>
+                                            <input type="time" class="form-control rounded-pill" name="firstpickup[]"
                                                 placeholder="<?php echo $first_pickUp_time ?>"
                                                 value='<?php echo $first_pickUp_time ?>'>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="pickUpTime2" class="form-label para">Pick Up Time 2:</label>
-                                            <input type="time" class="form-control rounded-pill" name="pickUpTime2"
+                                            <label for="secondpickup" class="form-label para">Pick Up Time 2:</label>
+                                            <input type="time" class="form-control rounded-pill" name="secondpickup[]"
                                                 placeholder="<?php echo $second_pickUp_time ?>"
                                                 value='<?php echo $second_pickUp_time ?>'>
                                         </div>
@@ -159,16 +238,16 @@ if (isset($_SESSION['username'])) {
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="phone" class="form-label para">Mobile Number:</label>
-                                    <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"
-                                        placeholder="<?php
+                                    <label for="s_phone" class="form-label para">Mobile Number:</label>
+                                    <input type="tel" class="form-control rounded-pill" name="s_phone"
+                                        pattern="[0-9]{8}" placeholder="<?php
                                         $mobile = strval($s_contact);
                                         $arrMobile = str_split($mobile, 4);
-                                        echo $arrMobile[0] . " " . $arrMobile[1];
+                                        echo $arrMobile[0] . $arrMobile[1];
                                         ?>" value='<?php
                                         $mobile = strval($s_contact);
                                         $arrMobile = str_split($mobile, 4);
-                                        echo $arrMobile[0] . " " . $arrMobile[1];
+                                        echo $arrMobile[0] . $arrMobile[1];
                                         ?>'>
                                 </div>
 
