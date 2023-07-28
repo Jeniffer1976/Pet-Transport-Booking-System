@@ -124,6 +124,13 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
 
     <div class="container quoteTable">
         <h2 class="header1">Customer Quotes</h2><br>
+        <div class="tableLegend" align="right">
+            <p>
+                <span class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB" >Completed Booking</span>
+                <span class="text-secondary rounded-pill p-2" style="background-color:#FFEEBA" >Payment Pending</span>
+                <span class="text-secondary rounded-pill p-2" style="background-color:#F5C6CB" >Rejected Booking</span>
+            </p>
+        </div>
         <!-- <form action="" method="post">
             <input type="text" name="filterMonth">
             <input type="submit" name="submitFilter" value="filter">
@@ -272,7 +279,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                 <td class="petCol">
                                     <?php
                                     $pet_count = count($petContent);
-                                    echo "<div>x" . $pet_count . "<br></div>";
+                                    echo "<span class='me-5 pe-3' style='font-style:italic'>No. of Pets</span>x" . $pet_count . "<br><br>";
 
                                     for ($p = 0; $p < count($petContent); $p++) {
                                         $p_firstName = $petContent[$p]['first_name'];

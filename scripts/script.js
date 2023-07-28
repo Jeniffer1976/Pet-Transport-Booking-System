@@ -23,7 +23,7 @@ function openReqErr() {
 
     errScreen_wrapper.classList.add("active");
 
-    $('html, body').css({
+    $('body').css({
         overflow: 'hidden'
     });
 

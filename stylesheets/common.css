@@ -135,6 +135,10 @@ hr.rounded {
     font-size: larger;
 }
 
+.dropdown:hover .dropdown-menu {
+    display: block !important;
+}
+
 .gradient2 {
     /* background: linear-gradient(90deg, transparent 0%, #52ffb2 100%); */
     background: linear-gradient(90deg, #6da9fa, transparent) #52ffb2;

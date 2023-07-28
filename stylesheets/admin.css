@@ -107,12 +107,12 @@
 
 }
 
-.petCol div:first-child {
+/* .petCol div:first-child {
     text-align: right;
-}
+} */
 
 .quoteTable table {
-    text-align: center;
+    text-align: left;
     line-height: 1.7;
 }
 
