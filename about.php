@@ -34,7 +34,12 @@
             </p>
             <div align="center">
                 <button class="btn" style="display" onclick="location.href='signIn.php'">
-                    Login <i class="fas fa-sign-in-alt"></i></button>
+                    Login <i class="fas fa-sign-in-alt"></i>
+                </button>
+                <br>
+                <button class="btn" style="display" onclick="location.href='signUp.php'">
+                    New user? Sign up now! <i class="fas fa-user-plus"></i>
+                </button>
             </div>
         </div>
     </div>

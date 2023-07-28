@@ -34,7 +34,12 @@
             </p>
             <div align="center">
                 <button class="btn" style="display" onclick="location.href='signIn.php'">
-                    Login <i class="fas fa-sign-in-alt"></i></button>
+                    Login <i class="fas fa-sign-in-alt"></i>
+                </button>
+                <br>
+                <button class="btn" style="display" onclick="location.href='signUp.php'">
+                    New user? Sign up now! <i class="fas fa-user-plus"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -66,7 +71,7 @@
 
                                 <?php } else { ?>
                                     <input id='firstName' type="text" class="form-control rounded-pill" name="firstName"
-                                     placeholder="Johnny" required>
+                                        placeholder="Johnny" required>
                                 <?php } ?>
 
                             </div>
@@ -99,8 +104,7 @@
                             <div class="col-12">
                                 <label for="message" class="form-label para mt-4" align="left">
                                     Message:</label>
-                                <textarea name="message" rows="4" cols="50" class="form-control rounded"
-                                    required>
+                                <textarea name="message" rows="4" cols="50" class="form-control rounded" required>
                         </textarea>
                             </div>
                             <div class="col-12 text-start form-group">
