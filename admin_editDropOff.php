@@ -111,11 +111,11 @@ if (isset($_SESSION['username'])) {
                                     placeholder="<?php
                                     $mobile = strval($r_contact);
                                     $arrMobile = str_split($mobile, 4);
-                                    echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                                    echo $arrMobile[0] . " " . $arrMobile[1];
                                     ?>" value='<?php
                                     $mobile = strval($r_contact);
                                     $arrMobile = str_split($mobile, 4);
-                                    echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                                    echo $arrMobile[0] . " " . $arrMobile[1];
                                     ?>'>
                             </div>
 

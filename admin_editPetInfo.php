@@ -144,21 +144,21 @@ if (isset($_SESSION['username'])) {
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="p_weight" class="form-label para">Age:</label>
+                                    <label for="p_weight" class="form-label para">Weight (Kg):</label>
                                     <input type="text" class="form-control rounded-pill" name="p_weight"
-                                        placeholder="<?php echo $weight . "Kg" ?>" value="<?php echo $weight . "Kg" ?>">
+                                        placeholder="<?php echo $weight ?>" value="<?php echo $weight ?>">
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="p_height" class="form-label para">Age:</label>
+                                    <label for="p_height" class="form-label para">Height (Cm):</label>
                                     <input type="text" class="form-control rounded-pill" name="p_height"
-                                        placeholder="<?php echo $height . "Cm" ?>" value="<?php echo $height . "Cm" ?>">
+                                        placeholder="<?php echo $height ?>" value="<?php echo $height ?>">
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="p_width" class="form-label para">Age:</label>
+                                    <label for="p_width" class="form-label para">Width (Cm):</label>
                                     <input type="text" class="form-control rounded-pill" name="p_width"
-                                        placeholder="<?php echo $width . "Cm" ?>" value="<?php echo $width . "Cm" ?>">
+                                        placeholder="<?php echo $width ?>" value="<?php echo $width ?>">
                                 </div>
 
                                 <div class="col-12">

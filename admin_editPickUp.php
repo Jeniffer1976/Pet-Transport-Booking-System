@@ -35,7 +35,6 @@ if (isset($_SESSION['username'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Stylesheets -->
-
     <link rel="stylesheet" href="stylesheets/common.css">
     <link rel="stylesheet" href="stylesheets/account.css">
     <link rel="stylesheet" href="stylesheets/responsive.css">
@@ -67,18 +66,18 @@ if (isset($_SESSION['username'])) {
             <div class="row">
                 <!--Sidebar-->
                 <div class="col col-4 sidebar" style="height: 38em;">
-                    <a class="nav-link nav-text" href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-user"></i>Owner
+                    <a class="nav-link nav-text" href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                            class="fa-solid fa-user"></i>Owner
                         Information</a>
                     <a class="active nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i
                             class="fa-solid fa-house"></i>Pick
                         Up Information</a>
                     <a class="nav-link nav-text" href="admin_editDropOff.php?quote_id=<?php echo $quote_id ?>"><i
                             class="fa-solid fa-location-dot"></i>Drop Off Information</a>
-                    <a class="nav-link nav-text" href="admin_editPetInfo.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-dog"></i>Pet's
+                    <a class="nav-link nav-text" href="admin_editPetInfo.php?quote_id=<?php echo $quote_id ?>"><i
+                            class="fa-solid fa-dog"></i>Pet's
                         Information</a>
                 </div>
-
-
 
                 <div class="col col-8" style="height: 38em;" id="pickUpForm">
 
@@ -99,10 +98,11 @@ if (isset($_SESSION['username'])) {
                                     $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
                                     ?>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-6" id="service" >
                                         <label for="service" class="form-label para">Type of Service:</label>
                                         <input type="text" class="form-control rounded-pill" name="service"
-                                            placeholder="<?php echo $service_type ?>" value='<?php echo $service_type ?>'>
+                                            placeholder="<?php echo $service_type ?>" value='<?php echo $service_type ?>'
+                                            disabled>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="pickUpDate" class="form-label para">Pick Up Date:</label>
@@ -114,8 +114,8 @@ if (isset($_SESSION['username'])) {
                                         <div class="col-md-6">
                                             <label for="pickUpTime1" class="form-label para">Pick Up Time:</label>
                                             <input type="time" class="form-control rounded-pill" name="pickUpTime1"
-                                                placeholder="<?php echo date("H:i a", strtotime($first_pickUp_time)) ?>"
-                                                value='<?php echo date("H:i a", strtotime($first_pickUp_time)) ?>'>
+                                                placeholder="<?php echo $first_pickUp_time ?>"
+                                                value='<?php echo $first_pickUp_time ?>'>
                                         </div>
 
                                     <?php } else { ?>
@@ -164,11 +164,11 @@ if (isset($_SESSION['username'])) {
                                         placeholder="<?php
                                         $mobile = strval($s_contact);
                                         $arrMobile = str_split($mobile, 4);
-                                        echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                                        echo $arrMobile[0] . " " . $arrMobile[1];
                                         ?>" value='<?php
                                         $mobile = strval($s_contact);
                                         $arrMobile = str_split($mobile, 4);
-                                        echo '+65 ' . $arrMobile[0] . " " . $arrMobile[1];
+                                        echo $arrMobile[0] . " " . $arrMobile[1];
                                         ?>'>
                                 </div>
 
@@ -223,6 +223,22 @@ if (isset($_SESSION['username'])) {
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/sidebarscript.js"></script>
+
+    <!-- Add the CDN link for Tippy.js and Popper here -->
+    <!-- Production -->
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" />
+
+    <script>
+        tippy('#service', {
+            placement: 'bottom',
+            allowHTML: true,
+            content: "This field cannot be changed",
+            animation: 'scale-extreme',
+        });
+    </script>
 </body>
 
 </html>
