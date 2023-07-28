@@ -53,8 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
 
     $updatePickUpStatus = mysqli_query($link, $updatePickUpQuery) or die(mysqli_error($link));
 
-    $conn = new PDO('mysql:host=localhost;dbname=id20783214_wagginwheeldb', 'root', '');
-
     // Pick Up Information (Time & Date)
     foreach ($_POST['pickUpDate'] as $key => $value) {
         $pickUpSql = "UPDATE pickup_details 
