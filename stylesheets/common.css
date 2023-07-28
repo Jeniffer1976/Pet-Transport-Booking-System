@@ -395,3 +395,13 @@ rect {
     height: 250px;
     width: 250px;
 }
+
+.inboxicon{
+    font-size: 30px;
+    color: #1E53B3;
+    padding-left: 8px;
+}
+
+.inboxicon:hover{
+    filter: grayscale(70%);
+}
