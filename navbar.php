@@ -102,7 +102,7 @@ if ($role != 'admin') { ?>
                                 <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile)) ?>"
                                     height="40" width="40" style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
-                                <img src="images/person.svg" height="35" width="35">
+                                <i class="fas fa-user-circle profileicon"></i>
 
                             <?php } ?>
                         </a>
@@ -137,9 +137,20 @@ if ($role != 'admin') { ?>
                             </ul>
                     </li>
                 </ul>
+                <!-- inbox logo -->
                 <div>
-                <i class="fas fa-bell inboxicon" onclick="document.location='inbox.php'"></i>
+                    <!-- <i class="fas fa-bell inboxicon" onclick="document.location='inbox.php'"></i> -->
+                    <span class="fa-stack inboxwhole" onclick="document.location='inbox.php'">
+                        <i class="fas fa-circle fa-stack-2x inboxbg"></i>
+                        <i class="fas fa-bell fa-stack-1x inboxbell"></i>
+                    </span>
                 </div>
+
+                <!-- faq logo -->
+                <div>
+                    <i class="fas fa-question-circle faqicon" onclick="document.location='faq.php'"></i>
+                </div>
+
                 <div>
                     <?php
                     if ($role != 'admin') {
