@@ -100,14 +100,11 @@
     <div class="quoteScreen_wrapper">
         <div class="shadow"></div>
         <div class="quote_wrap">
-            <div class="row">
-                <div class="col-11"></div>
-                <div class="col">
-                    <button type="button" onclick="exitAnim()" class="exitBtn">
-                        <i class="fas fa-times text-secondary"></i>
-                    </button>
-                </div>
-            </div>
+
+            <button type="button" onclick="exitAnim()" class="exitBtn">
+                <i class="fas fa-times text-secondary"></i>
+            </button>
+
             <div class="row">
                 <div class="col-4 box petInfo">
                     <p class="boxHeader">Pet</p>
@@ -292,8 +289,8 @@
                         <div class="col-3 mt-4 profilebox">
                             <!-- <p class="boxHeader">Profile</p> -->
                             <?php if (isset($profile)) { ?>
-                                <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile))?>" height="150" width="150"
-                                    style="object-fit: cover; border-radius: 50%;">
+                                <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile)) ?>"
+                                    height="150" width="150" style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
                                 <img src="images/person.svg" height="80" width="80">
                             <?php } ?>
@@ -406,22 +403,22 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                        <div class="col">
-                                            <p>Type of service:</p>
-                                        </div>
-                                        <div class="col">
-                                            <p>
-                                                <?php echo $service_type ?>
-                                            </p>
-                                        </div>
+                                    <div class="col">
+                                        <p>Type of service:</p>
                                     </div>
+                                    <div class="col">
+                                        <p>
+                                            <?php echo $service_type ?>
+                                        </p>
+                                    </div>
+                                </div>
                                 <?php
                                 for ($u = 0; $u < count($pickupContent); $u++) {
                                     $pickUp_date = $pickupContent[$u]['pickUp_date'];
                                     $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
                                     $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
                                     ?>
-                                    
+
                                     <div class="row mt-4">
                                         <div class="col">
                                             <p>Pickup date:</p>

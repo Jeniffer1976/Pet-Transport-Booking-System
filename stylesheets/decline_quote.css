@@ -1,0 +1,72 @@
+.quoteScreen_wrapper,
+.quoteScreen_wrapper .shadow {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+
+}
+
+.quoteScreen_wrapper {
+    position: fixed;
+}
+
+.quoteScreen_wrapper .shadow {
+    position: absolute;
+    background: rgb(0, 0, 0);
+    transition: 0.2s ease;
+    /* opacity: 0; */
+}
+
+.quoteScreen_wrapper .quote_wrap {
+    position: absolute;
+    top: 30%;
+    left: 38%;
+    /* transform: translate(-50%, -800px); */
+    background-color: white;
+    padding: 5px 5px 10px 30px;
+    /* display: flex; */
+    align-items: center;
+    border-radius: 20px;
+    transition: 0.5s ease;
+    z-index: 2;
+    color: #1E53B3;
+
+}
+
+.quote_wrap {
+    width: 25vw;
+    /* height: 230px; */
+
+}
+
+.exitBtn {
+    background-color: #BFE7FF;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    transition: .3s;
+    position: absolute;
+    margin: 15px 15px 0;
+    top: 0;
+    right: 0;
+}
+
+.exitBtn:hover {
+    background-color: #96d1f6;
+}
+
+.decline-content {
+    margin-top: 60px;
+    padding-bottom:20px ;
+    /* width: 300px; */
+}
+
+.buttons:first-child {
+    align-items: start;
+}
+.buttons:last-child {
+    align-items: end;
+}
