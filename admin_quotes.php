@@ -9,28 +9,40 @@ if (!isset($_SESSION['username'])) {
 
 global $link;
 
-echo "<div id='div_session_write'> </div>";
+if (isset($_POST['price'])) { // when quote is accepted
+    $price = $_POST['price'];
+    $accQuoteId = $_POST['currQuoteId'];
+    $priceQuery = "UPDATE quote SET status = 'pending', price = '$price' WHERE quote_id = '$accQuoteId'";
+    mysqli_query($link, $priceQuery) or die(mysqli_error($link));
+}
+
+if (isset($_POST['declineQuote'])) {
+    $decQuoteId = $_POST['decQuoteId'];
+    $priceQuery = "UPDATE quote SET status = 'a_rejected' WHERE quote_id = '$decQuoteId'";
+    mysqli_query($link, $priceQuery) or die(mysqli_error($link));
+    // $_POST['decQuoteId'] = "";
+}
 
 if (isset($_POST['submitFilter'])) {
     $month = $_POST['filterMonth'];
     if ($month == "showall") {
-        $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id 
+        $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q 
         INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
-        ORDER BY PD.pickUp_date DESC";
+        ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
     } else {
-        $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id 
+        $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
         WHERE MONTH(PD.pickUp_date) = '$month' 
-        ORDER BY PD.pickUp_date DESC";
+        ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
     }
 } else {
-    $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id 
+    $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q 
         INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
-        ORDER BY PD.pickUp_date DESC";
+        ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
 }
 $quoteStatus = mysqli_query($link, $quoteQuery) or die(mysqli_error($link));
@@ -126,9 +138,9 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
         <h2 class="header1">Customer Quotes</h2><br>
         <div class="tableLegend" align="right">
             <p>
-                <span class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB" >Completed Booking</span>
-                <span class="text-secondary rounded-pill p-2" style="background-color:#FFEEBA" >Payment Pending</span>
-                <span class="text-secondary rounded-pill p-2" style="background-color:#F5C6CB" >Rejected Booking</span>
+                <span class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB">Completed Booking</span>
+                <span class="text-secondary rounded-pill p-2" style="background-color:#FFEEBA">Payment Pending</span>
+                <span class="text-secondary rounded-pill p-2" style="background-color:#F5C6CB">Rejected Booking</span>
             </p>
         </div>
         <!-- <form action="" method="post">
@@ -213,6 +225,18 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                             $dropOff_address = $quoteContent[$i]['dropOff_address'];
                             $sender_id = $quoteContent[$i]['sender_id'];
                             $recipient_id = $quoteContent[$i]['recipient_id'];
+                            $status = $quoteContent[$i]['status'];
+                            $price = $quoteContent[$i]['price'];
+
+                            $tableStyle = "";
+                            if ($status == "pending") {
+                                $tableStyle = "table-warning";
+                            } else if ($status == "completed") {
+                                $tableStyle = "table-success";
+                            } else if ($status == "a_rejected") {
+                                $tableStyle = "table-danger";
+                            }
+
 
                             $ownerQuery = "SELECT first_Name, last_Name, email, mobile, profile FROM pet_owner WHERE owner_id = '$owner_id'";
 
@@ -249,8 +273,8 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                             }
 
                             $senderQuery = "SELECT  SR.first_name, SR.last_name, SR.contact, SR.email FROM senderrecipient_details SR 
-                    INNER JOIN quote Q ON Q.sender_id = SR.sr_id 
-                    WHERE Q.owner_id = '$owner_id'";
+                            INNER JOIN quote Q ON Q.sender_id = SR.sr_id 
+                            WHERE Q.owner_id = '$owner_id'";
                             $senderStatus = mysqli_query($link, $senderQuery) or die(mysqli_error($link));
 
                             $senderRow = mysqli_fetch_array($senderStatus);
@@ -272,7 +296,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                             $r_email = $recipientRow['email'];
 
                             ?>
-                            <tr>
+                            <tr class="<?php echo $tableStyle ?>">
                                 <td>
                                     <?php echo $owner_name ?>
                                 </td>
@@ -336,13 +360,25 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                 </td>
                                 <td>
                                     <div class="action">
-                                        <button class="actionBtns">
-                                            <i class="fas fa-check text-success"></i>
-                                        </button>
-                                        <button class="actionBtns">
-                                            <i class="fas fa-times text-danger"></i>
-                                        </button>
+                                        <?php if ($status == "unassigned") { ?>
+                                            <form method="post" action="accept_quote.php" style="margin-bottom:-10px">
+                                                <input type="hidden" id="quote_id" name="quote_id"
+                                                    value="<?php echo $quote_id ?>" />
+                                                <button type="submit" id="acceptQuoteBtn" class="actionBtns">
+                                                    <i class="fas fa-check text-success"></i>
+                                                </button>
+                                            </form>
 
+                                            <form method="post" action="decline_quote.php" style="margin-bottom:-10px">
+                                                <input type="hidden" id="quote_id" name="quote_id"
+                                                    value="<?php echo $quote_id ?>" />
+                                                    <input type="hidden" id="quote_id" name="owner_name"
+                                                    value="<?php echo $owner_name ?>" />
+                                                <button type="submit" id="declineQuoteBtn" class="actionBtns">
+                                                    <i class="fas fa-times text-danger"></i>
+                                                </button>
+                                            </form>
+                                        <?php } ?>
 
                                         <form method="post" action="view_quote.php" id="passOwnerId"
                                             style="margin-bottom:-10px">
@@ -351,8 +387,9 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                             <button type="submit" id="viewQuoteBtn" class="actionBtns">
                                                 <i class="fas fa-eye text-secondary"></i>
                                             </button>
-                                        </form>
+                                        </form>  
 
+                                        <?php if ( ($status == "unassigned") || ($status == "pending") ) {?>
                                         <form method="get" action="admin_editOverview.php" id="passOwnerId"
                                             style="margin-bottom:-10px">
                                             <input type="hidden" id="quote_id" name="quote_id"
@@ -362,9 +399,9 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                             </button>
                                         </form>
 
+                                        <?php }?>
 
-
-
+                                        <?php if ( ($status == "unassigned") || ($status == "pending") || ($status == "completed")) {?>
                                         <button class="actionBtns" id="wabtn"
                                             onclick="window.open('https://wa.me/+65<?php echo $po_mobile ?>', '_blank')">
                                             <i class="fab fa-whatsapp fa-l"></i>
@@ -372,6 +409,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                         <button class="actionBtns" onclick="location.href='mailto:<?php echo $po_email ?>'">
                                             <i class="fas fa-envelope fa-l text-secondary"></i>
                                         </button>
+                                        <?php }?>
                                     </div>
                                 </td>
                             </tr>

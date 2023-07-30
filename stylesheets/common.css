@@ -409,3 +409,41 @@ rect {
 .inboxicon:hover{
     filter: grayscale(70%);
 }
+
+/* logos */
+.inboxbg {
+    color: #1E53B3;
+}
+
+.inboxbell {
+    color: #FF9544;
+    font-size: 20px;
+}
+
+.inboxwhole {
+    font-size: 18px;
+    padding-left: 8px;
+}
+
+.inboxwhole:hover {
+    filter: grayscale(70%);
+}
+
+.faqicon {
+    font-size: 35px;
+    color: #1E53B3;
+    padding-left: 8px;
+}
+
+.faqicon:hover {
+    filter: grayscale(70%);
+}
+
+.profileicon {
+    font-size: 35px;
+    color: #1E53B3;
+}
+
+.profileicon:hover {
+    filter: grayscale(70%);
+}

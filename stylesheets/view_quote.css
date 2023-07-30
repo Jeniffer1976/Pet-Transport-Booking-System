@@ -39,7 +39,7 @@
     left: 5%;
     /* transform: translate(-50%, -800px); */
     background-color: white;
-    padding: 5px 5px 10px 30px;
+    padding: 20px 5px 10px 30px;
     /* display: flex; */
     align-items: center;
     border-radius: 20px;
@@ -65,7 +65,7 @@
 .pickInfo-container {
     overflow: auto;
     overflow-x: hidden;
-    height: 25vh;
+    height: 20vh;
     padding: 5px;
 }
 
@@ -139,6 +139,10 @@ hr+p {
     width: 35px;
     height: 35px;
     transition: .3s;
+    position:absolute;
+    margin: 15px 15px 0;
+    top:0;
+    right:0;
 }
 
 .exitBtn:hover {

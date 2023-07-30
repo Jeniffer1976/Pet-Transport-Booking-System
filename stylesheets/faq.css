@@ -1,0 +1,47 @@
+.collapsible {
+    font-family: 'Nunito', sans-serif;
+    background-color: #338762;
+    color: white;
+    cursor: pointer;
+    /* padding: 0px 8px 0px 8px; */
+    /* padding: 3px; */
+    width: 70%;
+    border: none;
+    border-radius: 15px 15px 0px 0px;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.collapsible:hover {
+    background-color: #286b4e;
+}
+
+.content {
+    padding: 10px;
+    display: none;
+    overflow: hidden;
+    background-color: white;
+    color: #338762;
+    border-radius: 0px 0px 15px 15px;
+    width: 70%;
+    text-align: start;
+    padding-left: 20px;
+    /* box-shadow: 20px #888888; */
+}
+
+.collapsible .col-10 {
+    text-align: start;
+}
+
+.collapsible .col-2 {
+    text-align: end;
+    padding-top: 10px;
+}
+
+.collapsible p{
+    font-family: 'Nunito', sans-serif;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}

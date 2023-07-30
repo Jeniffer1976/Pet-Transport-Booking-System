@@ -12,7 +12,7 @@ function exitAnim() {
 
     var closeQuote = anime({
         targets: '.quote_wrap',
-        translateY: [0, 200],
+        translateY: [0, 300],
         duration: 300,
         easing: 'easeInSine',
     });
