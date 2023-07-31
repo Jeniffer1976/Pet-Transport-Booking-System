@@ -17,6 +17,8 @@ $po_email = $infoRow['email'];
 $po_mobile = $infoRow['mobile'];
 $po_username = $infoRow['username'];
 $profile = $infoRow['profile'];
+$status = $infoRow['status'];
+$price = $infoRow['price'];
 
 $service_type = $infoRow['service_type'];
 $pickUp_address = $infoRow['pickUp_address'];

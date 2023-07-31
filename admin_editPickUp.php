@@ -144,9 +144,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
             <div class="row">
                 <!--Sidebar-->
                 <div class="col col-4 sidebar" style="height: 38em;">
-                    <a class="nav-link nav-text" href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
-                            class="fa-solid fa-user"></i>Owner
-                        Information</a>
+
+                    <?php if ($status == 'pending') { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-circle-info"></i>General
+                            Information</a>
+
+                    <?php } else { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-user"></i>Owner
+                            Information</a>
+                    <?php } ?>
+
                     <a class="active nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i
                             class="fa-solid fa-house"></i>Pick
                         Up Information</a>
@@ -264,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
 
                                     <div class="col" style="">
                                         <button type="submit" class="btn btn-primary primarybtn rounded-pill"
-                                            style="float: right; margin-top: 15%">Save Profile</button>
+                                            style="float: right; margin-top: 15%">Save Changes</button>
                                     </div>
                                 </div>
                             </form>
