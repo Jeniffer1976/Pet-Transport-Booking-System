@@ -259,7 +259,7 @@ if ($SRExists) {
 $insertQuoteQuery = "INSERT INTO quote 
     (`quote_id`, `owner_id`, `service_type`, `pickUp_address`, `dropOff_address`, `sender_id`, `recipient_id`, `status`,`quote_date`) 
     VALUES 
-    (NULL, '$owner_id', '$servicetype', '$pickupaddress', '$dropoffaddress', '$insertSIid', '$insertSRid', 'unassigned', CURRENT_DATE() )";
+    (NULL, '$owner_id', '$servicetype', '$pickupaddress', '$dropoffaddress', '$insertSIid', '$insertSRid', 'unassigned', now() )";
 
 mysqli_query($link, $insertQuoteQuery) or die(mysqli_error($link));
 
