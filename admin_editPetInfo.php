@@ -1,5 +1,6 @@
 <?php
-include "loginFunctions.php";
+session_start();
+include("dbFunctions.php");
 
 if (isset($_SESSION['username'])) {
     if (!($role = "admin")) {
@@ -11,6 +12,43 @@ if (isset($_SESSION['username'])) {
     exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed wait then
+
+    $message = "";
+    $isSuccessful = false;
+
+    $quoteId = $_GET['quote_id'];
+
+    // Pet's Infomation
+    foreach ($_POST['p_fname'] as $key => $value) {
+        $petSql = "UPDATE pet 
+        SET first_name=:fname, last_name=:lname, type=:type, breed=:breed, 
+        age=:age, weight=:weight, height=:height, width=:width, additional_info=:additional_info
+        WHERE quote_id=$quoteId
+        AND pet_id=:pet_id";
+
+        $petStmt = $conn->prepare($petSql);
+        $petStmt->execute([
+            'fname' => $value,
+            'lname' => $_POST['p_lname'][$key],
+            'type' => $_POST['p_type'][$key],
+            'breed' => $_POST['p_breed'][$key],
+            'age' => $_POST['p_age'][$key],
+            'weight' => $_POST['p_weight'][$key],
+            'height' => $_POST['p_height'][$key],
+            'width' => $_POST['p_width'][$key],
+            'additional_info' => $_POST['addInfo'][$key],
+            'pet_id' => $_POST['pet_id'][$key]
+        ]);
+    }
+
+    if ($petStmt) {
+        $message = "Pet Details have successfully been updated";
+        $isSuccessful = true;
+    } else {
+        $message = "The update was unsuccessful";
+    }
+}
 ?>
 <html lang="en">
 
@@ -69,9 +107,22 @@ if (isset($_SESSION['username'])) {
             <div class="row">
                 <!--Sidebar-->
                 <div class="col col-4 sidebar" style="height: 38em;">
-                    <a class="nav-link nav-text" href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-user"></i>Owner
-                        Information</a>
-                    <a class="nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-house"></i>Pick
+
+                    <?php if ($status == 'pending') { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-circle-info"></i>General
+                            Information</a>
+
+                    <?php } else { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-user"></i>Owner
+                            Information</a>
+                    <?php } ?>
+
+                    <a class="nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i
+                            class="fa-solid fa-house"></i>Pick
                         Up Information</a>
                     <a class="nav-link nav-text" href="admin_editDropOff.php?quote_id=<?php echo $quote_id ?>"><i
                             class="fa-solid fa-location-dot"></i>Drop Off Information</a>
@@ -100,6 +151,7 @@ if (isset($_SESSION['username'])) {
                                 $height = $petContent[$p]['height'];
                                 $width = $petContent[$p]['width'];
                                 $addInfo = $petContent[$p]['additional_info'];
+                                $petId = $petContent[$p]['pet_id'];
                                 ?>
 
                                 <?php if ($pet_count > 1) { ?>
@@ -113,61 +165,63 @@ if (isset($_SESSION['username'])) {
 
                                 <div class="col-md-6">
                                     <label for="p_fname" class="form-label para">First Name:</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_fname"
+                                    <input type="text" class="form-control rounded-pill" name="p_fname[]"
                                         placeholder="<?php echo ucfirst($p_firstName) ?>"
                                         value="<?php echo ucfirst($p_firstName) ?>">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="p_lname" class="form-label para">Last Name:</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_lname"
+                                    <input type="text" class="form-control rounded-pill" name="p_lname[]"
                                         placeholder="<?php echo ucfirst($p_lastName) ?>"
                                         value="<?php echo ucfirst($p_lastName) ?>">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="p_type" class="form-label para">Type of Pet:</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_type"
+                                    <input type="text" class="form-control rounded-pill" name="p_type[]"
                                         placeholder="<?php echo $type ?>" value="<?php echo $type ?>">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="p_breed" class="form-label para">Breed:</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_breed"
+                                    <input type="text" class="form-control rounded-pill" name="p_breed[]"
                                         placeholder="<?php echo $breed ?>" value="<?php echo $breed ?>">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="p_age" class="form-label para">Age:</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_age"
-                                        placeholder="<?php echo $age ?>" value="<?php echo $age ?>">
+                                    <input type="number" class="form-control rounded-pill" name="p_age[]"
+                                        placeholder=" <?php echo $age ?>" value="<?php echo $age ?>">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="p_weight" class="form-label para">Weight (Kg):</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_weight"
+                                    <input type="number" class="form-control rounded-pill" name="p_weight[]"
                                         placeholder="<?php echo $weight ?>" value="<?php echo $weight ?>">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="p_height" class="form-label para">Height (Cm):</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_height"
+                                    <input type="number" class="form-control rounded-pill" name="p_height[]"
                                         placeholder="<?php echo $height ?>" value="<?php echo $height ?>">
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="p_width" class="form-label para">Width (Cm):</label>
-                                    <input type="text" class="form-control rounded-pill" name="p_width"
+                                    <input type="number" class="form-control rounded-pill" name="p_width[]"
                                         placeholder="<?php echo $width ?>" value="<?php echo $width ?>">
                                 </div>
 
                                 <div class="col-12">
                                     <label for="addInfo" class="form-label para mt-4" align="left">Additional
                                         Comments:</label>
-                                    <textarea name="addInfo" rows="4" cols="50" class="form-control rounded"
-                                        list='addInfoList' placeholder='<?php echo $addInfo ?>'><?php echo $addInfo ?>
-                                            </textarea>
+                                    <textarea name="addInfo[]" rows="4" cols="50" class="form-control rounded"
+                                        placeholder='<?php echo $addInfo ?>'><?php echo $addInfo ?>
+                                        </textarea>
                                 </div>
+                                <input type="hidden" id="pet_id" name="pet_id[]" value="<?php echo $petId ?>" />
+
                             <?php } ?>
 
                             <div class="row">
@@ -179,12 +233,23 @@ if (isset($_SESSION['username'])) {
 
                                 <div class="col" style="">
                                     <button type="submit" class="btn btn-primary primarybtn rounded-pill"
-                                        style="float: right; margin-top: 15%">Save Profile</button>
+                                        style="float: right; margin-top: 15%">Save Changes</button>
                                 </div>
                             </div>
                         </form>
 
                     </div>
+                    <?php if (isset($message)) { ?>
+                        <?php if ($isSuccessful == true) { ?>
+                            <div class="alert alert-success errorMsg" role="alert">
+                                <?php echo $message ?>
+                            </div>
+                        <?php } else { ?>
+                            <div class="alert alert-danger errorMsg" role="alert">
+                                <?php echo $message ?>
+                            </div>
+                        <?php } ?>
+                    <?php } ?>
 
                 </div>
             </div>

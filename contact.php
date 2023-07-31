@@ -61,7 +61,8 @@
                     </div>
 
                     <div class='col-md-6'>
-                        <form class="row g-3 gx-5" method="POST" action="https://formspree.io/f/mqkvezng">
+                        <form class="row g-3 gx-5" method="POST" action="https://formspree.io/f/mqkvezng"
+                            style=' text-align: left;'>
                             <div class="col-md-6">
                                 <label for="firstName" class="form-label para">First Name:</label>
 
@@ -105,7 +106,7 @@
                                 <label for="message" class="form-label para mt-4" align="left">
                                     Message:</label>
                                 <textarea name="message" rows="4" cols="50" class="form-control rounded" required>
-                        </textarea>
+                                </textarea>
                             </div>
                             <div class="col-12 text-start form-group">
                                 <button id='contact' name="contact" class="btn btn-primary primarybtn rounded-pill">
