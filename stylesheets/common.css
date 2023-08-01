@@ -447,3 +447,10 @@ rect {
 .profileicon:hover {
     filter: grayscale(70%);
 }
+
+.dashb {
+    margin-top: -95vh;
+    margin-left: 25vw;
+    width: 65vw;
+}
+
