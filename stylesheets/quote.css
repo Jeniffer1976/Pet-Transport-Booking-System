@@ -350,6 +350,20 @@ input {
     display: none;
 }
 
+.filterMonth select{
+    border: 3px solid #338762;
+    border-radius: 25px;
+    padding: 5px;
+    color: #338762;
+}
+
+.filterMonth {
+    display: none;
+}
+
+.pickupday {
+    display: none;
+}
 /* .pickUpTimings-content div:nth-child(n+4):nth-child(-n+5){
     display: none;
 } */

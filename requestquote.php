@@ -56,7 +56,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request A Quote | Waggin Wheels</title>
 
-    <link rel="icon" type="image/x-icon" href="/images/logoNoText.ico">
+    <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!-- Script -->
     <script src="script.js"></script>
@@ -176,10 +176,10 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     <option value="regular">Regular</option>
                                 </select>
                             </div>
-                            <div class="col-md serviceQty">
-                                <label for="serviceQty" class="form-label para" align="left">Service Quantity:</label>
+                            <div class="col-md serviceQty" align="left">
+                                <label for="serviceQty" class="form-label para">Service Quantity:</label>
                                 <input type="number" class="form-control rounded-pill" name="serviceQty" id="serviceQty"
-                                    style="width:120px" max="5" min="1">
+                                    style="width:120px" max="5" min="2">
                             </div>
                         </div>
                     </div>
@@ -209,137 +209,183 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                         </div>
                     </div>
                 </div>
+
                 <div class="container-fluid d-flex justify-content-center">
                     <div class="inverse full-bleed overflow-hidden" id="form">
-                        <div class="row g-3 gx-5" align="center">
-                            <!-- <div class="pickUpTimings"> -->
-                            <div class="pickUpTimings-content row g-3 gx-5">
-                                <div class="col-md">
+                        <div class="row">
+                            <div class="col-2 filterMonth" align="left" style="position:fixed;margin-left:-25px;z-index:3;">
+                                <div class="container">
+                                    <select name="filterMonth" id="filterMonth">
+                                        <option disabled="disabled" selected>Choose a month</option>
+
+                                        <?php
+
+                                        for ($m = 1; $m < 13; $m++) {
+                                            $monthName = date('F', mktime(0, 0, 0, $m, 10));
+                                            ?>
+                                            <option value="<?php echo $m ?>"><?php echo $monthName ?></option>
+                                            <?php
+                                        }
+
+                                        ?>
+                                    </select>
+                                    <!-- <label for="pickupday" class="form-label para" align="left">Preferred
+                                    pick
+                                    up
+                                    day:</label> -->
+                                    <br><br>
+                                    <select name="pickupday" id="pickupday" style="width:150px">
+                                        <option disabled="disabled" selected>Choose a day</option>
+                                        <option value="4">Monday</option>
+                                        <option value="5">Tuesday</option>
+                                        <option value="6">Wednesday</option>
+                                        <option value="0">Thursday</option>
+                                        <option value="1">Friday</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2 filterMonth"></div>
+                            <div class="col">
+                                <div class="row g-3 gx-5" align="center">
+                                    <!-- <div class="pickUpTimings"> -->
+                                    <div class="pickUpTimings-content row g-3 gx-5">
+                                        <div class="col-md">
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label for="pickupdate" class="form-label para" align="left">Preferred pick
+                                                up
+                                                date:</label>
+                                            <input type="date" id="pickupdate" class="form-control rounded-pill"
+                                                name="pickupdate[]">
+                                        </div>
+
+                                        <div class="col-md"></div>
+                                        <!-- </div> -->
+                                        <div class="twopickups">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label for="firstpickup" class="form-label para" align="left">First
+                                                        pick
+                                                        up
+                                                        time:</label>
+                                                    <input type="time" id="firstpickup"
+                                                        class="form-control rounded-pill para" name="firstpickup[]">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="secondpickup" class="form-label para"
+                                                        align="left">Second
+                                                        pick
+                                                        up
+                                                        time:</label>
+                                                    <input type="time" id="secondpickup"
+                                                        class="form-control rounded-pill para" name="secondpickup[]">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="wholepickup">
+                                            <div class="row g-3 gx-5">
+                                                <div class="col-md">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="onepickup" class="form-label para" align="left">Pick
+                                                        up
+                                                        time:</label>
+                                                    <input type="time" id="onepickup"
+                                                        class="form-control rounded-pill para" name="onepickup[]">
+                                                </div>
+                                                <div class="col-md">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3 gx-5" align="center" style="z-index:4; background-color:#99F7DB;">
+                                <div class="col-12">
+                                    <label for="pickupaddress" class="form-label para" align="left">Address:</label>
+                                    <input id="pickupaddress" class="form-control rounded-pill" name="pickupaddress"
+                                        list="pickupAddressList" required>
+
+                                    <datalist id="pickupAddressList">
+                                        <?php for ($i = 0; $i < count($quoteContent); $i++) {
+                                            // getting info from the quote table
+                                            $pickUp_address = $quoteContent[$i]['pickUp_address'];
+                                            ?>
+                                            <option value="<?php echo $pickUp_address ?>">
+                                            <?php } ?>
+                                    </datalist>
+                                </div>
+                                <br><br><br><br><br>
+                                <h3 class="para"><b>Sender's Information:</b></h3>
+                                <div class="col-md-6">
+                                    <label for="firstNameSI" class="form-label para" align="left">First
+                                        Name:</label>
+                                    <input list='firstNameList' id="firstNameSI" class="form-control rounded-pill"
+                                        name="firstNameSI" required>
+
+                                    <datalist id="firstNameList">
+                                        <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                            // getting info from the quote table
+                                            $first_name = $senderRecipientContent[$sr]['first_name'];
+                                            ?>
+                                            <option value="<?php echo $first_name ?>">
+                                            <?php } ?>
+                                    </datalist>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="pickupdate" class="form-label para" align="left">Prefered pick up
-                                        date:</label>
-                                    <input type="date" id="pickupdate" class="form-control rounded-pill"
-                                        name="pickupdate[]" required>
+                                    <label for="lastNameSI" class="form-label para" align="left">Last Name:</label>
+                                    <input list='lastNameList' id="lastNameSI" class="form-control rounded-pill"
+                                        name="lastNameSI" required>
+
+                                    <datalist id="lastNameList">
+                                        <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                            // getting info from the quote table
+                                            $last_name = $senderRecipientContent[$sr]['last_name'];
+                                            ?>
+                                            <option value="<?php echo $last_name ?>">
+                                            <?php } ?>
+                                    </datalist>
                                 </div>
-                                <div class="col-md"></div>
-                                <!-- </div> -->
-                                <div class="twopickups">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label for="firstpickup" class="form-label para" align="left">First pick
-                                                up
-                                                time:</label>
-                                            <input type="time" id="firstpickup" class="form-control rounded-pill para"
-                                                name="firstpickup[]">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="secondpickup" class="form-label para" align="left">Second
-                                                pick
-                                                up
-                                                time:</label>
-                                            <input type="time" id="secondpickup" class="form-control rounded-pill para"
-                                                name="secondpickup[]">
-                                        </div>
-                                    </div>
+                                <div class="col-12">
+                                    <label for="contactSI" class="form-label para" align="left">Contact No:</label>
+                                    <input type="tel" list='contactList' id="contactSI"
+                                        class="form-control rounded-pill" name="contactSI" required>
+
+                                    <datalist id="contactList">
+                                        <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                            // getting info from the quote table
+                                            $contact = $senderRecipientContent[$sr]['contact'];
+                                            ?>
+                                            <option value="<?php echo $contact ?>">
+                                            <?php } ?>
+                                    </datalist>
                                 </div>
-                                <div class="wholepickup">
-                                    <div class="row g-3 gx-5">
-                                        <div class="col-md">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="onepickup" class="form-label para" align="left">Pick
-                                                up
-                                                time:</label>
-                                            <input type="time" id="onepickup" class="form-control rounded-pill para"
-                                                name="onepickup[]">
-                                        </div>
-                                        <div class="col-md">
-                                        </div>
-                                    </div>
+                                <div class="col-12">
+                                    <label for="emailSI" class="form-label para" align="left">Email:</label>
+                                    <input type="email" list='emailList' id="emailSI" class="form-control rounded-pill"
+                                        name="emailSI" required>
+
+                                    <datalist id="emailList">
+                                        <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
+                                            // getting info from the quote table
+                                            $email = $senderRecipientContent[$sr]['email'];
+                                            ?>
+                                            <option value="<?php echo $email ?>">
+                                            <?php } ?>
+                                    </datalist>
+                                </div>
+                                <div class="col-md tick" align="left">
+                                    <input type="checkbox" id="tickSI" name="tickSI">
+                                    <label for="tick" class="para">Sender is the same as owner</label>
                                 </div>
                             </div>
+                            <!-- </div> -->
 
-
-                            <div class="col-12">
-                                <label for="pickupaddress" class="form-label para" align="left">Address:</label>
-                                <input id="pickupaddress" class="form-control rounded-pill" name="pickupaddress"
-                                    list="pickupAddressList" required>
-
-                                <datalist id="pickupAddressList">
-                                    <?php for ($i = 0; $i < count($quoteContent); $i++) {
-                                        // getting info from the quote table
-                                        $pickUp_address = $quoteContent[$i]['pickUp_address'];
-                                        ?>
-                                        <option value="<?php echo $pickUp_address ?>">
-                                        <?php } ?>
-                                </datalist>
-                            </div>
-                            <br><br><br><br><br>
-                            <h3 class="para"><b>Sender's Information:</b></h3>
-                            <div class="col-md-6">
-                                <label for="firstNameSI" class="form-label para" align="left">First Name:</label>
-                                <input list='firstNameList' id="firstNameSI" class="form-control rounded-pill"
-                                    name="firstNameSI" required>
-
-                                <datalist id="firstNameList">
-                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
-                                        // getting info from the quote table
-                                        $first_name = $senderRecipientContent[$sr]['first_name'];
-                                        ?>
-                                        <option value="<?php echo $first_name ?>">
-                                        <?php } ?>
-                                </datalist>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="lastNameSI" class="form-label para" align="left">Last Name:</label>
-                                <input list='lastNameList' id="lastNameSI" class="form-control rounded-pill"
-                                    name="lastNameSI" required>
-
-                                <datalist id="lastNameList">
-                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
-                                        // getting info from the quote table
-                                        $last_name = $senderRecipientContent[$sr]['last_name'];
-                                        ?>
-                                        <option value="<?php echo $last_name ?>">
-                                        <?php } ?>
-                                </datalist>
-                            </div>
-                            <div class="col-12">
-                                <label for="contactSI" class="form-label para" align="left">Contact No:</label>
-                                <input type="tel" list='contactList' id="contactSI" class="form-control rounded-pill"
-                                    name="contactSI" required>
-
-                                <datalist id="contactList">
-                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
-                                        // getting info from the quote table
-                                        $contact = $senderRecipientContent[$sr]['contact'];
-                                        ?>
-                                        <option value="<?php echo $contact ?>">
-                                        <?php } ?>
-                                </datalist>
-                            </div>
-                            <div class="col-12">
-                                <label for="emailSI" class="form-label para" align="left">Email:</label>
-                                <input type="email" list='emailList' id="emailSI" class="form-control rounded-pill"
-                                    name="emailSI" required>
-
-                                <datalist id="emailList">
-                                    <?php for ($sr = 0; $sr < count($senderRecipientContent); $sr++) {
-                                        // getting info from the quote table
-                                        $email = $senderRecipientContent[$sr]['email'];
-                                        ?>
-                                        <option value="<?php echo $email ?>">
-                                        <?php } ?>
-                                </datalist>
-                            </div>
-                            <div class="col-md tick" align="left">
-                                <input type="checkbox" id="tickSI" name="tickSI">
-                                <label for="tick" class="para">Sender is the same as owner</label>
-                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="btns-group">
                     <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
                         Previous</a>
@@ -629,6 +675,8 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
         var lastname = "<?php echo $_SESSION['lastName'] ?>";
         var email = "<?php echo $_SESSION['email'] ?>";
         var mobile = "<?php echo $_SESSION['mobile'] ?>";
+
+
     </script>
 
 </body>

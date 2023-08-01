@@ -22,16 +22,25 @@ if (isset($_SESSION['username'])) {
         }
     }
 
+    // echo $_SESSION['profile'];
+
     if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
     {
         $message = "";
         $isSuccessful = false;
         //something was posted
         $emailN = $_POST['email'];
-        $passwordN = $_POST['newPassword'];
         $firstNameN = $_POST['firstName'];
         $lastNameN = $_POST['lastName'];
         $phoneN = $_POST['phone'];
+        $imageExists = '';
+        if (!empty($_FILES['profileImgEdit']['tmp_name'])){
+            if ($_FILES['profileImgEdit']['size'] < 1000000){
+                $profilePic = addslashes(file_get_contents($_FILES['profileImgEdit']['tmp_name']));
+                $imageExists = ", profile = '$profilePic'";
+                // $_SESSION['profile'] = $profilePic;
+            }
+        }
 
         if ($_SESSION['role'] == 'admin') {
             $genderN = $_POST['gender'];
@@ -58,7 +67,7 @@ if (isset($_SESSION['username'])) {
 
 
         if (!(isset($_POST['checkEditPassword']))) {
-
+            $passwordN = $_POST['newPassword'];
             if ($_POST['oldPassword'] == $rowPassword['password']) {
 
                 $updateUsers = "UPDATE users
@@ -77,9 +86,8 @@ if (isset($_SESSION['username'])) {
         if ($_SESSION['role'] != 'admin') {
 
             $updateAccount = "UPDATE pet_owner
-                SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
-                WHERE username='$username'";
-
+                SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'" . $imageExists . " WHERE username='$username';";
+            // echo $updateAccount;
         } else {
             $updateAccount = "UPDATE staff
                     SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'
@@ -88,20 +96,30 @@ if (isset($_SESSION['username'])) {
         }
         $updateAccountStatus = mysqli_query($link, $updateAccount);
 
-        $_SESSION['firstName'] = $firstNameN;
-        $_SESSION['lastName'] = $lastNameN;
-        $_SESSION['email'] = $emailN;
-        $_SESSION['mobile'] = $phoneN;
+    
 
-        if ($_SESSION['role'] == 'admin') {
-            $_SESSION['gender'] = $genderN;
-            $_SESSION['birthDate'] = $birthdateN;
-        }
+        if ($updateAccountStatus) {
+            if ($updateUsersStatus??false) {
+                
+                $_SESSION['firstName'] = $firstNameN;
+                $_SESSION['lastName'] = $lastNameN;
+                $_SESSION['email'] = $emailN;
+                $_SESSION['mobile'] = $phoneN;
+                $_SESSION['profile'] = $profilePic??$_SESSION['profile'];
+           
+        
+                if ($_SESSION['role'] == 'admin') {
+                    $_SESSION['gender'] = $genderN;
+                    $_SESSION['birthDate'] = $birthdateN;
+                }
 
-        if (($updateUsersStatus && $updateAccountStatus) || ($updateAccountStatus)) {
-            $message = "Your account has been successfully updated";
-            $isSuccessful = true;
-            header("Location: accountOverview.php"); //makes it go to signIn page directly.
+                $message = "Your account has been successfully updated";
+                $isSuccessful = true;
+                header("Location: accountOverview.php"); //makes it go to signIn page directly.
+            } else {
+                $message = "The password is incorrect. Please try again.";
+            }
+
 
         } else {
             $message = "The account update was unsuccessful";
@@ -175,36 +193,38 @@ if (isset($_SESSION['username'])) {
                 </div>
 
                 <div class="col col-8" style="height: 49em;">
-                    <div class="row row1">
-                        <div class="col-3">
-                            <input name="profileImg" type="file" accept="image/*" id="imgUpload"
-                                onchange="displayImage(this)" style="display:none">
-                            <div class="profileImgDisplay">
-                                <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
-                                <?php if (isset($_SESSION['profile'])) {
-                                    $profile = $_SESSION['profile']
-                                        ?>
-                                    <img src="images/profileImg/<?php echo $profile ?>" id="imgPreview">
-                                <?php } else { ?>
-                                    <img src="images/person.svg" id="imgPreview">
-                                <?php } ?>
-                                <button type="button" class="imgBtn" onclick="triggerClick()"><i
-                                        class="fas fa-pen"></i></button>
-                            </div>
-                        </div>
 
-                        <div class="col">
-                            <h3 class="header3">
-                                <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
-                            </h3>
-                            <span class="para">aka @
-                                <?php echo $username ?>
-                            </span>
-                        </div>
-                    </div>
                     <div class="row row2">
                         <div class="container-fluid d-flex justify-content-center">
-                            <form class="row g-3 gx-5" method="post" action="">
+                            <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
+                                <div class="row row1">
+                                    <div class="col-3">
+                                        <input name="profileImgEdit" type="file" accept="image/*" id="imgUpload"
+                                            onchange="displayImage(this)" style="display:none" >
+                                        <div class="profileImgDisplay">
+                                            <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
+                                            <?php if (isset($_SESSION['profile'])) {
+                                                $profile = $_SESSION['profile'];
+                                                    ?>
+                                                <img src="data:image/png;base64,<?php echo base64_encode($profile)?>"
+                                                    id="imgPreview"/>
+                                            <?php } else { ?>
+                                                <img src="images/person.svg" id="imgPreview">   
+                                            <?php } ?>
+                                            <button type="button" class="imgBtn" onclick="triggerClick()"><i
+                                                    class="fas fa-pen"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <h3 class="header3">
+                                            <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
+                                        </h3>
+                                        <span class="para">aka @
+                                            <?php echo $username ?>
+                                        </span>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="username" class="form-label para">Username:</label>
                                 </div>

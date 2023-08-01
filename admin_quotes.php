@@ -12,13 +12,15 @@ global $link;
 if (isset($_POST['price'])) { // when quote is accepted
     $price = $_POST['price'];
     $accQuoteId = $_POST['currQuoteId'];
-    $priceQuery = "UPDATE quote SET status = 'pending', price = '$price' WHERE quote_id = '$accQuoteId'";
+    $staff_id = $_SESSION['staff_id'];
+    $priceQuery = "UPDATE quote SET status = 'pending', price = '$price', staff_id = '$staff_id' WHERE quote_id = '$accQuoteId'";
     mysqli_query($link, $priceQuery) or die(mysqli_error($link));
 }
 
 if (isset($_POST['declineQuote'])) {
     $decQuoteId = $_POST['decQuoteId'];
-    $priceQuery = "UPDATE quote SET status = 'a_rejected' WHERE quote_id = '$decQuoteId'";
+    $staff_id = $_SESSION['staff_id'];
+    $priceQuery = "UPDATE quote SET status = 'a_rejected', staff_id = '$staff_id' WHERE quote_id = '$decQuoteId'";
     mysqli_query($link, $priceQuery) or die(mysqli_error($link));
     // $_POST['decQuoteId'] = "";
 }
@@ -249,12 +251,6 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                             $po_mobile = $ownerRow['mobile'];
                             $po_profile = $ownerRow['profile'];
                             $owner_name = $po_firstName . " " . $po_lastName;
-
-                            $ownerInfo = array(
-                                "po_firstName" => $po_firstName,
-                                "po_lastName" => $po_lastName,
-                            );
-
 
                             $petQuery = "SELECT * FROM pet WHERE quote_id = '$quote_id'";
                             $petStatus = mysqli_query($link, $petQuery) or die(mysqli_error($link));
