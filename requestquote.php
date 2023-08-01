@@ -201,7 +201,8 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                             <div class="col-sm-8 toggletext" align="right">One-Way</div>
                             <div class="col-sm-2">
                                 <label class="switch">
-                                    <input type="checkbox" id="switch" name="tripToggle" onclick="toggleclicked()">
+                                    <input type='hidden' value='One way trip' name='tripToggle'>
+                                    <input type="checkbox" value='Return trip' id="switch" name="tripToggle" onclick="toggleclicked()">
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -213,7 +214,8 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                 <div class="container-fluid d-flex justify-content-center">
                     <div class="inverse full-bleed overflow-hidden" id="form">
                         <div class="row">
-                            <div class="col-2 filterMonth" align="left" style="position:fixed;margin-left:-25px;z-index:3;">
+                            <div class="col-2 filterMonth" align="left"
+                                style="position:fixed;margin-left:-25px;z-index:3;">
                                 <div class="container">
                                     <select name="filterMonth" id="filterMonth">
                                         <option disabled="disabled" selected>Choose a month</option>
