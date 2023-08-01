@@ -281,9 +281,19 @@ hr.rounded {
 
 /*home*/
 .grad1 {
-    height: 100%;
+    min-height: 100%;
+    max-width: 100%;
+    margin:0%;
+    padding: 5%;
     background-image: linear-gradient(to right, rgb(255, 106, 0), rgb(240, 219, 197));
 }
+
+.row1 {
+    align-items: center;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
 
 .font1 {
     font-family: 'Nunito', sans-serif;
@@ -386,19 +396,23 @@ rect {
 
 /* dashboard */
 
-
 .regular {
-    height: 500px;
-    width: 500x;
+    height: 450px;
+    width: 450px;
     border-radius: 50%;
     background-color: #1E53B3;
     padding-top: 15%;
 }
 
 .regular img {
-    height: 250px;
-    width: 250px;
+    height: 200px;
+    width: 200px;
 }
+
+.services {
+    margin-left: 10vw;
+}
+
 
 .inboxicon{
     font-size: 30px;
