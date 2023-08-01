@@ -100,7 +100,8 @@ if ($role != 'admin') { ?>
                                 <!-- <img src="data:image/jpg;charset=utf8;base64,<?php // echo base64_encode($profile); ?>" height="40" width="40"
                                     style="object-fit: cover; border-radius: 50%;"> -->
                                 <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile)) ?>"
-                                    height="40" width="40" style="object-fit: cover; border-radius: 50%;">
+                                    height="40" width="40" style="object-fit: cover; border-radius: 50%;"
+                                    onerror="this.onerror=null; this.src='images/person.svg'">
                             <?php } else { ?>
                                 <i class="fas fa-user-circle profileicon"></i>
 
@@ -137,20 +138,23 @@ if ($role != 'admin') { ?>
                             </ul>
                     </li>
                 </ul>
-                <!-- inbox logo -->
-                <div>
-                    <!-- <i class="fas fa-bell inboxicon" onclick="document.location='inbox.php'"></i> -->
-                    <span class="fa-stack inboxwhole" onclick="document.location='inbox.php'">
-                        <i class="fas fa-circle fa-stack-2x inboxbg"></i>
-                        <i class="fas fa-bell fa-stack-1x inboxbell"></i>
-                    </span>
-                </div>
+                <?php
+                if ($role != 'admin') { ?>
+                    <!-- inbox logo -->
+                    <div>
+                        <!-- <i class="fas fa-bell inboxicon" onclick="document.location='inbox.php'"></i> -->
+                        <span class="fa-stack inboxwhole" onclick="document.location='inbox.php'">
+                            <i class="fas fa-circle fa-stack-2x inboxbg"></i>
+                            <i class="fas fa-bell fa-stack-1x inboxbell"></i>
+                        </span>
+                    </div>
 
-                <!-- faq logo -->
-                <div>
-                    <i class="fas fa-question-circle faqicon" onclick="document.location='faq.php'"></i>
-                </div>
 
+                    <!-- faq logo -->
+                    <div>
+                        <i class="fas fa-question-circle faqicon" onclick="document.location='faq.php'"></i>
+                    </div>
+                <?php } ?>
                 <div>
                     <?php
                     if ($role != 'admin') {
