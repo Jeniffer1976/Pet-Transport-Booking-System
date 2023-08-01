@@ -1,5 +1,6 @@
 <?php
-include "loginFunctions.php";
+session_start();
+include("dbFunctions.php");
 
 if (isset($_SESSION['username'])) {
     if (!($role = "admin")) {
@@ -9,6 +10,56 @@ if (isset($_SESSION['username'])) {
 } else {
     header("Location: signIn.php");
     exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed wait then
+
+    $message = "";
+    $isSuccessful = false;
+    $dropoffaddress = $_POST['dropOffAddress'];
+    $firstNameRI = $_POST['r_fname'];
+    $lastNameRI = $_POST['r_lname'];
+    $contactRI = $_POST['r_phone'];
+    $emailRI = $_POST['r_email'];
+
+    $quoteId = $_GET['quote_id'];
+
+    // Get the SR_id
+    $getSRId = "SELECT sr_id FROM senderrecipient_details SR
+    INNER JOIN quote Q
+    ON Q.recipient_id = SR.sr_id
+    WHERE Q.quote_id = '$quoteId'";
+
+    $getSRidStatus = mysqli_query($link, $getSRId) or die(mysqli_error($link));
+
+    while ($row = mysqli_fetch_row($getSRidStatus)) {
+        $sr_id = $row[0];
+    }
+
+    if ($getSRId) {
+        // Recipient's Information
+        $updateRIQuery = "UPDATE senderrecipient_details
+        SET first_name = '$firstNameRI', last_name = '$lastNameRI', 
+        contact='$contactRI', email = '$emailRI'
+        WHERE sr_id = '$sr_id';";
+
+        $updateRIStatus = mysqli_query($link, $updateRIQuery) or die(mysqli_error($link));
+    }
+
+    // Drop Off Address
+    $updateDropOffQuery = "UPDATE quote 
+    SET dropOff_address = '$dropoffaddress'
+    WHERE quote_id='$quoteId'";
+
+    $updateDropOffStatus = mysqli_query($link, $updateDropOffQuery) or die(mysqli_error($link));
+
+    if ($updateRIStatus && $updateDropOffStatus) {
+        $message = "Drop Off Details have successfully been updated";
+        $isSuccessful = true;
+    } else {
+        $message = "The update was unsuccessful";
+    }
+
 }
 
 ?>
@@ -60,18 +111,32 @@ if (isset($_SESSION['username'])) {
         <div class="container account">
             <div class="row">
                 <!--Sidebar-->
-                <div class="col col-4 sidebar" style="height: 38em;">
-                    <a class="nav-link nav-text" href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-user"></i>Owner
-                        Information</a>
-                    <a class="nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-house"></i>Pick
+                <div class="col col-4 sidebar" style="height: 42em;">
+
+                <?php if ($status == 'pending') { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-circle-info"></i>General
+                            Information</a>
+
+                    <?php } else { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-user"></i>Owner
+                            Information</a>
+                    <?php } ?>
+
+                    <a class="nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i
+                            class="fa-solid fa-house"></i>Pick
                         Up Information</a>
                     <a class="active nav-link nav-text" href="admin_editDropOff.php?quote_id<?php echo $quote_id ?>"><i
                             class="fa-solid fa-location-dot"></i>Drop Off Information</a>
-                    <a class="nav-link nav-text" href="admin_editPetInfo.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-dog"></i>Pet's
+                    <a class="nav-link nav-text" href="admin_editPetInfo.php?quote_id=<?php echo $quote_id ?>"><i
+                            class="fa-solid fa-dog"></i>Pet's
                         Information</a>
                 </div>
 
-                <div class="col col-8" style="height: 38em;">
+                <div class="col col-8" style="height: 42em;" id="dropOffForm">
 
                     <div class="container-fluid d-flex justify-content-center">
                         <form class="row g-3 gx-5" method="post" action="">
@@ -86,36 +151,36 @@ if (isset($_SESSION['username'])) {
                             <hr class="rounded">
 
                             <div class="col-md-6">
-                                <label for="s_fname" class="form-label para">First Name:</label>
-                                <input type="text" class="form-control rounded-pill" name="s_fname"
+                                <label for="r_fname" class="form-label para">First Name:</label>
+                                <input type="text" class="form-control rounded-pill" name="r_fname"
                                     placeholder="<?php echo ucfirst($r_firstName) ?>"
                                     value="<?php echo ucfirst($r_firstName) ?>">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="s_lname" class="form-label para">Last Name:</label>
-                                <input type="text" class="form-control rounded-pill" name="s_lname"
+                                <label for="r_lname" class="form-label para">Last Name:</label>
+                                <input type="text" class="form-control rounded-pill" name="r_lname"
                                     placeholder="<?php echo ucfirst($r_lastName) ?>"
                                     value="<?php echo ucfirst($r_lastName) ?>">
                             </div>
 
                             <div class="col-12">
-                                <label for="s_email" class="form-label para">Email:</label>
-                                <input type="email" class="form-control rounded-pill" name="s_email"
+                                <label for="r_email" class="form-label para">Email:</label>
+                                <input type="email" class="form-control rounded-pill" name="r_email"
                                     placeholder="<?php echo $r_email ?>" value="<?php echo $r_email ?>">
                             </div>
 
                             <div class="col-md-6">
-                                <label for="phone" class="form-label para">Mobile Number:</label>
-                                <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"
+                                <label for="r_phone" class="form-label para">Mobile Number:</label>
+                                <input type="tel" class="form-control rounded-pill" name="r_phone" pattern="[0-9]{8}"
                                     placeholder="<?php
                                     $mobile = strval($r_contact);
                                     $arrMobile = str_split($mobile, 4);
-                                    echo $arrMobile[0] . " " . $arrMobile[1];
+                                    echo $arrMobile[0] . $arrMobile[1];
                                     ?>" value='<?php
                                     $mobile = strval($r_contact);
                                     $arrMobile = str_split($mobile, 4);
-                                    echo $arrMobile[0] . " " . $arrMobile[1];
+                                    echo $arrMobile[0] . $arrMobile[1];
                                     ?>'>
                             </div>
 
@@ -128,7 +193,7 @@ if (isset($_SESSION['username'])) {
 
                                 <div class="col" style="">
                                     <button type="submit" class="btn btn-primary primarybtn rounded-pill"
-                                        style="float: right; margin-top: 15%">Save Profile</button>
+                                        style="float: right; margin-top: 15%">Save Changes</button>
                                 </div>
                             </div>
                         </form>

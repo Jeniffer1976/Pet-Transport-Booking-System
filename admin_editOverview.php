@@ -11,6 +11,34 @@ if (isset($_SESSION['username'])) {
     exit();
 }
 
+include("admin_editQuote.php");
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed wait then
+    if ($status == 'pending') {
+
+        $message = "";
+        $isSuccessful = false;
+        $price = $_POST['price'];
+
+        $quoteId = $_GET['quote_id'];
+
+        // Price
+        $updatePriceQuery = "UPDATE quote 
+        SET price = '$price'
+        WHERE quote_id='$quoteId'";
+
+        $updatePriceStatus = mysqli_query($link, $updatePriceQuery) or die(mysqli_error($link));
+
+        if ($updatePriceStatus) {
+            $message = "Price has successfully been updated";
+            $isSuccessful = true;
+        } else {
+            $message = "The update was unsuccessful";
+        }
+    }
+
+}
+
 ?>
 <html lang="en">
 
@@ -50,7 +78,6 @@ if (isset($_SESSION['username'])) {
 
     <!-- Navbar -->
     <?php
-    include("admin_editQuote.php");
     include("navbar.php");
     ?>
     <!--  -->
@@ -66,14 +93,27 @@ if (isset($_SESSION['username'])) {
             <div class="row">
                 <!--Sidebar-->
                 <div class="col col-4 sidebar" style="height: 38em;">
-                    <a class="active nav-link nav-text" href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-user"></i>Owner
-                        Information</a>
+
+                    <?php if ($status == 'pending') { ?>
+                        <a class="active nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-circle-info"></i>General
+                            Information</a>
+
+                    <?php } else { ?>
+                        <a class="active nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-user"></i>Owner
+                            Information</a>
+                    <?php } ?>
+
                     <a class="nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i
                             class="fa-solid fa-house"></i>Pick
                         Up Information</a>
                     <a class="nav-link nav-text" href="admin_editDropOff.php?quote_id=<?php echo $quote_id ?>"><i
                             class="fa-solid fa-location-dot"></i>Drop Off Information</a>
-                    <a class="nav-link nav-text" href="admin_editPetInfo.php?quote_id=<?php echo $quote_id ?>"><i class="fa-solid fa-dog"></i>Pet's
+                    <a class="nav-link nav-text" href="admin_editPetInfo.php?quote_id=<?php echo $quote_id ?>"><i
+                            class="fa-solid fa-dog"></i>Pet's
                         Information</a>
                 </div>
 
@@ -97,6 +137,7 @@ if (isset($_SESSION['username'])) {
                             </span>
                         </div>
                     </div>
+                    <hr class="rounded">
 
                     <div class="row row2">
                         <div class="col-5">
@@ -109,8 +150,6 @@ if (isset($_SESSION['username'])) {
                             </span>
                         </div>
                     </div>
-
-                    <hr class="rounded">
 
                     <div class="row row2">
                         <div class="col-5">
@@ -127,6 +166,54 @@ if (isset($_SESSION['username'])) {
                             </span>
                         </div>
                     </div>
+                    <br>
+                    <?php if ($status == 'pending') { ?>
+                        <hr class="rounded">
+                        <span class='para'>Price Information</span>
+                        <hr class="rounded">
+
+                        <div class="row row2">
+                            <div class="container-fluid d-flex justify-content-center">
+                                <form class="row g-3 gx-5" method="post" action="">
+
+                                    <div class="col-md-6">
+                                        <label for="price" class="form-label para">Price (SGD):</label>
+                                        <input type="number" class="form-control rounded-pill" name="price"
+                                            placeholder="<?php echo $price ?>" value="<?php echo $price ?>">
+                                    </div>
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="reset"
+                                                class="btn btn-outline-danger btn-light primarybtn rounded-pill"
+                                                style="margin-top: 15%">Cancel</button>
+                                        </div>
+
+                                        <div class="col" style="">
+                                            <button type="submit" class="btn btn-primary primarybtn rounded-pill"
+                                                style="float: right; margin-top: 15%">Save Changes</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                            <?php if (isset($message)) { ?>
+                                <?php if ($isSuccessful == true) { ?>
+                                    <div class="alert alert-success errorMsg" role="alert">
+                                        <?php echo $message ?>
+                                    </div>
+                                <?php } else { ?>
+                                    <div class="alert alert-danger errorMsg" role="alert">
+                                        <?php echo $message ?>
+                                    </div>
+                                <?php } ?>
+                            <?php } ?>
+
+                        </div>
+                    <?php } ?>
+
                 </div>
 
             </div>

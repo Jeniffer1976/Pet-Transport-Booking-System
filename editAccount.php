@@ -56,24 +56,6 @@ if (isset($_SESSION['username'])) {
 
         $rowPassword = mysqli_fetch_array($checkPasswordStatus);
 
-
-        if (!(isset($_POST['checkEditPassword']))) {
-
-            if ($_POST['oldPassword'] == $rowPassword['password']) {
-
-                $updateUsers = "UPDATE users
-                SET password='$passwordN' 
-                WHERE username='$username'";
-
-                $updateUsersStatus = mysqli_query($link, $updateUsers);
-
-                $_SESSION['password'] = $passwordN;
-
-            } else {
-                $message = "The old password does not match with the one in the system";
-            }
-        }
-
         if ($_SESSION['role'] != 'admin') {
 
             $updateAccount = "UPDATE pet_owner
@@ -98,13 +80,40 @@ if (isset($_SESSION['username'])) {
             $_SESSION['birthDate'] = $birthdateN;
         }
 
-        if (($updateUsersStatus && $updateAccountStatus) || ($updateAccountStatus)) {
-            $message = "Your account has been successfully updated";
-            $isSuccessful = true;
-            header("Location: accountOverview.php"); //makes it go to signIn page directly.
+        if ((isset($_POST['checkEditPassword']))) {
 
+            if (($updateAccountStatus)) {
+                $message = "Your account has been successfully updated";
+                $isSuccessful = true;
+                //header("Location: accountOverview.php"); //makes it go to signIn page directly.
+
+            } else {
+                $message = "The account update was unsuccessful";
+            }
         } else {
-            $message = "The account update was unsuccessful";
+            if ($_POST['oldPassword'] == $rowPassword['password']) {
+
+                $updateUsers = "UPDATE users
+                SET password='$passwordN' 
+                WHERE username='$username'";
+
+                $updateUsersStatus = mysqli_query($link, $updateUsers);
+
+                $_SESSION['password'] = $passwordN;
+
+                if (($updateUsersStatus && $updateAccountStatus)) {
+
+                    $message = "Your account has been successfully updated";
+                    $isSuccessful = true;
+                    //header("Location: accountOverview.php"); //makes it go to signIn page directly.
+
+                } else {
+                    $message = "The account update was unsuccessful";
+                }
+
+            } else {
+                $message = "The old password does not match with the one in the system";
+            }
         }
 
 
@@ -167,8 +176,6 @@ if (isset($_SESSION['username'])) {
                     <a class="active nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit
                         Account</a>
                     <?php if ($_SESSION['role'] == 'customer') { ?>
-                        <a class="nav-link nav-text" href="membershipStatus.php"><i
-                                class="fa-solid fa-crown"></i>Membership</a>
                         <a class="nav-link nav-text" href="invoiceHist.php"><i class="fa-solid fa-clock"></i>Invoice
                             History</a>
                     <?php } ?>
@@ -231,7 +238,7 @@ if (isset($_SESSION['username'])) {
                                         placeholder="<?php echo $email ?>" value='<?php echo $email ?>' required>
                                 </div>
                                 <div class="form-check editPassword" style='margin-left: 5%;'>
-                                    <input class="form-check-input border border-3" type="checkbox" value=""
+                                    <input class="form-check-input border border-3" type="checkbox"
                                         id="checkEditPassword" name='checkEditPassword'
                                         style="border-color: #808080 !important;">
                                     <label class="form-check-label" for="checkEditPassword" style="color:#338762; font-weight: 500;
@@ -239,18 +246,18 @@ if (isset($_SESSION['username'])) {
                                         Tick if not changing password
                                     </label>
                                 </div>
-                                <?php if (!(isset($_POST['checkEditPassword']))) { ?>
-                                    <div class="col-md-6 passwordShow" id='passwordOld'>
-                                        <label for="password" class="form-label para">Old Password:</label>
-                                        <input type="password" class="form-control rounded-pill" name="oldPassword" id='oPw'
-                                            required>
-                                    </div>
-                                    <div class="col-md-6 passwordShow" id='passwordNew'>
-                                        <label for="password" class="form-label para">New Password:</label>
-                                        <input type="password" class="form-control rounded-pill" name="newPassword" id='nPw'
-                                            required>
-                                    </div>
-                                <?php } ?>
+
+                                <div class="col-md-6 passwordShow" id='passwordOld'>
+                                    <label for="password" class="form-label para">Old Password:</label>
+                                    <input type="password" class="form-control rounded-pill" name="oldPassword" id='oPw'
+                                        required>
+                                </div>
+                                <div class="col-md-6 passwordShow" id='passwordNew'>
+                                    <label for="password" class="form-label para">New Password:</label>
+                                    <input type="password" class="form-control rounded-pill" name="newPassword" id='nPw'
+                                        required>
+                                </div>
+                                
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label para">Mobile Number:</label>
                                     <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"

@@ -85,19 +85,154 @@ function validateForm() {
 }
 
 $(document).ready(function () {
+  const pickupday = document.getElementById('pickupday');
+  const pickupdate = document.getElementById('pickupdate');
+  $("#filterMonth").change(function () {
 
+    if ($("#pickupday").val() != null) {
+      var serviceQty = $("#serviceQty").val();
+      var month = $("#filterMonth").val();
+      var pickday = $("#pickupday").val();
+
+      var d = new Date();
+      var getTot = daysInMonth(month, d.getFullYear()); //Get total days in a month
+      var day = new Array();
+
+      for (var x = 1; x <= getTot; x++) {    //looping through days in month
+        var newDate = new Date("2023", month, x)
+        if (newDate.getDay() == pickday) {
+          day.push(x);
+        }
+
+
+      }
+      for (var i = 0; i < serviceQty; i++) {
+        var field = document.getElementsByName('pickupdate[]')[i];
+
+        var setDay = day[i];
+        var setMonth = month;
+        var setYear = d.getFullYear();
+
+        if (setDay.toString().length == 1) {
+          setDay = 0 + setDay.toString();
+        }
+        if (setMonth.toString().length == 1) {
+          setMonth = 0 + setMonth.toString();
+        }
+
+        field.value = `${setYear}-${setMonth}-${setDay}`;
+      }
+
+    }
+  });
+  $("#pickupday").change(function () {
+    if ($("#filterMonth").val() != null) {
+      var serviceQty = $("#serviceQty").val();
+      var month = $("#filterMonth").val();
+      var pickday = $("#pickupday").val();
+
+      var d = new Date();
+      var getTot = daysInMonth(month, d.getFullYear()); //Get total days in a month
+      var day = new Array();
+
+      for (var x = 1; x <= getTot; x++) {    //looping through days in month
+        var newDate = new Date("2023", month, x)
+        if (newDate.getDay() == pickday) {
+          day.push(x);
+        }
+
+
+      }
+      for (var i = 0; i < serviceQty; i++) {
+        var field = document.getElementsByName('pickupdate[]')[i];
+
+        var setDay = day[i];
+        var setMonth = month;
+        var setYear = d.getFullYear();
+
+        if (setDay.toString().length == 1) {
+          setDay = 0 + setDay.toString();
+        }
+        if (setMonth.toString().length == 1) {
+          setMonth = 0 + setMonth.toString();
+        }
+
+        field.value = `${setYear}-${setMonth}-${setDay}`;
+      }
+    }
+  });
+  // $('#pickupday').hide();
   $("#servicetype").change(function () {
     if (this.value == "regular") {
       $('.serviceQty').css({
         opacity: '1'
       });
+      $('.filterMonth').css({
+        display: 'block'
+      });
+      // $('.pickupday').css(
+      //   'display','block'
+      // );
+
+      // $('.pickupdate').css({
+      //   display:'none'
+      // });
+
+      // $('.col .row .pickUpTimings-content .pickupday').css({
+      //   display:'block'
+      // });
+      // $('.col .row .pickUpTimings-content .pickupdate').css({
+      //   display:'none'
+      // });
+      // $("#pickupday").attr("disabled","");
+      // $("#pickupdate").attr("disabled","disabled");
     } else {
       $('.serviceQty').css({
         opacity: '0'
       });
+      $('.filterMonth').css({
+        display: 'none'
+      });
+      // $("#pickupday").attr("disabled","disabled");
+      // $("#pickupdate").attr("disabled","");
+      // $('.pickupday').css({
+      //   display:'none'
+      // });
+      // $('.pickupdate').css({
+      //   display:'block'
+      // });
+      // $('.col .row .pickUpTimings-content .pickupday').css({
+      //   display:'none'
+      // });
+      // $('.col .row .pickUpTimings-content .pickupdate').css({
+      //   display:'block'
+      // });
+
+      // pickupday.style.display = "none";
+      // pickupdate.style.display = "block";
       $('#serviceQty').val("1");
+
     }
   });
+
+  // $('#serviceNext').click(function () {
+  //   alert ($("#servicetype").val());
+  //   if ($("#servicetype").val() == "regular") {
+  //     $('.pickupday').css({
+  //       display:'block',
+  //     });
+  //     $('.pickupdate').css({
+  //       display:'none',
+  //     });
+  //   } else {
+  //     $('.pickupday').css({
+  //       display:'none',
+  //     });
+  //     $('.pickupdate').css({
+  //       display:'block',
+  //     });
+  //   }
+  // });
 
   $('#submitReq').click(function () {
     // if (validateForm == false) {
@@ -226,7 +361,7 @@ $(document).ready(function () {
 //   var secondpickup = document.getElementById("wholesecpickup");
 
 //   if (checkBox.checked == true) {
-    
+
 //     // secondpickup.style.display = "block";
 //     $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
 //       display: "block"
@@ -235,7 +370,7 @@ $(document).ready(function () {
 //       display: "none"
 //     });
 //   } else {
-   
+
 //     $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
 //       display: "none"
 //     });
@@ -244,13 +379,38 @@ $(document).ready(function () {
 //     });
 //   }
 // }
+// function serviceClicked() {
+//   var servicetype = document.getElementById("servicetype");
+
+//   if (servicetype.value == "regular") {
+
+//     $('.pickupday').css({
+//       display:'block'
+//     });
+//     $('.pickupdate').css({
+//       display:'none'
+//     });
+//   } else {
+
+//     $('.pickupday').css({
+//       display:'none'
+//     });
+//     $('.pickupdate').css({
+//       display:'block'
+//     });
+//   }
+// }
+
+function daysInMonth(month, year) {
+  return new Date(year, month, 0).getDate();
+}
 
 function toggleclicked() {
   var checkBox = document.getElementById("switch");
   var secondpickup = document.getElementById("wholesecpickup");
 
   if (checkBox.checked == true) {
-    
+
     // secondpickup.style.display = "block";
     $('.twopickups').css({
       display: "block"
@@ -258,13 +418,26 @@ function toggleclicked() {
     $('.wholepickup').css({
       display: "none"
     });
+    // $('.pickupday').css({
+    //   display:'block'
+    // });
+    // $('.pickupdate').css({
+    //   display:'none'
+    // });
   } else {
-   
+
     $('.twopickups').css({
       display: "none"
     });
     $('.wholepickup').css({
       display: "block"
     });
+    // $('.pickupday').css({
+    //   display:'none'
+    // });
+    // $('.pickupdate').css({
+    //   display:'block'
+    // });
   }
 }
+

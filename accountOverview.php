@@ -80,8 +80,6 @@ if (isset($_SESSION['username'])) {
                             class="fa-solid fa-house"></i>Account Overview</a>
                     <a class="nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit Account</a>
                     <?php if ($_SESSION['role'] == 'customer') { ?>
-                        <a class="nav-link nav-text" href="membershipStatus.php"><i
-                                class="fa-solid fa-crown"></i>Membership</a>
                         <a class="nav-link nav-text" href="invoiceHist.php"><i class="fa-solid fa-clock"></i>Invoice
                             History</a>
                     <?php } ?>
@@ -93,7 +91,7 @@ if (isset($_SESSION['username'])) {
                             <?php if (isset($_SESSION['profile'])) {
                                 $profile = $_SESSION['profile']
                                     ?>
-                                <img src="data:image/png;base64,<?php echo stripcslashes(base64_encode($profile))?>" height="80" width="80"
+                                <img src="data:image/png;base64,<?php echo base64_encode($profile)?>" height="80" width="80"
                                     style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
                                 <img src="images/person.svg" height="80" width="80">

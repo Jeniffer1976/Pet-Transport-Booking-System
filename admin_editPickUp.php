@@ -57,7 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
     foreach ($_POST['pickUpDate'] as $key => $value) {
         $pickUpSql = "UPDATE pickup_details 
         SET pickUp_date = :pickupDate, first_pickUp_time = :firstPickup, second_pickUp_time = :secondPickup
-        WHERE quote_id='$quoteId'";
+        WHERE quote_id='$quoteId'
+        AND pickUp_id=:pickUpId";
 
         $petStmt = $conn->prepare($pickUpSql);
 
@@ -66,18 +67,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
                 'pickupDate' => $value,
                 'firstPickup' => $_POST['firstpickup'][$key],
                 'secondPickup' => $_POST['secondpickup'][$key],
+                'pickUpId' => $_POST['pickup_id'][$key],
             ]);
         } else {
             $petStmt->execute([
                 'pickupDate' => $value,
                 'firstPickup' => $_POST['onepickup'][$key],
                 'secondPickup' => null,
+                'pickUpId' => $_POST['pickup_id'][$key],
             ]);
         }
 
     }
 
-    if ($updatePickUpStatus && $petStmt) {
+    if ($updatePickUpStatus && $petStmt && $updateSIStatus) {
         $message = "Pick Up Details have successfully been updated";
         $isSuccessful = true;
     } else {
@@ -141,9 +144,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
             <div class="row">
                 <!--Sidebar-->
                 <div class="col col-4 sidebar" style="height: 38em;">
-                    <a class="nav-link nav-text" href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
-                            class="fa-solid fa-user"></i>Owner
-                        Information</a>
+
+                    <?php if ($status == 'pending') { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-circle-info"></i>General
+                            Information</a>
+
+                    <?php } else { ?>
+                        <a class="nav-link nav-text"
+                            href="admin_editOverview.php?quote_id=<?php echo $quote_id ?>"><i
+                                class="fa-solid fa-user"></i>Owner
+                            Information</a>
+                    <?php } ?>
+
                     <a class="active nav-link nav-text" href="admin_editPickUp.php?quote_id=<?php echo $quote_id ?>"><i
                             class="fa-solid fa-house"></i>Pick
                         Up Information</a>
@@ -171,6 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
                                     $pickUp_date = $pickupContent[$u]['pickUp_date'];
                                     $first_pickUp_time = $pickupContent[$u]['first_pickUp_time'];
                                     $second_pickUp_time = $pickupContent[$u]['second_pickUp_time'];
+                                    $pickUpId = $pickupContent[$u]['pickUp_id'];
                                     ?>
 
                                     <div class="col-md-6" id="service">
@@ -209,6 +224,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
                                                 value='<?php echo $second_pickUp_time ?>'>
                                         </div>
                                     <?php } ?>
+                                    <input type="hidden" id="pickup_id" name="pickup_id[]" value="<?php echo $pickUpId ?>" />
+                                    
                                 <?php } ?>
 
                                 <hr class="rounded">
@@ -258,7 +275,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
 
                                     <div class="col" style="">
                                         <button type="submit" class="btn btn-primary primarybtn rounded-pill"
-                                            style="float: right; margin-top: 15%">Save Profile</button>
+                                            style="float: right; margin-top: 15%">Save Changes</button>
                                     </div>
                                 </div>
                             </form>

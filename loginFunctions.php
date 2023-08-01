@@ -1,8 +1,8 @@
 <?php
 include "dbFunctions.php";
-if (session_status() === PHP_SESSION_NONE)
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
-
+}
 function login($username, $password)
 {
     global $link;
@@ -57,6 +57,7 @@ function login($username, $password)
 
             if (mysqli_num_rows($adminPassStatus) == 1) { // check for correct username and password
                 $row = mysqli_fetch_array($adminPassStatus);
+                $_SESSION['staff_id'] = $row['staff_id'];
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['firstName'] = $row['first_Name'];
                 $_SESSION['lastName'] = $row['last_Name'];
@@ -67,7 +68,7 @@ function login($username, $password)
                 $_SESSION['resignationDate'] = $row['resignation_date'];
                 $_SESSION['birthDate'] = $row['birth_date'];
                 $_SESSION['gender'] = $row['gender'];
-                $_SESSION['profile'] = $row['profile_pic'];
+                $_SESSION['profile'] = $row['profile'];
                 $_SESSION['role'] = $row['role'];
                 header("Location: admin.php");
                 exit();
