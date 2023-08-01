@@ -49,28 +49,26 @@
 
 
     <!-- Service Buttons -->
-    <div class="grad1">
-        <div class="font7">SERVICES</div>
-        <div class="container services">
-            <div align="center">
-                <div class="row">
-                    <div class="col-6">
-                        <div class="regular">
-                            <img src="images/schedule.png" alt="">
-                            <p class="font8">Regular</p>
-                            <a class="font8" href="#regular">Read More</a>
-                        </div>
+    <div class="container grad1">
+        <div class="container regularcontainer">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="regular">
+                        <img src="images/schedule.png" alt="">
+                        <p class="font8">Regular</p>
+                        <a class="font8" href="#regular">Read More</a>
                     </div>
-                    <div class="col-6">
-                        <div class="regular">
-                            <img src="images/calendar.png" alt="">
-                            <p class="font8">Ad-hoc</p>
-                            <a class="font8" href="#adhoc">Read More</a>
-                        </div>
+                </div>
+                <div class="col-sm">
+                    <div class="regular">
+                        <img src="images/calendar.png" alt="">
+                        <p class="font8">Ad-hoc</p>
+                        <a class="font8" href="#regular">Read More</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!--  -->
 
@@ -78,7 +76,7 @@
 
     <!-- Regular Service Section -->
     <div class="gradient">
-        <div class="container" id="regular">
+        <div class="container aboutcontent" id="regular">
             <div class="row">
                 <div class="col-4">
                     <div class="container">
@@ -93,11 +91,15 @@
                             <div class="text4">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                nisi
+                                ut
                                 aliquip ex ea commodo consequat.
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                nisi
+                                ut
                                 aliquip ex ea commodo consequat.
                             </div>
                         </div>
@@ -111,19 +113,26 @@
                         <div class="container">
                             <div class="row p-3">
                                 <div class="row">
-                                    <div class="col p-3 themed-grid-col font6 col1">Improved Performance:
-                                        <div class="text6">Regular servicing helps maintain the optimal
+                                    <div class="col p-3 themed-grid-col font6 col1">Improved
+                                        Performance:
+                                        <div class="text6">Regular servicing helps maintain the
+                                            optimal
                                             performance
                                             of
-                                            your belongings, such as cars, computers, and appliances. This
+                                            your belongings, such as cars, computers, and
+                                            appliances.
+                                            This
                                             ensures
                                             they
                                         </div>
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col p-3 themed-grid-col font6 col1">Cost saving:
-                                        <div class="text6">While regular servicing may involve upfront
-                                            costs, it can save you money in the long run. By detecting and
+                                        <div class="text6">While regular servicing may involve
+                                            upfront
+                                            costs, it can save you money in the long run. By
+                                            detecting
+                                            and
                                             addressing
                                         </div>
                                     </div>
@@ -136,7 +145,8 @@
                                 <div class="row">
                                     <div class="col p-3 themed-grid-col font6 col1">Consistency and
                                         Reliability:
-                                        <div class="text6">Whether it's your car, computer, or any other
+                                        <div class="text6">Whether it's your car, computer, or any
+                                            other
                                             equipment,
                                             regular servicing ensures they function consistently and
                                             reliably.
@@ -144,7 +154,9 @@
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col p-3 themed-grid-col font6 col1">Peace of Mind:
-                                        <div class="text6">Knowing that your belongings are well taken care
+                                        <div class="text6">Knowing that your belongings are well
+                                            taken
+                                            care
                                             of and
                                             maintained gives you peace of mind. </div>
                                     </div>
@@ -176,11 +188,15 @@
                             <div class="text4">
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                nisi
+                                ut
                                 aliquip ex ea commodo consequat.
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                                 eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                nisi
+                                ut
                                 aliquip ex ea commodo consequat.
                             </div>
                         </div>
@@ -194,19 +210,26 @@
                         <div class="container">
                             <div class="row p-3">
                                 <div class="row">
-                                    <div class="col p-3 themed-grid-col font6 col1">Improved Performance:
-                                        <div class="text6">Regular servicing helps maintain the optimal
+                                    <div class="col p-3 themed-grid-col font6 col1">Improved
+                                        Performance:
+                                        <div class="text6">Regular servicing helps maintain the
+                                            optimal
                                             performance
                                             of
-                                            your belongings, such as cars, computers, and appliances. This
+                                            your belongings, such as cars, computers, and
+                                            appliances.
+                                            This
                                             ensures
                                             they
                                         </div>
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col p-3 themed-grid-col font6 col1">Cost saving:
-                                        <div class="text6">While regular servicing may involve upfront
-                                            costs, it can save you money in the long run. By detecting and
+                                        <div class="text6">While regular servicing may involve
+                                            upfront
+                                            costs, it can save you money in the long run. By
+                                            detecting
+                                            and
                                             addressing
                                         </div>
                                     </div>
@@ -219,7 +242,8 @@
                                 <div class="row">
                                     <div class="col p-3 themed-grid-col font6 col1">Consistency and
                                         Reliability:
-                                        <div class="text6">Whether it's your car, computer, or any other
+                                        <div class="text6">Whether it's your car, computer, or any
+                                            other
                                             equipment,
                                             regular servicing ensures they function consistently and
                                             reliably.
@@ -227,7 +251,9 @@
                                     </div>
                                     <div class="col-sm-1"></div>
                                     <div class="col p-3 themed-grid-col font6 col1">Peace of Mind:
-                                        <div class="text6">Knowing that your belongings are well taken care
+                                        <div class="text6">Knowing that your belongings are well
+                                            taken
+                                            care
                                             of and
                                             maintained gives you peace of mind. </div>
                                     </div>

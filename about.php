@@ -51,11 +51,8 @@
 
     <!-- About Buttons -->
     <div class="container grad1">
-        <div align="center">
-            <div class="container font18">
-                About Us
-            </div>
-            <div class="row row1">
+        <div class="container servicescontainer">
+            <div class="row">
                 <div class="col-4">
                     <div class="services">
                         <p class="">Company profile</p>
@@ -69,11 +66,12 @@
                 <div class="col-4">
                     <div class="services">
                         <p class="">Mission, Vision <br>
-                            & Values</p>
+                        and Values</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!--  -->
 
@@ -309,23 +307,23 @@
                 </div>
             </div>
         </div>
-    <!--  -->
+        <!--  -->
 
 
-    <!-- Footer -->
-    <?php include("footer.php") ?>
-    <!--  -->
+        <!-- Footer -->
+        <?php include("footer.php") ?>
+        <!--  -->
 
 
-    <!-- Background -->
-    <div class="bgclass">
-        <div class="gradient"></div>
-    </div>
-    <!--  -->
+        <!-- Background -->
+        <div class="bgclass">
+            <div class="gradient"></div>
+        </div>
+        <!--  -->
 
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scripts/script.js"></script>
+        <!-- Scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="scripts/script.js"></script>
 
 </body>
 

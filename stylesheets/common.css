@@ -396,16 +396,23 @@ rect {
     border-radius: 50%;
     background-color: #1E53B3;
     padding-top: 15%;
+    transform: translate(15%, 0%);
 }
+
+.regularcontainer {
+    padding-top: 10%;
+}
+
+/*.regularcol {
+    max-width: 400px;
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+}*/
 
 .regular img {
     height: 200px;
     width: 200px;
-}
-
-.services {
-    margin-top: 5vw;
-    margin-left: 15vw;
 }
 
 .conservices {
@@ -476,18 +483,14 @@ rect {
     padding-bottom: 5px;
 }
 
-.row1 {
-    padding-left: -10%;
-    padding-right: 25%;
-}
 
 .aboutcontent {
     padding-top: 2%;
 }
 
 img.two {
-    width: 100%;
-    height: 80%;
+    width: 80%;
+    height: 70%;
 }
 
 img.four {
@@ -539,8 +542,8 @@ img.four {
 .cn1 {
     background-color: #338762;
     border-radius: 5px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 10px;
+    padding-bottom: 15px;
     padding-left: 20px;
     padding-right: 20px;
     margin: 0%;
@@ -595,17 +598,6 @@ img.four {
     text-align: center;
 }
 
-.services {
-    height: 350px;
-    width: 350px;
-    border-radius: 50%;
-    background-color: #338762;
-    padding-top: 40%;
-    font-family: 'Nunito', sans-serif;
-    color: white;
-    font-size: 2em;
-    font-weight: bolder;
-}
 
 .font6 {
     font-style: italic;
@@ -622,5 +614,21 @@ img.four {
     font-size: medium;
 }
 
+.services {
+    height: 350px;
+    width: 350px;
+    border-radius: 50%;
+    background-color: #338762;
+    padding-top: 35%;
+    transform: translate(15%, 0%);
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.servicescontainer {
+    padding-top: 10%;
+}
 
 
