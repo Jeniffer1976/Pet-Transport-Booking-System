@@ -11,6 +11,8 @@ if (isset($_SESSION['username'])) {
     $password = $_SESSION['password'];
     $role = $_SESSION['role'];
 
+
+
     if ($role == 'admin') {
         $gender = $_SESSION['gender'];
         $birthdate = $_SESSION['birthDate'];
@@ -28,10 +30,20 @@ if (isset($_SESSION['username'])) {
         $isSuccessful = false;
         //something was posted
         $emailN = $_POST['email'];
-        $passwordN = $_POST['newPassword'];
+
         $firstNameN = $_POST['firstName'];
         $lastNameN = $_POST['lastName'];
         $phoneN = $_POST['phone'];
+
+        $imageExists = '';
+        if (!empty($_FILES['profileImgEdit']['tmp_name'])) {
+            if ($_FILES['profileImgEdit']['size'] < 1000000) {
+                $profilePic = addslashes(file_get_contents($_FILES['profileImgEdit']['tmp_name']));
+                $imageExists = ", profile = '$profilePic'";
+                $message += "<br>The profile picture will be updated in your next login.";
+                // $_SESSION['profile'] = $profilePic;
+            }
+        }
 
         if ($_SESSION['role'] == 'admin') {
             $genderN = $_POST['gender'];
@@ -59,7 +71,7 @@ if (isset($_SESSION['username'])) {
         if ($_SESSION['role'] != 'admin') {
 
             $updateAccount = "UPDATE pet_owner
-                SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
+                SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'" . $imageExists . "
                 WHERE username='$username'";
 
         } else {
@@ -70,28 +82,38 @@ if (isset($_SESSION['username'])) {
         }
         $updateAccountStatus = mysqli_query($link, $updateAccount);
 
-        $_SESSION['firstName'] = $firstNameN;
-        $_SESSION['lastName'] = $lastNameN;
-        $_SESSION['email'] = $emailN;
-        $_SESSION['mobile'] = $phoneN;
 
-        if ($_SESSION['role'] == 'admin') {
-            $_SESSION['gender'] = $genderN;
-            $_SESSION['birthDate'] = $birthdateN;
-        }
-
-        if ((isset($_POST['checkEditPassword']))) {
+        if (!isset($_POST['checkEditPassword'])) {
 
             if (($updateAccountStatus)) {
-                $message = "Your account has been successfully updated";
+
+                $_SESSION['firstName'] = $firstNameN;
+                $_SESSION['lastName'] = $lastNameN;
+                $_SESSION['email'] = $emailN;
+                $_SESSION['mobile'] = $phoneN;
+                $_SESSION['profile'] = $profilePic ?? $_SESSION['profile'];
+
+                if ($_SESSION['role'] == 'admin') {
+                    $_SESSION['gender'] = $genderN;
+                    $_SESSION['birthDate'] = $birthdateN;
+                }
+                $message = "Your account has been successfully updated. <i class='far fa-smile'></i>";
                 $isSuccessful = true;
-                //header("Location: accountOverview.php"); //makes it go to signIn page directly.
+                if ($imageExists != '') {
+                    $message .= "<br>The profile picture will be updated in your next login.";
+                }
+                Header("Location: accountOverview.php?msg=" . $message);
+                // header("Location: accountOverview.php"); //makes it go to signIn page directly.
 
             } else {
                 $message = "The account update was unsuccessful";
+                // $isSuccessful = false;
             }
+
         } else {
+
             if ($_POST['oldPassword'] == $rowPassword['password']) {
+                $passwordN = $_POST['newPassword'];
 
                 $updateUsers = "UPDATE users
                 SET password='$passwordN' 
@@ -102,20 +124,38 @@ if (isset($_SESSION['username'])) {
                 $_SESSION['password'] = $passwordN;
 
                 if (($updateUsersStatus && $updateAccountStatus)) {
+                    $_SESSION['firstName'] = $firstNameN;
+                    $_SESSION['lastName'] = $lastNameN;
+                    $_SESSION['email'] = $emailN;
+                    $_SESSION['mobile'] = $phoneN;
+                    $_SESSION['profile'] = $profilePic ?? $_SESSION['profile'];
 
-                    $message = "Your account has been successfully updated";
+                    if ($_SESSION['role'] == 'admin') {
+                        $_SESSION['gender'] = $genderN;
+                        $_SESSION['birthDate'] = $birthdateN;
+                    }
+                    $message = "Your account has been successfully updated. <i class='far fa-smile'></i>";
                     $isSuccessful = true;
-                    //header("Location: accountOverview.php"); //makes it go to signIn page directly.
+                    if ($imageExists != '') {
+                        $message .= "<br>The profile picture will be updated in your next login.";
+                    }
+                    Header("Location: accountOverview.php?msg=" . $message);
+
+                    // header("Location: accountOverview.php"); //makes it go to signIn page directly.
 
                 } else {
                     $message = "The account update was unsuccessful";
+                    // $isSuccessful = false;
+
                 }
 
             } else {
                 $message = "The old password does not match with the one in the system";
+                // $isSuccessful = false;
             }
-        }
 
+
+        }
 
 
     }
@@ -182,36 +222,48 @@ if (isset($_SESSION['username'])) {
                 </div>
 
                 <div class="col col-8" style="height: 49em;">
-                    <div class="row row1">
-                        <div class="col-3">
-                            <input name="profileImg" type="file" accept="image/*" id="imgUpload"
-                                onchange="displayImage(this)" style="display:none">
-                            <div class="profileImgDisplay">
-                                <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
-                                <?php if (isset($_SESSION['profile'])) {
-                                    $profile = $_SESSION['profile']
-                                        ?>
-                                    <img src="images/profileImg/<?php echo $profile ?>" id="imgPreview">
-                                <?php } else { ?>
-                                    <img src="images/person.svg" id="imgPreview">
-                                <?php } ?>
-                                <button type="button" class="imgBtn" onclick="triggerClick()"><i
-                                        class="fas fa-pen"></i></button>
+                    <?php if (isset($message)) { ?>
+                        <?php if ($isSuccessful == false) { ?>
+                            <div class="alert alert-danger errorMsg" role="alert">
+                                <?php echo $message ?>
                             </div>
-                        </div>
+                            <br>
+                        <?php } ?>
+                    <?php } ?>
 
-                        <div class="col">
-                            <h3 class="header3">
-                                <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
-                            </h3>
-                            <span class="para">aka @
-                                <?php echo $username ?>
-                            </span>
-                        </div>
-                    </div>
                     <div class="row row2">
                         <div class="container-fluid d-flex justify-content-center">
-                            <form class="row g-3 gx-5" method="post" action="">
+                            <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
+                                <div class="row row1">
+                                    <div class="col-3">
+                                        <div id="errTip">The image is too big (Max 1MB)</div>
+                                        <input name="profileImgEdit" type="file" accept="image/*" id="imgUpload"
+                                            onchange="displayImage(this)" style="display:none">
+                                        <div class="profileImgDisplay">
+                                            <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
+                                            <?php if (isset($_SESSION['profile'])) {
+                                                $profile = $_SESSION['profile']
+                                                    ?>
+                                                <img src="data:image/png;base64,<?php echo stripslashes(base64_encode($profile)) ?>"
+                                                    id="imgPreview"
+                                                    onerror="this.onerror=null; this.src='images/person.svg'">
+                                            <?php } else { ?>
+                                                <img src="images/person.svg" id="imgPreview">
+                                            <?php } ?>
+                                            <button type="button" class="imgBtn" onclick="triggerClick()"><i
+                                                    class="fas fa-pen"></i></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <h3 class="header3">
+                                            <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
+                                        </h3>
+                                        <span class="para">aka @
+                                            <?php echo $username ?>
+                                        </span>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="username" class="form-label para">Username:</label>
                                 </div>
@@ -243,21 +295,21 @@ if (isset($_SESSION['username'])) {
                                         style="border-color: #808080 !important;">
                                     <label class="form-check-label" for="checkEditPassword" style="color:#338762; font-weight: 500;
                                     font-style: italic;">
-                                        Tick if not changing password
+                                        Tick if changing password
                                     </label>
                                 </div>
 
                                 <div class="col-md-6 passwordShow" id='passwordOld'>
                                     <label for="password" class="form-label para">Old Password:</label>
-                                    <input type="password" class="form-control rounded-pill" name="oldPassword" id='oPw'
-                                        required>
+                                    <input type="password" class="form-control rounded-pill" name="oldPassword"
+                                        id='oPw'>
                                 </div>
                                 <div class="col-md-6 passwordShow" id='passwordNew'>
                                     <label for="password" class="form-label para">New Password:</label>
-                                    <input type="password" class="form-control rounded-pill" name="newPassword" id='nPw'
-                                        required>
+                                    <input type="password" class="form-control rounded-pill" name="newPassword"
+                                        id='nPw'>
                                 </div>
-                                
+
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label para">Mobile Number:</label>
                                     <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"
@@ -304,17 +356,8 @@ if (isset($_SESSION['username'])) {
 
                         </div>
 
-                        <?php if (isset($message)) { ?>
-                            <?php if ($isSuccessful == true) { ?>
-                                <div class="alert alert-success errorMsg" role="alert">
-                                    <?php echo $message ?>
-                                </div>
-                            <?php } else { ?>
-                                <div class="alert alert-danger errorMsg" role="alert">
-                                    <?php echo $message ?>
-                                </div>
-                            <?php } ?>
-                        <?php } ?>
+
+
 
                     </div>
 
@@ -338,21 +381,6 @@ if (isset($_SESSION['username'])) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/script.js"></script>
     <script>
-        function triggerClick() {
-            document.querySelector("#imgUpload").click();
-        }
-
-        function displayImage(i) {
-            if (i.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (i) {
-                    document.querySelector("#imgPreview").setAttribute('src', i.target.result);
-                }
-                reader.readAsDataURL(i.files[0]);
-            }
-
-        }
 
         const checkbox = document.getElementById('checkEditPassword');
 
@@ -362,18 +390,31 @@ if (isset($_SESSION['username'])) {
         const passwordNInput = document.getElementById('nPw');
 
         checkbox.addEventListener('click', function handleClick() {
-            if (checkbox.checked) {
-                passwordO.style.display = 'none';
-                passwordN.style.display = 'none';
+            // if (checkbox.checked) {
+            //     passwordO.style.display = 'none';
+            //     passwordN.style.display = 'none';
 
-                passwordOInput.required = false;
-                passwordNInput.required = false;
-            } else {
+            //     passwordOInput.required = false;
+            //     passwordNInput.required = false;
+            // } else {
+            //     passwordO.style.display = 'block';
+            //     passwordN.style.display = 'block';
+
+            //     passwordOInput.required = true;
+            //     passwordNInput.required = true;
+            // }
+            if (checkbox.checked) {
                 passwordO.style.display = 'block';
                 passwordN.style.display = 'block';
 
                 passwordOInput.required = true;
                 passwordNInput.required = true;
+            } else {
+                passwordO.style.display = 'none';
+                passwordN.style.display = 'none';
+
+                passwordOInput.required = false;
+                passwordNInput.required = false;
             }
         });
 

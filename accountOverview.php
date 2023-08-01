@@ -15,7 +15,7 @@ if (isset($_SESSION['username'])) {
         $birthdate = $_SESSION['birthDate'];
         $gender = $_SESSION['gender'];
 
-        if($gender == 'F'){
+        if ($gender == 'F') {
             $gender = 'Female';
         } else {
             $gender = 'Male';
@@ -86,13 +86,23 @@ if (isset($_SESSION['username'])) {
                 </div>
 
                 <div class="col col-8" style="height: 50em;">
+                
+                    <?php 
+                    if (isset($_REQUEST['msg'])) { 
+                    $message = $_REQUEST['msg'];
+                    ?>
+                        <div class="alert alert-success errorMsg" role="alert">
+                            <?php echo $message ?>
+                        </div>
+                    <?php } ?>
+
                     <div class="row row1">
                         <div class="col-3">
                             <?php if (isset($_SESSION['profile'])) {
                                 $profile = $_SESSION['profile']
                                     ?>
-                                <img src="data:image/png;base64,<?php echo base64_encode($profile)?>" height="80" width="80"
-                                    style="object-fit: cover; border-radius: 50%;">
+                                <img src="data:image/png;base64,<?php echo base64_encode($profile) ?>" height="80"
+                                    width="80" onerror="this.onerror=null; this.src='images/person.svg'"style="object-fit: cover; border-radius: 50%;" >
                             <?php } else { ?>
                                 <img src="images/person.svg" height="80" width="80">
                             <?php } ?>
