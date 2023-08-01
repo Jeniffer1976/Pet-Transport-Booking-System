@@ -284,15 +284,9 @@ hr.rounded {
     min-height: 100%;
     max-width: 100%;
     margin:0%;
-    padding: 5%;
     background-image: linear-gradient(to right, rgb(255, 106, 0), rgb(240, 219, 197));
 }
 
-.row1 {
-    align-items: center;
-    padding-left: 20%;
-    padding-right: 20%;
-}
 
 
 .font1 {
@@ -410,7 +404,12 @@ rect {
 }
 
 .services {
-    margin-left: 10vw;
+    margin-top: 5vw;
+    margin-left: 15vw;
+}
+
+.conservices {
+    padding-top: 5px;
 }
 
 
