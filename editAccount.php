@@ -22,25 +22,16 @@ if (isset($_SESSION['username'])) {
         }
     }
 
-    // echo $_SESSION['profile'];
-
     if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wait then
     {
         $message = "";
         $isSuccessful = false;
         //something was posted
         $emailN = $_POST['email'];
+        $passwordN = $_POST['newPassword'];
         $firstNameN = $_POST['firstName'];
         $lastNameN = $_POST['lastName'];
         $phoneN = $_POST['phone'];
-        $imageExists = '';
-        if (!empty($_FILES['profileImgEdit']['tmp_name'])){
-            if ($_FILES['profileImgEdit']['size'] < 1000000){
-                $profilePic = addslashes(file_get_contents($_FILES['profileImgEdit']['tmp_name']));
-                $imageExists = ", profile = '$profilePic'";
-                // $_SESSION['profile'] = $profilePic;
-            }
-        }
 
         if ($_SESSION['role'] == 'admin') {
             $genderN = $_POST['gender'];
@@ -65,9 +56,41 @@ if (isset($_SESSION['username'])) {
 
         $rowPassword = mysqli_fetch_array($checkPasswordStatus);
 
+        if ($_SESSION['role'] != 'admin') {
 
-        if (!(isset($_POST['checkEditPassword']))) {
-            $passwordN = $_POST['newPassword'];
+            $updateAccount = "UPDATE pet_owner
+                SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'
+                WHERE username='$username'";
+
+        } else {
+            $updateAccount = "UPDATE staff
+                    SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'
+                    WHERE username='$username'";
+
+        }
+        $updateAccountStatus = mysqli_query($link, $updateAccount);
+
+        $_SESSION['firstName'] = $firstNameN;
+        $_SESSION['lastName'] = $lastNameN;
+        $_SESSION['email'] = $emailN;
+        $_SESSION['mobile'] = $phoneN;
+
+        if ($_SESSION['role'] == 'admin') {
+            $_SESSION['gender'] = $genderN;
+            $_SESSION['birthDate'] = $birthdateN;
+        }
+
+        if ((isset($_POST['checkEditPassword']))) {
+
+            if (($updateAccountStatus)) {
+                $message = "Your account has been successfully updated";
+                $isSuccessful = true;
+                //header("Location: accountOverview.php"); //makes it go to signIn page directly.
+
+            } else {
+                $message = "The account update was unsuccessful";
+            }
+        } else {
             if ($_POST['oldPassword'] == $rowPassword['password']) {
 
                 $updateUsers = "UPDATE users
@@ -78,51 +101,19 @@ if (isset($_SESSION['username'])) {
 
                 $_SESSION['password'] = $passwordN;
 
+                if (($updateUsersStatus && $updateAccountStatus)) {
+
+                    $message = "Your account has been successfully updated";
+                    $isSuccessful = true;
+                    //header("Location: accountOverview.php"); //makes it go to signIn page directly.
+
+                } else {
+                    $message = "The account update was unsuccessful";
+                }
+
             } else {
                 $message = "The old password does not match with the one in the system";
             }
-        }
-
-        if ($_SESSION['role'] != 'admin') {
-
-            $updateAccount = "UPDATE pet_owner
-                SET first_Name='$firstNameN', last_Name='$lastNameN', email='$emailN', mobile='$phoneN'" . $imageExists . " WHERE username='$username';";
-            // echo $updateAccount;
-        } else {
-            $updateAccount = "UPDATE staff
-                    SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'
-                    WHERE username='$username'";
-
-        }
-        $updateAccountStatus = mysqli_query($link, $updateAccount);
-
-    
-
-        if ($updateAccountStatus) {
-            if ($updateUsersStatus??false) {
-                
-                $_SESSION['firstName'] = $firstNameN;
-                $_SESSION['lastName'] = $lastNameN;
-                $_SESSION['email'] = $emailN;
-                $_SESSION['mobile'] = $phoneN;
-                $_SESSION['profile'] = $profilePic??$_SESSION['profile'];
-           
-        
-                if ($_SESSION['role'] == 'admin') {
-                    $_SESSION['gender'] = $genderN;
-                    $_SESSION['birthDate'] = $birthdateN;
-                }
-
-                $message = "Your account has been successfully updated";
-                $isSuccessful = true;
-                header("Location: accountOverview.php"); //makes it go to signIn page directly.
-            } else {
-                $message = "The password is incorrect. Please try again.";
-            }
-
-
-        } else {
-            $message = "The account update was unsuccessful";
         }
 
 
@@ -185,46 +176,42 @@ if (isset($_SESSION['username'])) {
                     <a class="active nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit
                         Account</a>
                     <?php if ($_SESSION['role'] == 'customer') { ?>
-                        <a class="nav-link nav-text" href="membershipStatus.php"><i
-                                class="fa-solid fa-crown"></i>Membership</a>
                         <a class="nav-link nav-text" href="invoiceHist.php"><i class="fa-solid fa-clock"></i>Invoice
                             History</a>
                     <?php } ?>
                 </div>
 
                 <div class="col col-8" style="height: 49em;">
+                    <div class="row row1">
+                        <div class="col-3">
+                            <input name="profileImg" type="file" accept="image/*" id="imgUpload"
+                                onchange="displayImage(this)" style="display:none">
+                            <div class="profileImgDisplay">
+                                <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
+                                <?php if (isset($_SESSION['profile'])) {
+                                    $profile = $_SESSION['profile']
+                                        ?>
+                                    <img src="images/profileImg/<?php echo $profile ?>" id="imgPreview">
+                                <?php } else { ?>
+                                    <img src="images/person.svg" id="imgPreview">
+                                <?php } ?>
+                                <button type="button" class="imgBtn" onclick="triggerClick()"><i
+                                        class="fas fa-pen"></i></button>
+                            </div>
+                        </div>
 
+                        <div class="col">
+                            <h3 class="header3">
+                                <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
+                            </h3>
+                            <span class="para">aka @
+                                <?php echo $username ?>
+                            </span>
+                        </div>
+                    </div>
                     <div class="row row2">
                         <div class="container-fluid d-flex justify-content-center">
-                            <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
-                                <div class="row row1">
-                                    <div class="col-3">
-                                        <input name="profileImgEdit" type="file" accept="image/*" id="imgUpload"
-                                            onchange="displayImage(this)" style="display:none" >
-                                        <div class="profileImgDisplay">
-                                            <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
-                                            <?php if (isset($_SESSION['profile'])) {
-                                                $profile = $_SESSION['profile'];
-                                                    ?>
-                                                <img src="data:image/png;base64,<?php echo base64_encode($profile)?>"
-                                                    id="imgPreview"/>
-                                            <?php } else { ?>
-                                                <img src="images/person.svg" id="imgPreview">   
-                                            <?php } ?>
-                                            <button type="button" class="imgBtn" onclick="triggerClick()"><i
-                                                    class="fas fa-pen"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="col">
-                                        <h3 class="header3">
-                                            <?php echo strtoupper($firstName) . " " . strtoupper($lastName) ?>
-                                        </h3>
-                                        <span class="para">aka @
-                                            <?php echo $username ?>
-                                        </span>
-                                    </div>
-                                </div>
+                            <form class="row g-3 gx-5" method="post" action="">
                                 <div class="col-md-6">
                                     <label for="username" class="form-label para">Username:</label>
                                 </div>
@@ -251,7 +238,7 @@ if (isset($_SESSION['username'])) {
                                         placeholder="<?php echo $email ?>" value='<?php echo $email ?>' required>
                                 </div>
                                 <div class="form-check editPassword" style='margin-left: 5%;'>
-                                    <input class="form-check-input border border-3" type="checkbox" value=""
+                                    <input class="form-check-input border border-3" type="checkbox"
                                         id="checkEditPassword" name='checkEditPassword'
                                         style="border-color: #808080 !important;">
                                     <label class="form-check-label" for="checkEditPassword" style="color:#338762; font-weight: 500;
@@ -259,18 +246,18 @@ if (isset($_SESSION['username'])) {
                                         Tick if not changing password
                                     </label>
                                 </div>
-                                <?php if (!(isset($_POST['checkEditPassword']))) { ?>
-                                    <div class="col-md-6 passwordShow" id='passwordOld'>
-                                        <label for="password" class="form-label para">Old Password:</label>
-                                        <input type="password" class="form-control rounded-pill" name="oldPassword" id='oPw'
-                                            required>
-                                    </div>
-                                    <div class="col-md-6 passwordShow" id='passwordNew'>
-                                        <label for="password" class="form-label para">New Password:</label>
-                                        <input type="password" class="form-control rounded-pill" name="newPassword" id='nPw'
-                                            required>
-                                    </div>
-                                <?php } ?>
+
+                                <div class="col-md-6 passwordShow" id='passwordOld'>
+                                    <label for="password" class="form-label para">Old Password:</label>
+                                    <input type="password" class="form-control rounded-pill" name="oldPassword" id='oPw'
+                                        required>
+                                </div>
+                                <div class="col-md-6 passwordShow" id='passwordNew'>
+                                    <label for="password" class="form-label para">New Password:</label>
+                                    <input type="password" class="form-control rounded-pill" name="newPassword" id='nPw'
+                                        required>
+                                </div>
+                                
                                 <div class="col-md-6">
                                     <label for="phone" class="form-label para">Mobile Number:</label>
                                     <input type="tel" class="form-control rounded-pill" name="phone" pattern="[0-9]{8}"

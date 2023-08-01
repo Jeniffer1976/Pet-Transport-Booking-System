@@ -80,8 +80,6 @@ if (isset($_SESSION['username'])) {
                             class="fa-solid fa-house"></i>Account Overview</a>
                     <a class="nav-link nav-text" href="editAccount.php"><i class="fa-solid fa-pen"></i>Edit Account</a>
                     <?php if ($_SESSION['role'] == 'customer') { ?>
-                        <a class="nav-link nav-text" href="membershipStatus.php"><i
-                                class="fa-solid fa-crown"></i>Membership</a>
                         <a class="nav-link nav-text" href="invoiceHist.php"><i class="fa-solid fa-clock"></i>Invoice
                             History</a>
                     <?php } ?>
