@@ -96,11 +96,28 @@
 
 .quoteTable table th {
     top: 12vh;
-    background-color: #1e3d76 !important;;
-    color: white !important;;
+    background-color: #1e3d76 !important;
+    ;
+    color: white !important;
+    ;
 }
 
 .quoteTable {
+    margin-top: -90vh;
+    margin-left: 20vw;
+    width: 75vw;
+
+}
+
+.accTable table th {
+    top: 12vh;
+    background-color: #1e3d76 !important;
+    ;
+    color: white !important;
+    ;
+}
+
+.accTable {
     margin-top: -90vh;
     margin-left: 20vw;
     width: 75vw;
@@ -112,6 +129,11 @@
 } */
 
 .quoteTable table {
+    text-align: left;
+    line-height: 1.7;
+}
+
+.accTable table {
     text-align: left;
     line-height: 1.7;
 }
@@ -135,19 +157,22 @@
 .actionBtns:hover {
     background-color: #96d1f6;
 }
-.action button:last-child{
+
+.action button:last-child {
     margin-bottom: 10px;
 }
+
 #wabtn {
     background-color: #00C307;
     color: white;
     transition: .3s;
 }
+
 #watbtn:hover {
     background-color: #214522;
 }
 
-.filterMonth select{
+.filterMonth select {
     border: 3px solid #1e3d76;
     border-radius: 25px;
     padding: 5px;
@@ -170,5 +195,5 @@
 }
 
 .filterMonth-text {
-    color:#1a4699
+    color: #1a4699
 }

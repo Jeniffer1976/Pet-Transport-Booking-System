@@ -50,20 +50,18 @@
 
     <!-- Service Buttons -->
     <div class="grad1">
-        <div class="container gap1"></div>
         <div class="font7">SERVICES</div>
-        <div class="container con3">
+        <div class="container services">
             <div align="center">
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-6">
                         <div class="regular">
                             <img src="images/schedule.png" alt="">
                             <p class="font8">Regular</p>
                             <a class="font8" href="#regular">Read More</a>
                         </div>
                     </div>
-                    <div class="col-sm-2"></div>
-                    <div class="col-lg-5">
+                    <div class="col-6">
                         <div class="regular">
                             <img src="images/calendar.png" alt="">
                             <p class="font8">Ad-hoc</p>
@@ -73,7 +71,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <!--  -->
 

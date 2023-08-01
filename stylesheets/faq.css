@@ -19,8 +19,8 @@
 }
 
 .content {
-    padding: 10px;
-    display: none;
+    padding: 0px 10px;
+    max-height: 0;
     overflow: hidden;
     background-color: white;
     color: #338762;

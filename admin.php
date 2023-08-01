@@ -6,6 +6,24 @@ if (!isset($_SESSION['username'])) {
     header("Location: signIn.php");
     exit();
 }
+global $link;
+
+$past7daysQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE pickUp_date >= (NOW() - INTERVAL 7 DAY) AND pickUp_date <= (NOW() - INTERVAL 1 DAY)";
+$past7daysResult = mysqli_query($link, $past7daysQuery) or die(mysqli_error($link));
+while ($past7daysnum_rows = mysqli_fetch_array($past7daysResult)) {
+    $past7daysContent[] = $past7daysnum_rows;
+}
+
+$todayQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE DATE(pickUp_date) = DATE(NOW())";
+$todayResult = mysqli_query($link, $todayQuery) or die(mysqli_error($link));
+while ($todaynum_rows = mysqli_fetch_array($todayResult)) {
+    $todayContent[] = $todaynum_rows;
+}
+$next7daysQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE pickUp_date <= (NOW() + INTERVAL 7 DAY) AND pickUp_date >= (NOW() + INTERVAL 1 DAY)";
+$next7daysResult = mysqli_query($link, $next7daysQuery) or die(mysqli_error($link));
+while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
+    $next7daysContent[] = $next7daysnum_rows;
+}
 ?>
 
 <html lang="en">
@@ -116,8 +134,25 @@ if (!isset($_SESSION['username'])) {
                                     <div class="col-4 col8">
                                         <div class="container col6">
                                             <div align="center">
-                                                <div class="date font7 h3">20/07</div>
-                                                <div class="time font7 h4">3:00PM</div>
+                                                <div class="date font7 h3">
+                                                    <?php
+                                                    $maxquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT MAX(quote_id) FROM quote)";
+                                                    $maxquoteidResult = mysqli_query($link, $maxquouteidQuery);
+                                                    $num_rows = mysqli_fetch_array($maxquoteidResult);
+                                                    $date = date_create($num_rows['quote_date']);
+                                                    echo date_format($date, 'd/m');
+                                                    ?>
+                                                </div>
+                                                <div class="time font7 h4">
+                                                    <?php
+                                                    $maxquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT
+                                                    MAX(quote_id) FROM quote)";
+                                                    $maxquoteidResult = mysqli_query($link, $maxquouteidQuery);
+                                                    $num_rows = mysqli_fetch_array($maxquoteidResult);
+                                                    $date = date_create($num_rows['quote_date']);
+                                                    echo date_format($date, 'h:i a');
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +160,15 @@ if (!isset($_SESSION['username'])) {
                                         <div class="container">
                                             <div class="row">
                                                 <div align="left">
-                                                    <h2 class="font12 h3">Pending payment</h2>
+                                                    <h2 class="font12 h3">
+                                                        <?php
+                                                        $maxquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT MAX(quote_id) FROM quote)";
+                                                        $maxquoteidResult = mysqli_query($link, $maxquouteidQuery);
+                                                        $num_rows = mysqli_fetch_array($maxquoteidResult);
+                                                        $topupdatestatus = $num_rows['status'];
+                                                        echo ($topupdatestatus);
+                                                        ?>
+                                                    </h2>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -133,7 +176,16 @@ if (!isset($_SESSION['username'])) {
                                                     <div class="container">
                                                         <div class="row">
                                                             <div align="left">
-                                                                <h2 class="text16 bi bi-person-fill"> -
+                                                                <h2 class="text16 bi bi-person-fill">
+                                                                    <?php
+                                                                    $maxquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT MAX(quote_id) FROM quote)";
+                                                                    $maxquoteidResult = mysqli_query($link, $maxquouteidQuery);
+                                                                    $num_rows = mysqli_fetch_array($maxquoteidResult);
+                                                                    $topupdateservicetype = $num_rows['service_type'];
+                                                                    $topupdatepick = $num_rows['pickUp_address'];
+                                                                    $topupdatedrop = $num_rows['dropOff_address'];
+                                                                    echo $topupdateservicetype . "\r\n" . $topupdatepick . "\r\n" . $topupdatedrop;
+                                                                    ?>
                                                                 </h2>
                                                             </div>
                                                         </div>
@@ -151,8 +203,25 @@ if (!isset($_SESSION['username'])) {
                                     <div class="col-4 col8">
                                         <div class="container col6">
                                             <div align="center">
-                                                <div class="date font7 h3">19/07</div>
-                                                <div class="time font7 h4">9:00PM</div>
+                                                <div class="date font7 h3">
+                                                    <?php
+                                                    $secondquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-1) FROM quote)";
+                                                    $secondquoteidResult = mysqli_query($link, $secondquouteidQuery);
+                                                    $secondnum_rows = mysqli_fetch_array($secondquoteidResult);
+                                                    $seconddate = date_create($secondnum_rows['quote_date']);
+                                                    echo date_format($seconddate, 'd/m');
+                                                    ?>
+                                                </div>
+                                                <div class="time font7 h4">
+                                                    <?php
+                                                    $secondquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT
+                                                    (MAX(quote_id)-1) FROM quote)";
+                                                    $secondquoteidResult = mysqli_query($link, $secondquouteidQuery);
+                                                    $secondnum_rows = mysqli_fetch_array($secondquoteidResult);
+                                                    $seconddate = date_create($secondnum_rows['quote_date']);
+                                                    echo date_format($seconddate, 'h:i a');
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -160,7 +229,15 @@ if (!isset($_SESSION['username'])) {
                                         <div class="container">
                                             <div class="row">
                                                 <div align="left">
-                                                    <h2 class="font12 h3">Completed order</h2>
+                                                    <h2 class="font12 h3">
+                                                        <?php
+                                                        $secondquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-1) FROM quote)";
+                                                        $secondquoteidResult = mysqli_query($link, $secondquouteidQuery);
+                                                        $secondnum_rows = mysqli_fetch_array($secondquoteidResult);
+                                                        $secondupdatestatus = $secondnum_rows['status'];
+                                                        echo ($secondupdatestatus);
+                                                        ?>
+                                                    </h2>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -168,7 +245,16 @@ if (!isset($_SESSION['username'])) {
                                                     <div class="container">
                                                         <div class="row">
                                                             <div align="left">
-                                                                <h2 class="text16 bi bi-person-fill"> -
+                                                                <h2 class="text16 bi bi-person-fill">
+                                                                    <?php
+                                                                    $secondquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-1) FROM quote)";
+                                                                    $secondquoteidResult = mysqli_query($link, $secondquouteidQuery);
+                                                                    $secondnum_rows = mysqli_fetch_array($secondquoteidResult);
+                                                                    $secondupdateservicetype = $secondnum_rows['service_type'];
+                                                                    $secondupdatepick = $secondnum_rows['pickUp_address'];
+                                                                    $secondupdatedrop = $secondnum_rows['dropOff_address'];
+                                                                    echo $secondupdateservicetype . "\r\n" . $secondupdatepick . "\r\n" . $secondupdatedrop;
+                                                                    ?>
                                                                 </h2>
                                                             </div>
                                                         </div>
@@ -185,8 +271,25 @@ if (!isset($_SESSION['username'])) {
                                     <div class="col-4 col8">
                                         <div class="container col6">
                                             <div align="center">
-                                                <div class="date font7 h3">18/07</div>
-                                                <div class="time font7 h4">2:20PM</div>
+                                                <div class="date font7 h3">
+                                                    <?php
+                                                    $thirdquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-2) FROM quote)";
+                                                    $thirdquoteidResult = mysqli_query($link, $thirdquouteidQuery);
+                                                    $thirdnum_rows = mysqli_fetch_array($thirdquoteidResult);
+                                                    $thirddate = date_create($thirdnum_rows['quote_date']);
+                                                    echo date_format($thirddate, 'd/m');
+                                                    ?>
+                                                </div>
+                                                <div class="time font7 h4">
+                                                    <?php
+                                                    $thirdquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT
+                                                    (MAX(quote_id)-2) FROM quote)";
+                                                    $thirdquoteidResult = mysqli_query($link, $thirdquouteidQuery);
+                                                    $thirdnum_rows = mysqli_fetch_array($thirdquoteidResult);
+                                                    $thirddate = date_create($thirdnum_rows['quote_date']);
+                                                    echo date_format($thirddate, 'h:i a');
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +297,15 @@ if (!isset($_SESSION['username'])) {
                                         <div class="container">
                                             <div class="row">
                                                 <div align="left">
-                                                    <h2 class="font12 h3">New request quote</h2>
+                                                    <h2 class="font12 h3">
+                                                        <?php
+                                                        $thirdquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-2) FROM quote)";
+                                                        $thirdquoteidResult = mysqli_query($link, $thirdquouteidQuery);
+                                                        $thirdnum_rows = mysqli_fetch_array($thirdquoteidResult);
+                                                        $thirdupdatestatus = $thirdnum_rows['status'];
+                                                        echo ($thirdupdatestatus);
+                                                        ?>
+                                                    </h2>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -202,7 +313,16 @@ if (!isset($_SESSION['username'])) {
                                                     <div class="container">
                                                         <div class="row">
                                                             <div align="left">
-                                                                <h2 class="text16 bi bi-person-fill"> -
+                                                                <h2 class="text16 bi bi-person-fill">
+                                                                    <?php
+                                                                    $thirdquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-2) FROM quote)";
+                                                                    $thirdquoteidResult = mysqli_query($link, $thirdquouteidQuery);
+                                                                    $thirdnum_rows = mysqli_fetch_array($thirdquoteidResult);
+                                                                    $thirdupdateservicetype = $thirdnum_rows['service_type'];
+                                                                    $thirdupdatepick = $thirdnum_rows['pickUp_address'];
+                                                                    $thirdupdatedrop = $thirdnum_rows['dropOff_address'];
+                                                                    echo $thirdupdateservicetype . "\r\n" . $thirdupdatepick . "\r\n" . $thirdupdatedrop;
+                                                                    ?>
                                                                 </h2>
                                                             </div>
                                                         </div>
@@ -244,7 +364,13 @@ if (!isset($_SESSION['username'])) {
                                                         class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
                                                         type="button" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseExample1" aria-expanded="false"
-                                                        aria-controls="collapseExample"> Last 7 days (1)
+                                                        aria-controls="collapseExample">
+                                                        <?php
+                                                        $past7daysQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE pickUp_date >= (NOW() - INTERVAL 7 DAY) AND pickUp_date <= (NOW() - INTERVAL 1 DAY)";
+                                                        $past7daysResult = mysqli_query($link, $past7daysQuery);
+                                                        $past7daysnum_rows = mysqli_num_rows($past7daysResult);
+                                                        echo ("Past 7 days ($past7daysnum_rows)");
+                                                        ?>
                                                     </button>
                                                 </p>
                                                 <div class="collapse" id="collapseExample1">
@@ -252,20 +378,51 @@ if (!isset($_SESSION['username'])) {
                                                         <table class="table table-hover">
                                                             <thead class="font11">
                                                                 <tr>
-                                                                    <th scope="col">DATE AND TIME</th>
+                                                                    <th scope="col">PICK UP DATE AND TIME</th>
                                                                     <th scope="col">ORDER #</th>
                                                                     <th scope="col">PICK UP</th>
                                                                     <th scope="col">DROP OFF</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="font10">
-                                                                <tr>
-                                                                    <th scope="row">FRI 21/07 <br>
-                                                                        3:00PM</th>
-                                                                    <td>7090</td>
-                                                                    <td>Bedok</td>
-                                                                    <td>Jurong</td>
-                                                                </tr>
+                                                                <?php
+                                                                if (($past7daysnum_rows) == 0) {
+                                                                    echo ("");
+                                                                } else
+                                                                    for ($i = 0; $i < count($past7daysContent); $i++) {
+                                                                        $past7daysdate = date_create($past7daysContent[$i]['pickUp_date']);
+                                                                        $past7daysorderno = $past7daysContent[$i]['quote_id'];
+                                                                        $past7dayspickup = $past7daysContent[$i]['pickUp_address'];
+                                                                        $past7daysdropoff = $past7daysContent[$i]['dropOff_address'];
+
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <?php
+                                                                                echo date_format($past7daysdate, 'd/m');
+                                                                                ?>
+                                                                                <br>
+                                                                                <?php
+                                                                                echo date_format($past7daysdate, 'H:i a');
+                                                                                ?>
+                                                                            </th>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($past7daysorderno);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($past7dayspickup);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($past7daysdropoff);
+                                                                                ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php } ?>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -286,7 +443,13 @@ if (!isset($_SESSION['username'])) {
                                                         class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
                                                         type="button" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseExample2" aria-expanded="false"
-                                                        aria-controls="collapseExample"> Today (0)
+                                                        aria-controls="collapseExample">
+                                                        <?php
+                                                        $todayQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE DATE(pickUp_date) = DATE(NOW())";
+                                                        $todayResult = mysqli_query($link, $todayQuery);
+                                                        $todaynum_rows = mysqli_num_rows($todayResult);
+                                                        echo ("Today ($todaynum_rows)");
+                                                        ?>
                                                     </button>
                                                 </p>
                                                 <div class="collapse" id="collapseExample2">
@@ -294,14 +457,51 @@ if (!isset($_SESSION['username'])) {
                                                         <table class="table table-hover">
                                                             <thead class="font11">
                                                                 <tr>
-                                                                    <th scope="col">DATE AND TIME</th>
+                                                                    <th scope="col">PICK UP DATE AND TIME</th>
                                                                     <th scope="col">ORDER #</th>
                                                                     <th scope="col">PICK UP</th>
                                                                     <th scope="col">DROP OFF</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="font10">
+                                                                <?php
+                                                                if (($todaynum_rows) == 0) {
+                                                                    echo ("");
+                                                                } else
+                                                                    for ($p = 0; $p < count($todayContent); $p++) {
+                                                                        $todaydate = date_create($todayContent[$p]['pickUp_date']);
+                                                                        $todayorderno = $todayContent[$p]['quote_id'];
+                                                                        $todaypickup = $todayContent[$p]['pickUp_address'];
+                                                                        $todaydropoff = $todayContent[$p]['dropOff_address'];
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <?php
+                                                                                echo date_format($todaydate, 'd/m');
+                                                                                ?>
+                                                                                <br>
+                                                                                <?php
+                                                                                echo date_format($todaydate, 'H:i a');
+                                                                                ?>
+                                                                            </th>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($todayorderno);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($todaypickup);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($todaydropoff);
+                                                                                ?>
+                                                                            </td>
+                                                                        </tr>
 
+                                                                    <?php } ?>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -323,7 +523,13 @@ if (!isset($_SESSION['username'])) {
                                                         class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
                                                         type="button" data-bs-toggle="collapse"
                                                         data-bs-target="#collapseExample3" aria-expanded="false"
-                                                        aria-controls="collapseExample"> Next 7 days (2)
+                                                        aria-controls="collapseExample">
+                                                        <?php
+                                                        $next7daysQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE pickUp_date <= (NOW() + INTERVAL 7 DAY) AND pickUp_date >= (NOW() + INTERVAL 1 DAY)";
+                                                        $next7daysResult = mysqli_query($link, $next7daysQuery);
+                                                        $next7daysnum_rows = mysqli_num_rows($next7daysResult);
+                                                        echo ("Next 7 days ($next7daysnum_rows)");
+                                                        ?>
                                                     </button>
                                                 </p>
                                                 <div class="collapse" id="collapseExample3">
@@ -331,26 +537,51 @@ if (!isset($_SESSION['username'])) {
                                                         <table class="table table-hover">
                                                             <thead class="font11">
                                                                 <tr>
-                                                                    <th scope="col">DATE AND TIME</th>
+                                                                    <th scope="col">PICK UP DATE AND TIME</th>
                                                                     <th scope="col">ORDER #</th>
                                                                     <th scope="col">PICK UP</th>
                                                                     <th scope="col">DROP OFF</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="font10">
-                                                                <tr>
-                                                                    <th scope="row">FRI 21/07 <br>
-                                                                        3:00PM</th>
-                                                                    <td>7092</td>
-                                                                    <td>Bedok South</td>
-                                                                    <td>Pioneer</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th scope="row">THUR 20/07 3:00PM</th>
-                                                                    <td>7021</td>
-                                                                    <td>Tuas</td>
-                                                                    <td>Loyang Point</td>
-                                                                </tr>
+                                                                <?php
+                                                                if (($next7daysnum_rows) == 0) {
+                                                                    echo ("");
+                                                                } else
+                                                                    for ($q = 0; $q < count($next7daysContent); $q++) {
+                                                                        $next7daysdate = date_create($next7daysContent[$q]['pickUp_date']);
+                                                                        $next7daysorderno = $next7daysContent[$q]['quote_id'];
+                                                                        $next7dayspickup = $next7daysContent[$q]['pickUp_address'];
+                                                                        $next7daysdropoff = $next7daysContent[$q]['dropOff_address'];
+
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <?php
+                                                                                echo date_format($next7daysdate, 'd/m');
+                                                                                ?>
+                                                                                <br>
+                                                                                <?php
+                                                                                echo date_format($next7daysdate, 'H:i a');
+                                                                                ?>
+                                                                            </th>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($next7daysorderno);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($next7dayspickup);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($next7daysdropoff);
+                                                                                ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php } ?>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -363,6 +594,8 @@ if (!isset($_SESSION['username'])) {
                         </div>
                     </div>
                 </div>
+
+
                 <br>
                 <div class="col-6">
                     <div class="container OVERVIEW">
@@ -387,7 +620,15 @@ if (!isset($_SESSION['username'])) {
                                 <div class="row p-3">
                                     <div class="row">
                                         <div class="col"></div>
-                                        <div class="col-6 p-3 themed-grid-col col16 col14">10
+                                        <div class="col-6 p-3 themed-grid-col col16 col14">
+                                            <?php
+                                            $newQuery = "SELECT * from quote WHERE status = 'unassigned'";
+                                            $newResult = mysqli_query($link, $newQuery);
+
+                                            $num_rows = mysqli_num_rows($newResult);
+
+                                            echo ($num_rows);
+                                            ?>
                                             <div class="text6">New quote request
                                             </div>
                                         </div>
@@ -398,12 +639,20 @@ if (!isset($_SESSION['username'])) {
                             <div class="container">
                                 <div class="row p-3">
                                     <div class="row">
-                                        <div class="col p-3 themed-grid-col col16 col10">0
+                                        <div class="col p-3 themed-grid-col col16 col10">
+                                            <?php
+                                            $rejectedQuery = "SELECT * from quote WHERE status = 'a_rejected'";
+                                            $rejectedResult = mysqli_query($link, $rejectedQuery);
+
+                                            $num_rows = mysqli_num_rows($rejectedResult);
+
+                                            echo ($num_rows);
+                                            ?>
                                             <div class="text6">Rejected orders
                                             </div>
                                         </div>
                                         <div class="col-sm-1"></div>
-                                        <div class="col p-3 themed-grid-col col16 col11">2
+                                        <div class="col p-3 themed-grid-col col16 col11">
                                             <div class="text6">Confirmed orders</div>
                                         </div>
                                     </div>
@@ -412,13 +661,29 @@ if (!isset($_SESSION['username'])) {
                             <div class="container">
                                 <div class="row p-3">
                                     <div class="row">
-                                        <div class="col p-3 themed-grid-col col16 col12">4
+                                        <div class="col p-3 themed-grid-col col16 col12">
+                                            <?php
+                                            $pendingQuery = "SELECT * from quote WHERE status = 'pending'";
+                                            $pendingResult = mysqli_query($link, $pendingQuery);
+
+                                            $num_rows = mysqli_num_rows($pendingResult);
+
+                                            echo ($num_rows);
+                                            ?>
                                             <div class="text6">Pending payment
                                             </div>
                                         </div>
                                         <div class="col-sm-1"></div>
-                                        <div class="col p-3 themed-grid-col col16 col13">1
-                                            <div class="text6">Completed orders</div>
+                                        <div class="col p-3 themed-grid-col col16 col13">
+                                            <?php
+                                            $completedQuery = "SELECT * from quote WHERE status = 'completed'";
+                                            $completedResult = mysqli_query($link, $completedQuery);
+
+                                            $num_rows = mysqli_num_rows($completedResult);
+
+                                            echo ($num_rows);
+                                            ?>
+                                            <div class="text6">Completed payment</div>
                                         </div>
                                     </div>
                                 </div>
