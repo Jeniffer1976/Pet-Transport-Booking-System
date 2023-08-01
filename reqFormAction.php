@@ -117,7 +117,8 @@ $lastNameRI = $_POST['lastNameRI'];
 $contactRI = $_POST['contactRI'];
 $emailRI = $_POST['emailRI'];
 
-$tripToggle = $_POST['tripToggle'];
+$tripType = $_POST['tripToggle'];
+
 $tickRI = $_POST['tickRI'];
 
 //save to database
@@ -257,9 +258,9 @@ if ($SRExists) {
 }
 
 $insertQuoteQuery = "INSERT INTO quote 
-    (`quote_id`, `owner_id`, `service_type`, `pickUp_address`, `dropOff_address`, `sender_id`, `recipient_id`, `status`,`quote_date`) 
+    (`quote_id`, `owner_id`, `service_type`, `pickUp_address`, `dropOff_address`, `sender_id`, `recipient_id`, `status`,`quote_date`, `trip_type`) 
     VALUES 
-    (NULL, '$owner_id', '$servicetype', '$pickupaddress', '$dropoffaddress', '$insertSIid', '$insertSRid', 'unassigned', now() )";
+    (NULL, '$owner_id', '$servicetype', '$pickupaddress', '$dropoffaddress', '$insertSIid', '$insertSRid', 'unassigned', now(), '$tripType')";
 
 mysqli_query($link, $insertQuoteQuery) or die(mysqli_error($link));
 
