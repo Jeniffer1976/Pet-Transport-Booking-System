@@ -50,27 +50,265 @@
 
 
     <!-- About Buttons -->
-
+    <div class="container grad1">
+        <div align="center">
+            <div class="container font18">
+                About Us
+            </div>
+            <div class="row row1">
+                <div class="col-4">
+                    <div class="services">
+                        <p class="">Company profile</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="services">
+                        <p class="">Why us?</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="services">
+                        <p class="">Mission, Vision <br>
+                            & Values</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--  -->
 
 
     <!-- Company Profile Section -->
+    <div class="gradient">
+        <div class="container aboutcontent">
+            <div class="row">
+                <div class="col-4">
+                    <div class="container ">
+                        <img class=two src="images/user.png">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="container">
+                        <div align="left">
+                            <div class="font1 display-6 fw-bold lh-1 mb-3">
+                                Company profile</div>
+                            <div class="text4">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
 
-    <!--  -->
+
+                <!--Pictures -->
+                <div class="container">
+                    <div class="row">
+                        <h2 class="font5">Our gallery</h2>
+                        <br>
+                        <div class="container cpcn">
+                            <div class="container">
+                                <div class="row p-3">
+                                    <div class="row">
+                                        <img class="col-4 cp" src="images/teamhands.jpg"></img>
+                                        <img class="col-4 cp" src="images/group.jpg"></img>
+                                        <img class="col-4 cp" src="images/teamhands.jpg"></img>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="container">
+                                <div class="row p-3">
+                                    <div class="row">
+                                        <img class="col-4 cp" src="images/teamhands.jpg"></img>
+                                        <img class="col-4 cp" src="images/group.jpg"></img>
+                                        <img class="col-4 cp" src="images/group.jpg"></img>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!--  -->
 
 
-    <!-- Carousel Pictures -->
+        <!-- Why Us Section -->
+        <div class="container aboutcontent">
+            <div class="row">
+                <div class="col">
+                    <div class="container">
+                        <div align="right">
+                            <div class="font20 display-6 fw-bold lh-1 mb-3">
+                                Why us?</div>
+                            <div class="text41">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                                aliquip ex ea commodo consequat.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="container">
+                        <img class=two src="images/why.png">
+                    </div>
+                </div>
 
-    <!--  -->
+                <div class="container cn1">
+                    <div class="row">
+                        <div class="font51 h3">Comparision between us and another company on the market</div>
+                        <br>
+                        <div class="container">
+                            <div class="container">
+                                <div align=center>
+                                    <div class="row">
+                                        <div class="col font51 h6">Waggin' Wheels</div>
+                                        <div class="col font51 h6">Company X</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col font6 ww">Improved Performance:
+                                            <div class="text6">Regular servicing helps maintain the optimal
+                                                performance
+                                            </div>
+                                        </div>
+                                        <div class="col font6 cx">Bad:
+                                            <div class="text6">This gonna be a description of first bad service examples
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col font6 ww">Improved Performance:
+                                            <div class="text6">Regular servicing helps maintain the optimal
+                                                performance
+                                            </div>
+                                        </div>
+                                        <div class="col font6 cx">Bad:
+                                            <div class="text6">This gonna be a description of first bad service examples
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col font6 ww">Improved Performance:
+                                            <div class="text6">Regular servicing helps maintain the optimal
+                                                performance
+                                            </div>
+                                        </div>
+                                        <div class="col font6 cx">Bad:
+                                            <div class="text6">This gonna be a description of first bad service examples
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <hr>
+        <!--  -->
 
 
-    <!-- Why Us Section -->
-
-    <!--  -->
-
-
-    <!-- Mission Vision & Core Values Section -->
-
+        <!-- Mission Vision & Core Values Section -->
+        <div class="container aboutcontent">
+            <div class="container">
+                <div class="row">
+                    <div class=col-4></div>
+                    <div class=col-4>
+                        <img class="four" src="images/vision.png">
+                    </div>
+                    <div class=col-4></div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="mvvheader display-6 fw-bold">
+                            Unmatched Service, Unforgettable Experience</div>
+                        <br>
+                        <div class="mvvpara">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                            aliquip ex ea commodo consequat.
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                            aliquip ex ea commodo consequat.
+                        </div>
+                        <div class="container cpcn">
+                            <div class="container">
+                                <div class="row p-3">
+                                    <div class="row">
+                                        <div class="col-4 cp">
+                                            <div class="mvvcon">
+                                                <div class="mvvheader2 display-6 fw-bold">
+                                                    Mission</div>
+                                                <br>
+                                                <div class="mvvpara ww">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                                    nisi
+                                                    ut
+                                                    aliquip ex ea commodo consequat
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 cp">
+                                            <div class="mvvcon">
+                                                <div class="mvvheader2 display-6 fw-bold">
+                                                    Vision</div>
+                                                <br>
+                                                <div class="mvvpara ww">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                                    nisi
+                                                    ut
+                                                    aliquip ex ea commodo consequat
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 cp">
+                                            <div class="mvvcon">
+                                                <div class="mvvheader2 display-6 fw-bold">
+                                                    Values</div>
+                                                <br>
+                                                <div class="mvvpara ww">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                                                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                                                    nisi
+                                                    ut
+                                                    aliquip ex ea commodo consequat
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
     <!--  -->
 
 

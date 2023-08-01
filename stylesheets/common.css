@@ -467,3 +467,160 @@ rect {
     width: 65vw;
 }
 
+/* about */
+.font18 {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    font-size: 5em;
+    font-weight: bolder;
+    padding-bottom: 5px;
+}
+
+.row1 {
+    padding-left: -10%;
+    padding-right: 25%;
+}
+
+.aboutcontent {
+    padding-top: 2%;
+}
+
+img.two {
+    width: 100%;
+    height: 80%;
+}
+
+img.four {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+
+.font1 {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    text-align: left;
+}
+
+.text4 {
+    font-family: 'Asap', sans-serif;
+    color: #1E53B3;
+    text-align: left;
+}
+
+.font5 {
+    font-style: italic;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color: #1c4a36;
+}
+
+.cpcn {
+    max-width: 90%;
+}
+
+.cp {
+    border-radius: 5%;
+    max-width: 50%;
+}
+
+.font20 {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    text-align: right;
+}
+
+.text41 {
+    font-family: 'Asap', sans-serif;
+    color: #1E53B3;
+    text-align: right;
+}
+
+.cn1 {
+    background-color: #338762;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0%;
+    max-width: 70%;
+    align-items: center;
+    outline-style: double;
+    outline-color: #1a4699;
+    outline-width: 5px;
+}
+
+.font51 {
+    font-style: italic;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color: #ffffff;
+}
+
+.ww {
+    border: 1px solid #1c4a36;
+    border-radius: 5px;
+    background-color: rgb(236, 250, 255);
+}
+
+.cx {
+    border: 1px solid #1c4a36;
+    border-radius: 5px;
+    background-color: rgb(255, 236, 236);
+}
+
+.mvvheader {
+    font-family: 'Nunito', sans-serif;
+    color: #1E53B3;
+    font-style: italic;
+    text-align: center;
+}
+
+.mvvpara {
+    font-family: 'Asap', sans-serif;
+    color: #1E53B3;
+    text-align: center;
+}
+
+.mvvcon {
+    background-color:  #338762;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.mvvheader2 {
+    font-family: 'Nunito', sans-serif;
+    color: #ffffff;
+    text-align: center;
+}
+
+.services {
+    height: 350px;
+    width: 350px;
+    border-radius: 50%;
+    background-color: #338762;
+    padding-top: 40%;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.font6 {
+    font-style: italic;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    color: #338762;
+}
+
+.text6 {
+    font-family: 'Asap', sans-serif;
+    color: #1E53B3;
+    text-align: left;
+    font-size: medium;
+}
+
+
+
