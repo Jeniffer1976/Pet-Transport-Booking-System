@@ -13,14 +13,14 @@ $currusername = $_SESSION['username'];
 
 if (isset($_POST['delStaff'])) {
     $delStaffId = $_POST['delStaffId'];
-    $delStaffusers = $_POST['delStaffusers'];
+    // $delStaffusers = $_POST['delStaffusers'];
     $delQuery = "UPDATE quote SET staff_id = NULL
     WHERE staff_id = $delStaffId";
-    $delQuery2 = "DELETE FROM staff WHERE staff_id = $delStaffId";
-    $delQuery3 = "DELETE FROM users WHERE users.username = $delStaffusers";
+    $delQuery2 = "DELETE staff,users FROM staff INNER JOIN users ON staff.username = users.username WHERE staff.staff_id = $delStaffId";
+    // $delQuery3 = "DELETE FROM users WHERE users.username = $delStaffusers";
     $delStatus = mysqli_query($link, $delQuery) or die(mysqli_error($link));
     $delStatus2 = mysqli_query($link, $delQuery2) or die(mysqli_error($link));
-    $delStatus3 = mysqli_query($link, $delQuery3) or die(mysqli_error($link));
+    // $delStatus3 = mysqli_query($link, $delQuery3) or die(mysqli_error($link));
 }
 
 $accQuery = "SELECT staff_id, first_Name, last_Name, contact_no, email, username 
