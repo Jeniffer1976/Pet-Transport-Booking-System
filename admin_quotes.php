@@ -9,6 +9,8 @@ if (!isset($_SESSION['username'])) {
 
 global $link;
 
+$currusername = $_SESSION['username'];
+
 if (isset($_POST['price'])) { // when quote is accepted
     $price = $_POST['price'];
     $accQuoteId = $_POST['currQuoteId'];
@@ -113,22 +115,16 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
 
                 </div>
 
-                <div class="nav-option option3">
-                    <a class="nav-link nav-text" href="editAdmin.php">
-                        <i class="fa-solid fa-user-gear"></i>
-                        Administrators
-                    </a>
+                <?php if ($currusername == "admin1_Farrah") { ?>
 
-                </div>
+                    <div class="nav-option option3">
+                        <a class="nav-link nav-text" href="editAdmin.php">
+                            <i class="fa-solid fa-user-gear"></i>
+                            Administrators
+                        </a>
 
-                <div class="nav-option option4">
-                    <a class="nav-link nav-text" href="editCustomers.php">
-                        <i class="fa-solid fa-user"></i>
-                        Customers
-                    </a>
-
-                </div>
-
+                    </div>
+                <?php } ?>
             </div>
         </nav>
     </div>
@@ -368,7 +364,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                             <form method="post" action="decline_quote.php" style="margin-bottom:-10px">
                                                 <input type="hidden" id="quote_id" name="quote_id"
                                                     value="<?php echo $quote_id ?>" />
-                                                    <input type="hidden" id="quote_id" name="owner_name"
+                                                <input type="hidden" id="quote_id" name="owner_name"
                                                     value="<?php echo $owner_name ?>" />
                                                 <button type="submit" id="declineQuoteBtn" class="actionBtns">
                                                     <i class="fas fa-times text-danger"></i>
@@ -383,29 +379,29 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                             <button type="submit" id="viewQuoteBtn" class="actionBtns">
                                                 <i class="fas fa-eye text-secondary"></i>
                                             </button>
-                                        </form>  
-
-                                        <?php if ( ($status == "unassigned") || ($status == "pending") ) {?>
-                                        <form method="get" action="admin_editOverview.php" id="passOwnerId"
-                                            style="margin-bottom:-10px">
-                                            <input type="hidden" id="quote_id" name="quote_id"
-                                                value="<?php echo $quote_id ?>" />
-                                            <button type="submit" id="editQuoteBtn" class="actionBtns">
-                                                <i class="fa-solid fa-pen text-secondary"></i>
-                                            </button>
                                         </form>
 
-                                        <?php }?>
+                                        <?php if (($status == "unassigned") || ($status == "pending")) { ?>
+                                            <form method="get" action="admin_editOverview.php" id="passOwnerId"
+                                                style="margin-bottom:-10px">
+                                                <input type="hidden" id="quote_id" name="quote_id"
+                                                    value="<?php echo $quote_id ?>" />
+                                                <button type="submit" id="editQuoteBtn" class="actionBtns">
+                                                    <i class="fa-solid fa-pen text-secondary"></i>
+                                                </button>
+                                            </form>
 
-                                        <?php if ( ($status == "unassigned") || ($status == "pending") || ($status == "completed")) {?>
-                                        <button class="actionBtns" id="wabtn"
-                                            onclick="window.open('https://wa.me/+65<?php echo $po_mobile ?>', '_blank')">
-                                            <i class="fab fa-whatsapp fa-l"></i>
-                                        </button>
-                                        <button class="actionBtns" onclick="location.href='mailto:<?php echo $po_email ?>'">
-                                            <i class="fas fa-envelope fa-l text-secondary"></i>
-                                        </button>
-                                        <?php }?>
+                                        <?php } ?>
+
+                                        <?php if (($status == "unassigned") || ($status == "pending") || ($status == "completed")) { ?>
+                                            <button class="actionBtns" id="wabtn"
+                                                onclick="window.open('https://wa.me/+65<?php echo $po_mobile ?>', '_blank')">
+                                                <i class="fab fa-whatsapp fa-l"></i>
+                                            </button>
+                                            <button class="actionBtns" onclick="location.href='mailto:<?php echo $po_email ?>'">
+                                                <i class="fas fa-envelope fa-l text-secondary"></i>
+                                            </button>
+                                        <?php } ?>
                                     </div>
                                 </td>
                             </tr>

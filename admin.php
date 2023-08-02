@@ -8,6 +8,8 @@ if (!isset($_SESSION['username'])) {
 }
 global $link;
 
+$currusername = $_SESSION['username'];
+
 $past7daysQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE pickUp_date >= (NOW() - INTERVAL 7 DAY) AND pickUp_date <= (NOW() - INTERVAL 1 DAY)";
 $past7daysResult = mysqli_query($link, $past7daysQuery) or die(mysqli_error($link));
 while ($past7daysnum_rows = mysqli_fetch_array($past7daysResult)) {
@@ -83,21 +85,16 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
 
                 </div>
 
-                <div class="nav-option option3">
-                    <a class="nav-link nav-text" href="editAdmin.php">
-                        <i class="fa-solid fa-user-gear"></i>
-                        Administrators
-                    </a>
+                <?php if ($currusername == "admin1_Farrah") { ?>
 
-                </div>
+                    <div class="nav-option option3">
+                        <a class="nav-link nav-text" href="editAdmin.php">
+                            <i class="fa-solid fa-user-gear"></i>
+                            Administrators
+                        </a>
 
-                <div class="nav-option option4">
-                    <a class="nav-link nav-text" href="editCustomers.php">
-                        <i class="fa-solid fa-user"></i>
-                        Customers
-                    </a>
-
-                </div>
+                    </div>
+                <?php } ?>
 
             </div>
         </nav>

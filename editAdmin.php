@@ -9,9 +9,23 @@ if (!isset($_SESSION['username'])) {
 
 global $link;
 
-$accQuery = "SELECT first_Name, last_Name, contact_no, email, username 
+$currusername = $_SESSION['username'];
+
+if (isset($_POST['delStaff'])) {
+    $delStaffId = $_POST['delStaffId'];
+    $delStaffusers = $_POST['delStaffusers'];
+    $delQuery = "UPDATE quote SET staff_id = NULL
+    WHERE staff_id = $delStaffId";
+    $delQuery2 = "DELETE FROM staff WHERE staff_id = $delStaffId";
+    $delQuery3 = "DELETE FROM users WHERE users.username = $delStaffusers";
+    $delStatus = mysqli_query($link, $delQuery) or die(mysqli_error($link));
+    $delStatus2 = mysqli_query($link, $delQuery2) or die(mysqli_error($link));
+    $delStatus3 = mysqli_query($link, $delQuery3) or die(mysqli_error($link));
+}
+
+$accQuery = "SELECT staff_id, first_Name, last_Name, contact_no, email, username 
     FROM staff 
-    ORDER BY first_name ASC";
+    ORDER BY staff_id ASC";
 
 $accStatus = mysqli_query($link, $accQuery) or die(mysqli_error($link));
 while ($accRow = mysqli_fetch_array($accStatus)) {
@@ -79,21 +93,16 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
 
                 </div>
 
-                <div class="nav-option option3 active">
-                    <a class="nav-link nav-text" href="editAdmin.php">
-                        <i class="fa-solid fa-user-gear"></i>
-                        Administrators
-                    </a>
+                <?php if ($currusername == "admin1_Farrah") { ?>
 
-                </div>
+                    <div class="nav-option option3">
+                        <a class="nav-link nav-text" href="editAdmin.php">
+                            <i class="fa-solid fa-user-gear"></i>
+                            Administrators
+                        </a>
 
-                <div class="nav-option option4">
-                    <a class="nav-link nav-text" href="editCustomers.php">
-                        <i class="fa-solid fa-user"></i>
-                        Customers
-                    </a>
-
-                </div>
+                    </div>
+                <?php } ?>
 
             </div>
         </nav>
@@ -116,7 +125,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                             <th>Name/Username</th>
                             <th>Contact</th>
                             <th>Email</th>
-                            <th>Quotes Completed</th>
+                            <th>Quotes Assigned</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -127,25 +136,18 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                     </thead>
                     <tbody class="align-middle" style="padding:40px;">
                         <?php for ($i = 0; $i < count($accContent); $i++) {
+                            $staff_id = $accContent[$i]['staff_id'];
                             $staff_firstName = $accContent[$i]['first_Name'];
                             $staff_lastName = $accContent[$i]['last_Name'];
                             $staff_username = $accContent[$i]['username'];
                             $staff_email = $accContent[$i]['email'];
                             $staff_contact = $accContent[$i]['contact_no'];
                             $staff_name = $staff_firstName . " " . $staff_lastName . "<br>" . "@" . $staff_username;
+                            $quotecountQuery = "SELECT COUNT(staff_id) AS quote_count FROM quote WHERE staff_id = $staff_id";
+                            $quotecountStatus = mysqli_query($link, $quotecountQuery) or die(mysqli_error($link));
+                            $qcRow = mysqli_fetch_array($quotecountStatus);
+                            $quote_countnum = $qcRow['quote_count'];
 
-                            // $staffQuery = "SELECT first_Name, last_Name, username, email, contact_no, FROM staff";
-                        
-                            // $staffStatus = mysqli_query($link, $staffQuery) or die(mysqli_error($link));
-                        
-                            // $staffRow = mysqli_fetch_array($staffStatus);
-                            // $staff_firstName = $staffRow['first_Name'];
-                            // $staff_lastName = $staffRow['last_Name'];
-                            // $staff_username = $staffRow['username'];
-                            // $staff_email = $staffRow['email'];
-                            // $staff_contact = $staffRow['contact_no'];
-                            // $staff_name = $staff_firstName . " " . $staff_lastName . $staff_username;
-                        
                             ?>
                             <tr>
                                 <td>
@@ -158,7 +160,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                                     <?php echo $staff_email ?>
                                 </td>
                                 <td>
-                                    <p>2</p>
+                                    <?php echo $quote_countnum ?>
                                 </td>
                                 <td>
                                     <!-- <div class="row"> -->
@@ -176,8 +178,8 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                                 <td>
                                     <!-- <div class="col-4"> -->
                                     <form method="get" action="editStaff.php" id="passOwnerId" style="margin-bottom:-10px">
-                                        <input type="hidden" id="quote_id" name="quote_id"
-                                            value="<?php echo $quote_id ?>" />
+                                        <input type="hidden" id="staff_id" name="staff_id"
+                                            value="<?php echo $staff_id ?>" />
                                         <button type="submit" id="editQuoteBtn" class="actionBtns">
                                             <i class="fa-solid fa-pen text-secondary"></i>
                                         </button>
@@ -186,17 +188,20 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                                 </td>
 
                                 <td>
-                                    <!-- <div class="col-4"> -->
-                                    <form method="post" action="deleteStaff.php" style="margin-bottom:-10px">
-                                        <input type="hidden" id="quote_id" name="quote_id"
-                                            value="<?php echo $quote_id ?>" />
-                                        <input type="hidden" id="quote_id" name="owner_name"
-                                            value="<?php echo $owner_name ?>" />
-                                        <button type="submit" id="deleteBtn" class="actionBtns">
-                                            <i class="fas fa-trash-alt text-danger"></i>
-                                        </button>
-                                    </form>
-                                    <!-- </div> -->
+                                    <?php if ($staff_username != "admin1_Farrah") { ?>
+                                        <!-- <div class="col-4"> -->
+                                        <form method="post" action="deleteStaff.php" style="margin-bottom:-10px">
+                                            <input type="hidden" id="staff_id" name="staff_id"
+                                                value="<?php echo $staff_id ?>" />
+                                            <input type="hidden" id="staff_username" name="staff_username"
+                                                value="<?php echo $staff_username ?>" />
+                                            <button type="submit" id="deleteBtn" class="actionBtns">
+                                                <i class="fas fa-trash-alt text-danger"></i>
+                                            </button>
+                                        </form>
+                                        <!-- </div> -->
+                                    <?php } ?>
+
                                 </td>
 
                 </div>

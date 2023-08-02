@@ -23,6 +23,21 @@ function exitAnim() {
     }, 400);
 }
 
+function exitAnim2() {
+    // e.preventDefault(); //will stop the link href to call the blog page
+
+    var closeQuote = anime({
+        targets: '.quote_wrap',
+        translateY: [0, 300],
+        duration: 300,
+        easing: 'easeInSine',
+    });
+
+    closeQuote.play();
+    setTimeout(function () {
+        window.location.href = "editAdmin.php";
+    }, 400);
+}
 
 $(document).load(function () {
     viewQuote.play();
