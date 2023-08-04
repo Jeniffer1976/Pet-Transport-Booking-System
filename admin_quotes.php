@@ -402,6 +402,19 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                                 <i class="fas fa-envelope fa-l text-secondary"></i>
                                             </button>
                                         <?php } ?>
+
+                                        <?php if (($status == "pending")) { ?>
+                                            <form method="get" action="invoice.php" id="passOwnerId" target="_blank"
+                                                style="margin-bottom:-10px">
+                                                <input type="hidden" id="quote_id" name="quote_id"
+                                                    value="<?php echo $quote_id ?>" />
+                                                <button type="submit" id="invoiceBtn" class="actionBtns">
+                                                    <i class="fa-solid fa-clipboard"></i>
+                                                </button>
+                                            </form>
+
+                                        <?php } ?>
+
                                     </div>
                                 </td>
                             </tr>

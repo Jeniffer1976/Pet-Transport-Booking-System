@@ -20,5 +20,6 @@ if (!$link) {
     // die(mysqli_connect_error());
 }
 
+$conn = new PDO('mysql:host=localhost;dbname=id20783214_wagginwheeldb', 'root', '');
 
 ?>
