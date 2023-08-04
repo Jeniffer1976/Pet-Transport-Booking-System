@@ -3,8 +3,8 @@
     background-color: #338762;
     color: white;
     cursor: pointer;
-    /* padding: 0px 8px 0px 8px; */
-    /* padding: 3px; */
+    /* padding: 0px 8px 0px 8px;
+    padding: 3px; */
     width: 70%;
     border: none;
     border-radius: 15px 15px 0px 0px;
@@ -12,11 +12,24 @@
     outline: none;
     font-size: 15px;
     font-weight: bold;
+    padding: 10px 18px;
 }
 
-.collapsible:hover {
+.active .collapsible, .collapsible:hover {
     background-color: #286b4e;
 }
+
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active .collapsible:after {
+    content: "\2212";
+  }
 
 .content {
     padding: 0px 10px;
@@ -28,8 +41,9 @@
     width: 70%;
     text-align: start;
     padding-left: 20px;
-    /* box-shadow: 20px #888888; */
-}
+    transition: max-height 0.2s ease-out;
+    box-shadow: 20px #888888;
+} 
 
 .collapsible .col-10 {
     text-align: start;

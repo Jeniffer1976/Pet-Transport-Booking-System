@@ -35,10 +35,10 @@
     <!-- Inbox form -->
     <br>
     <div class="container">
-        <h1 class="header1">FAQS</h1>
+        <h1 class="header1">FAQ</h1>
         <br>
         <div align="center">
-            <div class="collapsible row">
+            <!-- <div class="collapsible row">
                 <div class="col-10">
                     <p>HOW DO YOU TRANSPORT OUR PETS?</p>
                 </div>
@@ -120,7 +120,48 @@
             <div class="content">
                 <p>You can cancel your booking and receive a full refund up to 24 hours before the scheduled ride.
                     Cancellation made less than 24 hours will be subject to a 50% cancellation fee.</p>
+            </div> -->
+            <button class="collapsible">HOW DO YOU TRANSPORT OUR PETS?</button>
+            <div class="content">
+                <p>The safety and comfort of your pet is our utmost priority. Every pet is assessed prior to their
+                    ride
+                    to determine how they are transported i.e. in a crate, with seat belt, if they need to be
+                    separated
+                    from other pets, etc.</p>
             </div>
+            <br>
+            <button class="collapsible">DOES MY PET HAVE TO TRAVEL IN A CRATE?</button>
+            <div class="content">
+                <p>If your pet is a dog, then no. Most of our customers choose to have their dogs lay comfortably on the
+                    seats fastened with a safety belt harness. If your pet is a cat, then yes, we require cats to be
+                    transported in carriers.</p>
+            </div>
+            <br>
+            <button class="collapsible">DO I NEED TO MAKE AN APPOINTMENT?</button>
+            <div class="content">
+                <p>Yes, you have to schedule an appointment at least 24 hours in advance to ensure availability.</p>
+            </div>
+            <br>
+            <button class="collapsible">CAN I ACCOMPANY MY PET ON THE RIDE?</button>
+            <div class="content">
+                <p>Sure! There is an additional charge of $10 for each person joining the ride. Rest assured that if you
+                    let your pet travel alone and leave them in our care, your pet will be well-taken care of and will
+                    arrive at its destination safely.</p>
+            </div>
+            <br>
+            <button class="collapsible">WHAT IS CONSIDERED A ROUND TRIP?</button>
+            <div class="content">
+                <p>A round trip refers to a journey to a place and back.
+                    When you opt for a round trip, this means that our driver will send your pet to their appointment
+                    and when they are ready to leave, be sent back home.</p>
+            </div>
+            <br>
+            <button class="collapsible">WHAT IS OUR CANCELLATION POLICY?</button>
+            <div class="content">
+                <p>You can cancel your booking and receive a full refund up to 24 hours before the scheduled ride.
+                    Cancellation made less than 24 hours will be subject to a 50% cancellation fee.</p>
+            </div>
+            <br>
         </div>
     </div>
 
