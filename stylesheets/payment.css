@@ -1,0 +1,25 @@
+.main{
+    height: 500px;
+}
+
+.main .cancelstatus{
+    color: #1E53B3;
+    /* padding: 300px; */
+    padding-top: 250px;
+    padding-left: 270px;
+}
+
+.main .returnstatus{
+    color: #1E53B3;
+    /* padding: 300px; */
+    padding-top: 250px;
+    padding-left: 160px;
+}
+
+.main .img{
+    padding-top: 30px;
+}
+
+.main .returnimg{
+    padding-top: 50px;
+}
