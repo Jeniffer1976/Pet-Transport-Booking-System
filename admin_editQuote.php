@@ -16,7 +16,7 @@ $po_lname = $infoRow['last_Name'];
 $po_email = $infoRow['email'];
 $po_mobile = $infoRow['mobile'];
 $po_username = $infoRow['username'];
-$profile = $infoRow['profile'];
+$userprofile = $infoRow['profile'];
 $status = $infoRow['status'];
 $price = $infoRow['price'];
 

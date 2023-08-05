@@ -2,31 +2,14 @@
 include "loginFunctions.php";
 
 if (isset($_SESSION['username'])) {
-
     $username = $_SESSION['username'];
-    $firstName = $_SESSION['firstName'];
-    $lastName = $_SESSION['lastName'];
-    $email = $_SESSION['email'];
-    $mobile = $_SESSION['mobile'];
-    $password = $_SESSION['password'];
-    $role = $_SESSION['role'];
 
-    if ($role == 'admin') {
-        $birthdate = $_SESSION['birthDate'];
-        $gender = $_SESSION['gender'];
-
-        if ($gender == 'F') {
-            $gender = 'Female';
-        } else {
-            $gender = 'Male';
-        }
-    }
 } else {
     header("Location: signIn.php");
     exit();
 }
 
-$invhistQuery = "SELECT invoice.description, pickup_details.pickUp_date, quote.price 
+$invhistQuery = "SELECT invoice.description, pickup_details.pickUp_date, quote.price, quote.quote_id 
 FROM ((((users 
 INNER JOIN pet_owner ON users.username = pet_owner.username) 
 INNER JOIN invoice ON pet_owner.owner_id = invoice.owner_id) 
@@ -52,10 +35,13 @@ while ($invRow = mysqli_fetch_array($invhistStatus)) {
     <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <!--Boostrap JS link-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -114,19 +100,26 @@ while ($invRow = mysqli_fetch_array($invhistStatus)) {
                                 $item_desc = $invContent[$i]['description'];
                                 $pudate = $invContent[$i]['pickUp_date'];
                                 $price = $invContent[$i]['price'];
-                            ?>
+                                ?>
 
                                 <tr>
                                     <td>
                                         <?php echo $item_desc ?>
                                     </td>
-                                    <td>
+                                    <td class="w-25">
                                         <?php echo $pudate ?>
                                     </td>
                                     <td>
                                         <?php echo $price ?>
                                     </td>
-                                    <td align="center"><i class="fas fa-download download"></i></td>
+                                    <td align="center" style="width:30px">
+                                        <form method="get" action="invoice.php" id="passOwnerId" target="_blank">
+                                            <input type="hidden" id="quote_id" name="quote_id"
+                                                value="<?php echo $invContent[$i]['quote_id'] ?>" />
+                                            <button type="submit" class="btn">
+                                                <i class="fas fa-download download"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                             <?php } ?>
                         </table>

@@ -21,8 +21,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="stylesheets/contact.css">
     <link rel="stylesheet" href="stylesheets/common.css">
+    <link rel="stylesheet" href="stylesheets/contact.css">
 </head>
 
 <body>
@@ -52,6 +52,7 @@
     <div class="container-fluid" id="signUpSection">
         <br>
         <h1 class="header1">CONTACT US</h1>
+        <h3 class="header2" style="text-align:center;margin-left: -0%;">Feel free to drop any feedback or queries<i class="far fa-laugh-wink"></i></h3>
 
         <section class="inverse full-bleed overflow-hidden" id="contactForm">
             <div class="container-fluid d-flex justify-content-center">

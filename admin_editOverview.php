@@ -120,8 +120,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //if u request then it will proceed 
                 <div class="col col-8" style="height: 38em;">
                     <div class="row row1">
                         <div class="col-3">
-                            <?php if (isset($profile)) { ?>
-                                <img src="images/profileImg/<?php echo $profile ?>" height="80" width="80"
+                            <?php if (isset($userprofile)) { ?>
+                                <img src="data:image/png;base64,<?php echo stripslashes(base64_encode($userprofile))  ?>" height="80" width="80"
                                     style="object-fit: cover; border-radius: 50%;">
                             <?php } else { ?>
                                 <img src="images/person.svg" height="80" width="80">

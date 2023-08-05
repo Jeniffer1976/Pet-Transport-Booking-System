@@ -272,7 +272,7 @@ foreach ($_POST['pickupdate'] as $key => $value) {
 
     $petStmt = $conn->prepare($pickUpSql);
 
-    if (isset($tripToggle)) {
+    if ($tripType == "Return trip") {
         $petStmt->execute([
             'quoteid' => $lastest_quoteId,
             'pickupDate' => $value,

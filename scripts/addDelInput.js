@@ -143,7 +143,7 @@ $(document).ready(function () {
                         <h4 class="para-it mt-5 pt-3">Size of pet</h4>
                         <div class="col-md-6">
                             <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
-                            <input type="number" class="form-control rounded-pill" step="0.1"
+                            <input type="number" class="form-control rounded-pill" step="0.01"
                                 name="weight[]" list='weightList' required>
 
                             <datalist id="weightList">
