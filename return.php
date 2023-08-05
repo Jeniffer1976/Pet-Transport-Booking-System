@@ -1,3 +1,46 @@
+<?php 
+// Include configuration file 
+include_once 'config.php'; 
+ 
+// Include database connection file 
+include_once 'dbConnect.php'; 
+
+include('dbFunctions.php');
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$owner_id = $_SESSION['owner_id'];
+
+// If transaction data is available in the URL 
+if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt']) && !empty($_GET['cc']) && !empty($_GET['st'])){ 
+    // Get transaction information from URL 
+    $quote_id = $_GET['item_number'];  
+    $description = $_GET['item_name'];  
+    $txn_id = $_GET['tx']; 
+     
+    // Check if transaction data exists with the same TXN ID. 
+    $prevPaymentResult = $db->query("SELECT * FROM receipt WHERE txn_id = '".$txn_id."'"); 
+ 
+    if($prevPaymentResult->num_rows > 0){ 
+
+    }else{ 
+        // Insert tansaction data into the database 
+        $insert = $db->query("INSERT INTO receipt(owner_id, receipt_date, txn_id, description) 
+        VALUES('".$owner_id."', CURRENT_DATE(),'".$txn_id."','".$description."')"); 
+        $receipt_id = $db->insert_id; 
+        
+        // $invoice_no = strtoupper(date( "M")). date("y-").$invoice_id;
+
+        // $updateInvoiceNo = $db->query("UPDATE `invoice` SET `invoice_no` = '$invoice_no' WHERE `invoice_id` = $invoice_id;"); 
+
+        $updateStatus = $db->query("UPDATE `quote` SET `status` = 'completed' WHERE `quote_id` = '$quote_id'"); 
+    } 
+} 
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
