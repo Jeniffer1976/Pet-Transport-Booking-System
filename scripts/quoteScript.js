@@ -4,9 +4,123 @@ const progress = document.getElementById("progress");
 const formSteps = document.querySelectorAll(".form-step");
 const progressSteps = document.querySelectorAll(".progress-step");
 
-
-
 let formStepsNum = 0;
+
+function myFirstBtn() {
+  if (document.getElementById("firstName").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("lastName").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("email").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } else {
+    formStepsNum++;
+    updateFormSteps();
+    updateProgressbar();
+  }
+}
+
+function mySecondBtn() {
+  var checkBox = document.getElementById("switch");
+  var secondpickup = document.getElementById("wholesecpickup");
+
+  if (checkBox.checked == true) {
+    if (document.getElementById("pickupdate").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("firstpickup").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("secondpickup").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("pickupaddress").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("firstNameSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("lastNameSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("contactSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("emailSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } else {
+      formStepsNum++;
+      updateFormSteps();
+      updateProgressbar();
+    }
+  } else {
+    if (document.getElementById("pickupdate").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("onepickup").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("pickupaddress").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("firstNameSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("lastNameSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("contactSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } if (document.getElementById("emailSI").value === '') {
+      document.getElementById("demo").innerHTML = "";
+    } else {
+      formStepsNum++;
+      updateFormSteps();
+      updateProgressbar();
+    }
+  }
+};
+
+function myThirdBtn() {
+  if (document.getElementById("dropoffaddress").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("firstNameRI").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("lastNameRI").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("contactRI").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("emailRI").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } else {
+    formStepsNum++;
+    updateFormSteps();
+    updateProgressbar();
+  }
+}
+
+
+
+$('#submitReq').click(function () {
+  if (document.getElementById("petFname").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("petLname").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("petType").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("age").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("weight").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("height").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } if (document.getElementById("width").value === '') {
+    document.getElementById("demo").innerHTML = "";
+  } else {
+    $('#reqForm').submit(function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: 'reqFormAction.php',
+        method: 'post',
+        data: $(this).serialize(),
+        success: function (response) {
+          console.log(response);
+        }
+      })
+    })
+  }
+});
+
+
+
 
 nextBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
@@ -74,15 +188,6 @@ function updateProgressbar() {
 //   //👇 send the data
 //   xhr.send(JSON.stringify(data));
 // }
-
-function validateForm() {
-  var isValid = true;
-  $('.form-control input:required').each(function () {
-    if ($(this).val() === '')
-      isValid = false;
-  });
-  return isValid;
-}
 
 $(document).ready(function () {
   const pickupday = document.getElementById('pickupday');
@@ -248,6 +353,9 @@ $(document).ready(function () {
 
       })
     });
+
+
+
 
     const nav = document.querySelector("nav");
     const endScreen_wrapper = document.querySelector(".endScreen_wrapper");

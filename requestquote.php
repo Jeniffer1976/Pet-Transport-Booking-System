@@ -138,7 +138,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                     <div class="inverse full-bleed overflow-hidden" id="form">
                         <div class="row g-3 gx-5">
                             <div class="col-md-6">
-                                <label for="firstName" class="form-label para" align="left">First Name:</label>
+                                <label for="firstName" class="form-label para" align="left" id="fn">First Name:</label>
                                 <input type="text" id="firstName" class="form-control rounded-pill" name="firstName"
                                     value='<?php echo $owner_fnameSession ?>' required>
                             </div>
@@ -158,7 +158,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
 
                 <div class="btns-group">
                     <a></a>
-                    <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
+                    <button href="#" class="btn btn-link" onclick="myFirstBtn()">Next <i class="far fa-arrow-alt-circle-right"></i></button>
                 </div>
             </div>
             <div class="form-step">
@@ -389,9 +389,9 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                 </div>
 
                 <div class="btns-group">
-                    <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
+                    <a href="#" class="btn btn-link text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
                         Previous</a>
-                    <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
+                    <button href="#" class="btn btn-link" onclick="mySecondBtn()">Next <i class="far fa-arrow-alt-circle-right"></i></button>
                 </div>
             </div>
             <div class="form-step">
@@ -484,7 +484,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                 <div class="btns-group">
                     <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
                         Previous</a>
-                    <a href="#" class="btn btn-next">Next <i class="far fa-arrow-alt-circle-right"></i></a>
+                    <button href="#" class="btn btn-link" onclick="myThirdBtn()">Next <i class="far fa-arrow-alt-circle-right"></i></button>
                 </div>
             </div>
 
@@ -498,7 +498,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                 <div class="row g-3 gx-5">
                                     <div class="col-md-6">
                                         <label for="petFname" class="form-label para" align="left">First Name:</label>
-                                        <input type="text" class="form-control rounded-pill" name="petFname[]"
+                                        <input type="text" class="form-control rounded-pill"  id="petFname" name="petFname[]"
                                             list='petfNameList' required>
 
                                         <datalist id="petfNameList">
@@ -512,7 +512,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="petLname" class="form-label para" align="left">Last Name:</label>
-                                        <input type="text" class="form-control rounded-pill" name="petLname[]"
+                                        <input type="text" class="form-control rounded-pill" id="petLname" name="petLname[]"
                                             list='petlNameList'>
 
                                         <datalist id="petlNameList">
@@ -526,7 +526,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="petType" class="form-label para" align="left">Type of pet:</label>
-                                        <input type="text" class="form-control rounded-pill" name="petType[]" required
+                                        <input type="text" class="form-control rounded-pill" id="petType" name="petType[]" required
                                             list='petTypeList'>
 
                                         <datalist id="petTypeList">
@@ -540,7 +540,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="breed" class="form-label para" align="left">Breed:</label>
-                                        <input type="text" class="form-control rounded-pill" name="breed[]" required
+                                        <input type="text" class="form-control rounded-pill" id="breed" name="breed[]" required
                                             list='breedList'>
 
                                         <datalist id="breedList">
@@ -554,7 +554,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="age" class="form-label para" align="left">Age:</label>
-                                        <input type="number" class="form-control rounded-pill" name="age[]" required
+                                        <input type="number" class="form-control rounded-pill"  id="age" name="age[]" required
                                             list='ageList'>
 
                                         <datalist id="ageList">
@@ -569,7 +569,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     <h4 class="para-it mt-5 pt-3">Size of pet</h4>
                                     <div class="col-md-6">
                                         <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
-                                        <input type="number" class="form-control rounded-pill" step="0.1"
+                                        <input type="number" class="form-control rounded-pill"  id="weight" step="0.01"
                                             name="weight[]" list='weightList' required>
 
                                         <datalist id="weightList">
@@ -583,7 +583,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="height" class="form-label para" align="left">Height (Cm):</label>
-                                        <input type="number" class="form-control rounded-pill" step="0.1"
+                                        <input type="number" class="form-control rounded-pill"  id="height" step="0.1"
                                             name="height[]" list='heightList' required>
 
                                         <datalist id="heightList">
@@ -598,7 +598,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
                                         <label for="width" class="form-label para" align="left">Width (Cm):</label>
-                                        <input type="number" class="form-control rounded-pill" step="0.1" name="width[]"
+                                        <input type="number" class="form-control rounded-pill" id="width" step="0.1" name="width[]"
                                             required list='widthList'>
 
                                         <datalist id="widthList">
@@ -640,7 +640,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                 <div class="btns-group">
                     <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
                         Previous</a>
-                    <button class="btn" id="submitReq">Submit <i class="far fa-check-circle"></i></button>
+                        <button class="btn btn-link"  id='submitReq' >Submit <i class="far fa-check-circle"></i></button>
                     <!-- <input type="submit" value="Submit" id="submitReq"> -->
                 </div>
 
