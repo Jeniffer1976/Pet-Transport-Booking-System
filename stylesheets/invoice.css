@@ -1,0 +1,62 @@
+/* .box {
+    margin: 5px;
+    background-color: #F0FAFF;
+    border: 2px solid #387FFF;
+    border-radius: 15px;
+  }
+  
+  .boxHeader {
+    font-family: 'Nunito', sans-serif;
+    font-size: 25px;
+    color: #387FFF;
+  }
+  
+  .invoiceInfo .row {
+    margin-bottom: -12px;
+  }
+  
+  .invoiceInfo .row p {
+    font-weight: 400;
+    color: gray;
+  }
+  
+  .invoiceInfo .row .col:nth-child(even) p {
+    text-align: end;
+    font-weight: 500;
+    color: #525151;
+  }
+  
+  .invoiceInfo .row .col:nth-child(odd) p {
+    text-align: start;
+  } */
+
+  #invoicetable {
+    /* font-family: Arial, Helvetica, sans-serif; */
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #invoicetable td, #invoicetable th {
+    border: 1px solid #ddd;
+    padding: 20px;
+  }
+  
+  #invoicetable tr:nth-child(even){background-color: white;}
+
+  #invoicetable tr:nth-child(odd){background-color: #f2f2f2;}
+  
+  #invoicetable tr:hover {background-color: #ddd;}
+  
+  #invoicetable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    text-align: left;
+    background-color: #1E53B3;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .download{
+    color: #1E53B3;
+  }

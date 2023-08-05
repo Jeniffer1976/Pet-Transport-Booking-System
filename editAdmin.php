@@ -45,13 +45,10 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
     <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <!--Boostrap JS link-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -95,7 +92,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
 
                 <?php if ($currusername == "admin1_Farrah") { ?>
 
-                    <div class="nav-option option3">
+                    <div class="nav-option option3 active">
                         <a class="nav-link nav-text" href="editAdmin.php">
                             <i class="fa-solid fa-user-gear"></i>
                             Administrators
@@ -112,8 +109,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
     <div class="container accTable">
         <h2 class="header1">Staff</h2>
         <div class="addstaff" align="right">
-            <button type="button" class="btn rounded-pill mt-2 me-2 button"
-                onclick="document.location='addstaff.php'">Add Account <i class="fas fa-user-plus addicon"></i></button>
+            <button type="button" class="btn rounded-pill mt-2 me-2 button" onclick="document.location='addstaff.php'">Add Account <i class="fas fa-user-plus addicon"></i></button>
         </div>
         <br>
         <div class="row">
@@ -148,7 +144,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                             $qcRow = mysqli_fetch_array($quotecountStatus);
                             $quote_countnum = $qcRow['quote_count'];
 
-                            ?>
+                        ?>
                             <tr>
                                 <td>
                                     <?php echo $staff_name ?>
@@ -167,8 +163,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                                     <div class="action">
                                 <td>
                                     <form method="post" action="viewStaff.php" id="passOwnerId" style="margin-bottom:-10px">
-                                        <input type="hidden" id="staff_id" name="staff_id"
-                                            value="<?php echo $staff_id ?>" />
+                                        <input type="hidden" id="staff_id" name="staff_id" value="<?php echo $staff_id ?>" />
                                         <button type="submit" id="viewStaffBtn" class="actionBtns">
                                             <i class="fas fa-eye text-secondary"></i>
                                         </button>
@@ -178,8 +173,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                                 <td>
                                     <!-- <div class="col-4"> -->
                                     <form method="get" action="editStaff.php" id="passOwnerId" style="margin-bottom:-10px">
-                                        <input type="hidden" id="staff_id" name="staff_id"
-                                            value="<?php echo $staff_id ?>" />
+                                        <input type="hidden" id="staff_id" name="staff_id" value="<?php echo $staff_id ?>" />
                                         <button type="submit" id="editQuoteBtn" class="actionBtns">
                                             <i class="fa-solid fa-pen text-secondary"></i>
                                         </button>
@@ -191,10 +185,8 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                                     <?php if ($staff_username != "admin1_Farrah") { ?>
                                         <!-- <div class="col-4"> -->
                                         <form method="post" action="deleteStaff.php" style="margin-bottom:-10px">
-                                            <input type="hidden" id="staff_id" name="staff_id"
-                                                value="<?php echo $staff_id ?>" />
-                                            <input type="hidden" id="staff_username" name="staff_username"
-                                                value="<?php echo $staff_username ?>" />
+                                            <input type="hidden" id="staff_id" name="staff_id" value="<?php echo $staff_id ?>" />
+                                            <input type="hidden" id="staff_username" name="staff_username" value="<?php echo $staff_username ?>" />
                                             <button type="submit" id="deleteBtn" class="actionBtns">
                                                 <i class="fas fa-trash-alt text-danger"></i>
                                             </button>
@@ -204,15 +196,15 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
 
                                 </td>
 
-                </div>
-                <!-- </div> -->
+            </div>
+            <!-- </div> -->
 
-                </td>
-                </tr>
+            </td>
+            </tr>
 
-            <?php } ?>
-            </tbody>
-            </table>
+        <?php } ?>
+        </tbody>
+        </table>
 
         </div>
 

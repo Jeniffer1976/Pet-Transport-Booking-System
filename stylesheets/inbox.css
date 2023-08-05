@@ -45,6 +45,14 @@
     text-align: start;
 }
 
-.cfmbtn {
+/* .cfmbtn {
     padding-bottom: 20px;
+} */
+
+.itemname{
+    font-weight: bold;
+}
+
+.viewinvoice i{
+    position: absolute;
 }
