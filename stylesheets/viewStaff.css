@@ -37,7 +37,7 @@
 
 .quote_wrap {
     width: 90vw;
-    height: 50vh;
+    height: 56vh;
 }
 
 
@@ -46,13 +46,18 @@
     background-color: #F0FAFF;
     border: 2px solid #387FFF;
     border-radius: 15px;
-    height: 300px;
+    height: 350px;
 }
 
-.boxHeader {
+.headerNimg{
+    padding: 10px;
+}
+
+.staffInfo .headerNimg .boxHeader {
     font-family: 'Nunito', sans-serif;
     font-size: 25px;
     color: #387FFF;
+    padding-left: 100px;
 }
 
 .staffInfo .row {
@@ -79,10 +84,6 @@
 hr,
 hr+p {
     color: gray;
-}
-
-.profilebox img {
-    border: 3px solid #387FFF;
 }
 
 .exitBtn {

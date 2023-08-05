@@ -8,11 +8,6 @@ if (isset($_POST['addacc'])) {
     $isSuccessful = false;
     //something was posted
     $gender = $_POST['gender'];
-    if ($gender == 'f') {
-        $gender == 'F';
-    } else {
-        $gender = 'M';
-    }
 
     $email = $_POST['email'];
     $username = $_POST['username'];
@@ -22,7 +17,6 @@ if (isset($_POST['addacc'])) {
     $hiredate = $_POST['hiredate'];
     $birthdate = $_POST['birthdate'];
     $password = $_POST['password'];
-
 
     $image = $_FILES['profileImg']['tmp_name'];
     $profilePic = addslashes(file_get_contents($image));
@@ -44,7 +38,6 @@ if (isset($_POST['addacc'])) {
         $checkUsername = $row['username'];
 
         $message = "The username " . $checkUsername . " already exists";
-
     } else {
         $insertUsersStatus = mysqli_query($link, $insertUsers);
 
@@ -80,19 +73,16 @@ if (isset($_POST['addacc'])) {
     <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <!--Boostrap JS link-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="stylesheets/signUp.css">
+    <link rel="stylesheet" href="stylesheets/addstaff.css">
     <link rel="stylesheet" href="stylesheets/common.css">
 </head>
 
@@ -105,6 +95,7 @@ if (isset($_POST['addacc'])) {
     <!-- Add account Form -->
     <div class="container-fluid" id="addAccSection">
         <br>
+        <a href="editAdmin.php" class="btn btn-back"><i class="far fa-arrow-alt-circle-left"></i> Back to Administrators</a>
         <h1 class="header1">ADD STAFF ACCOUNT</h1>
         <h3 class="header2">STAFF'S INFORMATION</h3>
 
@@ -113,23 +104,19 @@ if (isset($_POST['addacc'])) {
                 <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
                     <div class="col-12">
                         <label for="username" class="form-label para">Username:</label>
-                        <input type="username" class="form-control rounded-pill" name="username"
-                            placeholder="Johnny2314" required>
+                        <input type="username" class="form-control rounded-pill" name="username" placeholder="Johnny2314" required>
                     </div>
                     <div class="col-md-6">
                         <label for="firstName" class="form-label para">First Name:</label>
-                        <input type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny"
-                            required>
+                        <input type="text" class="form-control rounded-pill" name="firstName" placeholder="Johnny" required>
                     </div>
                     <div class="col-md-6">
                         <label for="lastName" class="form-label para">Last Name:</label>
-                        <input type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis"
-                            required>
+                        <input type="text" class="form-control rounded-pill" name="lastName" placeholder="Leuwis" required>
                     </div>
                     <div class="col-12">
                         <label for="email" class="form-label para">Email:</label>
-                        <input type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com"
-                            required>
+                        <input type="email" class="form-control rounded-pill" name="email" placeholder="test@email.com" required>
                     </div>
                     <div class="col-md-6">
                         <label for="hiredate" class="form-label para">Hire Date:</label>
@@ -141,8 +128,7 @@ if (isset($_POST['addacc'])) {
                     </div>
                     <div class="col-12">
                         <label for="contact" class="form-label para">Mobile Number:</label>
-                        <input type="tel" class="form-control rounded-pill" name="contact" pattern="[0-9]{8}" required
-                            placeholder="12345678">
+                        <input type="tel" class="form-control rounded-pill" name="contact" pattern="[0-9]{8}" required placeholder="12345678">
                     </div>
                     <div class="col-md-6">
                         <label for="password" class="form-label para">Password:</label>
@@ -151,18 +137,16 @@ if (isset($_POST['addacc'])) {
                     <div class="col-6">
                         <label for="gender" class="form-label para">Gender:</label>
                         <br>
-                        <input type="radio" name="gender" value="male">
+                        <input type="radio" name="gender" value="M">
                         <label for="male" id="gender">Male</label>
-                        <input type="radio" name="gender" value="female">
+                        <input type="radio" name="gender" value="F">
                         <label for="female" id="gender">Female</label><br>
                     </div>
                     <div class="col form-group" align="center">
-                        <input name="profileImg" type="file" accept="image/*" id="imgUpload"
-                            onchange="displayImage(this)" style="display:none">
+                        <input name="profileImg" type="file" accept="image/*" id="imgUpload" onchange="displayImage(this)" style="display:none">
                         <div class="profileImgDisplay">
                             <img src="images/default.jpg" id="imgPreview" alt="Preview">
-                            <button type="button" class="imgBtn" onclick="triggerClick()"><i
-                                    class="fas fa-camera"></i></button>
+                            <button type="button" class="imgBtn" onclick="triggerClick()"><i class="fas fa-camera"></i></button>
                         </div>
                     </div>
                     <div class="col-12 text-center form-group">
@@ -214,7 +198,7 @@ if (isset($_POST['addacc'])) {
             if (i.files[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function (i) {
+                reader.onload = function(i) {
                     document.querySelector("#imgPreview").setAttribute('src', i.target.result);
                 }
                 reader.readAsDataURL(i.files[0]);

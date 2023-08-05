@@ -30,9 +30,9 @@ $staff_email = $infoRow['email'];
 $staff_contact = $infoRow['contact_no'];
 $staff_username = $infoRow['username'];
 $staff_pw = $infoRow['password'];
-// $staff_hiredate = $infoRow['hire_date'];
+$staff_gender = $infoRow['gender'];
 $staff_birthdate = $infoRow['birth_date'];
-$profile = $infoRow['profile'];
+// $profile = $infoRow['profile'];
 
 
 // if ($role == 'admin') {
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
         if ($_FILES['profileImgEdit']['size'] < 1000000) {
             $profilePic = addslashes(file_get_contents($_FILES['profileImgEdit']['tmp_name']));
             $imageExists = ", profile = '$profilePic'";
-            $message += "<br>The profile picture will be updated in your next login.";
+            $message .= "<br>The profile picture will be updated in your next login.";
             // $_SESSION['profile'] = $profilePic;
         }
     }
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
             //     $_SESSION['gender'] = $genderN;
             //     $_SESSION['birthDate'] = $birthdateN;
             // }
-            $message = "Your account has been successfully updated. <i class='far fa-smile'></i>";
+            $message = "Staff account has been successfully updated. <i class='far fa-smile'></i>";
             $isSuccessful = true;
             if ($imageExists != '') {
                 $message .= "<br>The profile picture will be updated in your next login.";
@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
                 //     $_SESSION['gender'] = $genderN;
                 //     $_SESSION['birthDate'] = $birthdateN;
                 // }
-                $message = "Your account has been successfully updated. <i class='far fa-smile'></i>";
+                $message = "Staff account has been successfully updated. <i class='far fa-smile'></i>";
                 $isSuccessful = true;
                 if ($imageExists != '') {
                     $message .= "<br>The profile picture will be updated in your next login.";
@@ -336,7 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
                                     <input type="date" class="form-control rounded-pill" name="birth_date" required
                                         placeholder="YYYY-mm-dd" value='<?php echo $staff_birthdate ?>'>
                                 </div>
-                                <!-- <div class="col-md-6">
+                                <div class="col-md-6">
                                         <label for="gender" class="form-label para">Gender:</label>
 
                                         <?php
@@ -345,15 +345,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
 
                                         <select class="form-control form-select rounded-pill" name="gender">
                                             <?php foreach ($options as $option): ?>
-                                                <option value="<?php echo $option; ?>" <?php if ($gender == $option): ?>
+                                                <option value="<?php echo $option; ?>" <?php if ($staff_gender == $option): ?>
                                                        selected="selected" <?php endif; ?>>
                                                     <?php echo $option; ?>
                                                 </option>
                                             <?php endforeach; ?>
 
                                         </select>
-                                    </div> -->
-                                <?php //} ?>
+                                    </div>
+                                <!-- <?php //} ?> -->
 
                                 <div class="row">
                                     <div class="col">
@@ -362,7 +362,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
                                             style="margin-top: 15%">Undo</button>
                                     </div>
 
-                                    <div class="col" style="">
+                                    <div class="col">
                                         <button type="submit" class="btn btn-primary primarybtn rounded-pill"
                                             style="float: right; margin-top: 15%">Save Changes</button>
                                     </div>
