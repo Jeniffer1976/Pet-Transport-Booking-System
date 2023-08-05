@@ -76,7 +76,7 @@ if (isset($_SESSION['username'])) {
 
         } else {
             $updateAccount = "UPDATE staff
-                    SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'
+                    SET gender='$genderN', first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$phoneN', email='$emailN', birth_date='$birthdateN'" . $imageExists . "
                     WHERE username='$username'";
 
         }
@@ -344,7 +344,7 @@ if (isset($_SESSION['username'])) {
                                     <div class="col">
                                         <button type="reset"
                                             class="btn btn-outline-danger btn-light primarybtn rounded-pill"
-                                            style="margin-top: 15%">Cancel</button>
+                                            style="margin-top: 15%">Undo</button>
                                     </div>
 
                                     <div class="col" style="">

@@ -8,6 +8,12 @@ if (isset($_POST['addacc'])) {
     $isSuccessful = false;
     //something was posted
     $gender = $_POST['gender'];
+    if ($gender == 'f') {
+        $gender == 'F';
+    } else {
+        $gender = 'M';
+    }
+
     $email = $_POST['email'];
     $username = $_POST['username'];
     $firstName = $_POST['firstName'];
@@ -18,14 +24,14 @@ if (isset($_POST['addacc'])) {
     $password = $_POST['password'];
 
 
-    // $image = $_FILES['profileImg']['tmp_name'];
-    // $profilePic = addslashes(file_get_contents($image));
+    $image = $_FILES['profileImg']['tmp_name'];
+    $profilePic = addslashes(file_get_contents($image));
 
     //save to database
     $insertUsers = "INSERT INTO users
           (username, password, role) 
           VALUES 
-          ('$username', '$password', 'staff')";
+          ('$username', '$password', 'admin')";
 
     $checkUsername = "SELECT DISTINCT username
         FROM users
@@ -43,9 +49,9 @@ if (isset($_POST['addacc'])) {
         $insertUsersStatus = mysqli_query($link, $insertUsers);
 
         $insertStaff = "INSERT INTO staff
-            (gender, first_name, last_name, contact_no, email, hire_date, birth_date, username) 
+            (gender, first_name, last_name, contact_no, email, hire_date, birth_date, username, profile) 
             VALUES 
-            ('$gender','$firstName','$lastName','$contact','$email','$hiredate','$birthdate','$username')";
+            ('$gender','$firstName','$lastName','$contact','$email','$hiredate','$birthdate','$username','$profilePic')";
 
         $insertStaffStatus = mysqli_query($link, $insertStaff);
 

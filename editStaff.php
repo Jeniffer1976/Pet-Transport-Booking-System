@@ -32,7 +32,7 @@ $staff_username = $infoRow['username'];
 $staff_pw = $infoRow['password'];
 // $staff_hiredate = $infoRow['hire_date'];
 $staff_birthdate = $infoRow['birth_date'];
-// $profile = $infoRow['profile'];
+$profile = $infoRow['profile'];
 
 
 // if ($role == 'admin') {
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
 
     // if ($_SESSION['role'] == 'admin') {
     $updateAccount = "UPDATE staff
-                    SET first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$contactN', email='$emailN', birth_date='$birthdateN'
+                    SET first_Name='$firstNameN', last_Name='$lastNameN', contact_no ='$contactN', email='$emailN', birth_date='$birthdateN'" . $imageExists . "
                     WHERE username='$staff_username'";
 
     // }
@@ -254,8 +254,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
                                             onchange="displayImage(this)" style="display:none">
                                         <div class="profileImgDisplay">
                                             <!-- <img src="images/default.jpg" id="imgPreview" alt="Preview"> -->
-                                            <?php if (isset($_SESSION['profile'])) {
-                                                $profile = $_SESSION['profile']
+                                            <?php if (isset($infoRow['profile'])) {
+                                                $profile = $infoRow['profile']
                                                     ?>
                                                 <img src="data:image/png;base64,<?php echo stripslashes(base64_encode($profile)) ?>"
                                                     id="imgPreview"
@@ -359,7 +359,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
                                     <div class="col">
                                         <button type="reset"
                                             class="btn btn-outline-danger btn-light primarybtn rounded-pill"
-                                            style="margin-top: 15%">Cancel</button>
+                                            style="margin-top: 15%">Undo</button>
                                     </div>
 
                                     <div class="col" style="">

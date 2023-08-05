@@ -1,15 +1,76 @@
 <?php
 include "dbFunctions.php";
-$quote_id = $_POST['quote_id'];
+if (isset($_POST['quote_id'])) {
+    $quote_id = $_POST['quote_id'];
+    $staff_id = $_POST['staff_id'];
 
-$addressQuery = "SELECT pickUp_address, dropOff_address FROM quote 
-WHERE quote_id = '$quote_id'";
+    $ownerQuery = "SELECT owner_id FROM quote 
+    WHERE quote_id = '$quote_id'";
 
-$addressStatus = mysqli_query($link, $addressQuery) or die(mysqli_error($link));
+    $addressQuery = "SELECT pickUp_address, dropOff_address FROM quote 
+    WHERE quote_id = '$quote_id'";
 
-$addressRow = mysqli_fetch_array($addressStatus);
-$pickUp_address = $addressRow['pickUp_address'];
-$dropOff_address = $addressRow['dropOff_address'];
+    $addressStatus = mysqli_query($link, $addressQuery) or die(mysqli_error($link));
+    $ownerStatus = mysqli_query($link, $ownerQuery) or die(mysqli_error($link));
+
+    $addressRow = mysqli_fetch_array($addressStatus);
+    $pickUp_address = $addressRow['pickUp_address'];
+    $dropOff_address = $addressRow['dropOff_address'];
+
+    $ownerRow = mysqli_fetch_array($ownerStatus);
+    $owner_id = $ownerRow['owner_id'];
+
+}
+if (isset($_POST['price'])) {
+    $price = $_POST['price'];
+    $accQuoteId = $_POST['currQuoteId'];
+    $ownerId = $_POST['currOwnerId'];
+    $staff_id = $_POST['staff_id'];
+    $priceQuery = "UPDATE quote SET status = 'pending', price = '$price', staff_id = '$staff_id' WHERE quote_id = '$accQuoteId'";
+    mysqli_query($link, $priceQuery) or die(mysqli_error($link));
+
+
+    // update invoice table
+    $results = $db->query("SELECT t.pickUp_date, t.last_name, t.trip_type, t.quote_id, t.price, t.service_type
+    FROM (
+        SELECT PD.pickUp_date, PO.last_name, Q.trip_type, Q.quote_id, PO.owner_id, Q.status, Q.price,Q.service_type,
+               (@row_number := IF(@prev_quote_id = Q.quote_id, @row_number + 1, 1)) AS rn,
+               (@prev_quote_id := Q.quote_id) AS dummy
+        FROM quote Q
+        INNER JOIN pet_owner PO ON PO.owner_id = Q.owner_id
+        INNER JOIN pickup_details PD ON PD.quote_id = Q.quote_id
+        CROSS JOIN (SELECT @row_number := 0, @prev_quote_id := NULL) AS vars
+        ORDER BY Q.quote_id, PO.last_name, Q.trip_type, PD.pickUp_date
+    ) t
+    WHERE t.rn = 1 AND t.owner_id = $ownerId AND t.status = 'pending'");
+
+    $row = $results->fetch_assoc();
+    $pickDate = date_create($row['pickUp_date']);
+    $serType = $row['service_type'];
+    $tripType = $row['trip_type'];
+    $last_name = $row['last_name'];
+    $dispDate = "";
+    $dispDay = "";
+    if ($serType == "regular") {
+        $dispDate = date_format($pickDate, "l") . "s";
+        $dispDay = "Once a week";
+    } else if ($serType == "adhoc") {
+        $dispDate = date_format($pickDate, "l j ") . strtoupper(date_format($pickDate, "M ")) . date_format($pickDate, "Y");
+    }
+    $itemName = "Monthly Transport for " . date_format($pickDate, "F Y") . " - " . $dispDay . "*" . $tripType . "* (" . $dispDate . ") -" . $last_name;
+
+    $invoiceQuery = "INSERT INTO `invoice` (`owner_id`, `quote_id`, `invoice_date`, `due_date`, `description`) 
+                                    VALUES ('$ownerId', '$accQuoteId', CURRENT_DATE(), TIMESTAMPADD(DAY,7,CURRENT_DATE()),  '$itemName');";
+    mysqli_query($link, $invoiceQuery) or die(mysqli_error($link));
+    $invoice_id = mysqli_insert_id($link);
+    // $invoice_id = $db->insert_id; 
+
+    $invoice_no = strtoupper(date("M")) . date("y-") . $invoice_id;
+
+    $updateInvoiceNo = $db->query("UPDATE `invoice` SET `invoice_no` = '$invoice_no' WHERE `invoice_id` = $invoice_id;");
+    header("Location: admin_quotes.php");
+}
+
 
 ?>
 
@@ -67,7 +128,7 @@ $dropOff_address = $addressRow['dropOff_address'];
                         </div>
                     </div>
                 </div>
-                <form action="admin_quotes.php" method="post">
+                <form action="" method="post">
                     <div class="row mt-5" align="left">
                         <div class="col-3">
                             <label for="price" id="priceLabel" class="mt-2">
@@ -78,6 +139,8 @@ $dropOff_address = $addressRow['dropOff_address'];
                             <span id="dollarSym">$</span>
                             <input type="number" min="1" step="any" name="price" id="priceInp">
                             <input type="hidden" name="currQuoteId" value="<?php echo $quote_id ?>">
+                            <input type="hidden" name="currOwnerId" value="<?php echo $owner_id ?>">
+                            <input type="hidden" name="staff_id" value="<?php echo $staff_id ?>">
                             <!-- <input type="number" min="1" step="any" name="price" id="priceInp" placeholder=" $" /> -->
                         </div>
                         <div class="col-4">
@@ -90,7 +153,7 @@ $dropOff_address = $addressRow['dropOff_address'];
         </div>
     </div>
 
-    
+
 
     <!-- Background -->
     <div class="bgclass">
