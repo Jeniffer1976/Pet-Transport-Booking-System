@@ -24,13 +24,15 @@ if (isset($_POST['submitFilter'])) {
     if ($month == "showall") {
         $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q 
-        INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
+        INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id
+        WHERE Q.status <> 'completed_svc' 
         ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
     } else {
         $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
         WHERE MONTH(PD.pickUp_date) = '$month' 
+        WHERE Q.status <> 'completed_svc'
         ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
     }
@@ -38,6 +40,7 @@ if (isset($_POST['submitFilter'])) {
     $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q 
         INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
+        WHERE Q.status <> 'completed_svc'
         ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
 }
@@ -130,7 +133,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
         if (!isset($quoteContent)) {
             ?>
             <div align="center" style="margin-left:-180px">
-                <h3  class="header2">You have not received any quotes yet</h3>
+                <h3 class="header2">You have not received any quotes yet</h3>
                 <img src="images/coolcat.png" alt="Cat">
             </div>
 
@@ -139,9 +142,13 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
             ?>
             <div class="tableLegend" align="right">
                 <p>
-                    <span class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB">Completed Booking</span>
-                    <span class="text-secondary rounded-pill p-2" style="background-color:#FFEEBA">Payment Pending</span>
-                    <span class="text-secondary rounded-pill p-2" style="background-color:#F5C6CB">Rejected Booking</span>
+                    <!-- <button class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB" type="button" onclick="document.querySelector('.table-success:first').scrollTo();" >Completed Booking</button> -->
+                    <button class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB" type="button"
+                        onclick="scrollToSec('table-success')">Completed Booking</button>
+                    <button class="text-secondary rounded-pill p-2" style="background-color:#FFEEBA" type="button"
+                        onclick="scrollToSec('table-warning')">Payment Pending</button>
+                    <button class="text-secondary rounded-pill p-2" style="background-color:#F5C6CB" type="button"
+                        onclick="scrollToSec('table-danger')">Rejected Booking</button>
                 </p>
             </div>
 
@@ -204,7 +211,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                 <div class="col-2"></div>
                 <div class="col-10">
                     <table class="table table-striped table-light">
-                        <thead class="sticky-top tb-header">
+                        <thead class="sticky-top tb-header" style="z-index:3">
                             <tr>
                                 <th>Owner</th>
                                 <th>Pet</th>
@@ -338,9 +345,9 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
 
                                             echo date("d/m/Y", strtotime($pickUp_date)) . "<br>";
                                             if (is_null($second_pickUp_time)) {
-                                                echo date("H:i a", strtotime($first_pickUp_time)) . "<br><br>";
+                                                echo date("g:i a", strtotime($first_pickUp_time)) . "<br><br>";
                                             } else {
-                                                echo "1st: " . date("H:i a", strtotime($first_pickUp_time)) . " &nbsp;&nbsp;&nbsp;&nbsp;2nd: " . date("H:i a", strtotime($second_pickUp_time)) . "<br><br>";
+                                                echo "1st: " . date("g:i a", strtotime($first_pickUp_time)) . " &nbsp;&nbsp;&nbsp;&nbsp;2nd: " . date("g:i a", strtotime($second_pickUp_time)) . "<br><br>";
                                             }
                                         }
 
@@ -348,7 +355,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
 
                                         ?>
                                     </td>
-                                    <td>
+                                    <td style="width:200px">
                                         <?php echo $dropOff_address ?>
                                     </td>
                                     <td>
@@ -419,6 +426,25 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                                     </button>
                                                 </form>
 
+                                                <form method="post" action="payment_complete.php" style="margin-bottom:-10px">
+                                                    <input type="hidden" id="quote_id" name="quote_id"
+                                                        value="<?php echo $quote_id ?>" />
+                                                    <button type="submit" id="pmntCompBtn" class="actionBtns">
+                                                        <i class="fas fa-dollar-sign text-success"></i>
+                                                    </button>
+                                                </form>
+
+                                            <?php } ?>
+
+                                            <?php if (($status == "completed")) { ?>
+                                                <form method="post" action="service_complete.php" style="margin-bottom:-10px">
+                                                    <input type="hidden" id="quote_id" name="quote_id"
+                                                        value="<?php echo $quote_id ?>" />
+                                                    <button type="submit" id="svcCompBtn" class="actionBtns">
+                                                        <i class="fas fa-calendar-check text-secondary"></i>
+                                                    </button>
+                                                </form>
+
                                             <?php } ?>
 
                                         </div>
@@ -455,15 +481,23 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/sidebarscript.js"></script>
-    <script>
-        // $('#monthfilter').click(function () {
-        //     month = $(this).val();
-        //     jQuery('#div_session_write').load('session_write.php?filterMonth=7');
-        //     location.reload();
+    <script src="scripts/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
-        // });
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+
+    <!-- <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-extreme.css" /> -->
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale-subtle.css" />
+
+    <script>
+        tippy('#pmntCompBtn', {
+            placement: 'left',
+            allowHTML: true,
+            content: "Update the payment status if customer's payment was not made through website",
+            animation: 'scale-subtle',
+        });
     </script>
-    <!-- <script src="scripts/defineVariable.js"></script> -->
 
 </body>
 
