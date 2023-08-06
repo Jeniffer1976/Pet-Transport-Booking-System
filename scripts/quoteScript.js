@@ -116,6 +116,23 @@ $('#submitReq').click(function () {
         }
       })
     })
+
+    const nav = document.querySelector("nav");
+    const endScreen_wrapper = document.querySelector(".endScreen_wrapper");
+
+    nav.classList.contains("sticky-top") &&
+      nav.classList.remove("sticky-top");
+
+    endScreen_wrapper.classList.add("active");
+
+    $('html, body').css({
+      overflow: 'hidden'
+    });
+    $('.endScreen_wrapper').on('scroll touchmove mousewheel', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    })
   }
 });
 
@@ -162,32 +179,6 @@ function updateProgressbar() {
     ((progressActive.length - 1) / (progressSteps.length - 1)) * 100 + "%";
 }
 
-// function getServiceQty() {
-//   return $('#serviceQty').val();
-// }
-
-// function getServiceQty() {
-//   qty = $('#serviceQty').val();
-//   var data = {
-//       serviceQty: '2'
-//   };
-
-//   var xhr = new XMLHttpRequest();
-
-//   //👇 set the PHP page you want to send data to
-//   xhr.open("POST", "requestquote.php", true);
-//   xhr.setRequestHeader("Content-Type", "application/json");
-
-//   //👇 what to do when you receive a response
-//   xhr.onreadystatechange = function () {
-//       if (xhr.readyState == XMLHttpRequest.DONE) {
-//           // alert(xhr.responseText);
-//       }
-//   };
-
-//   //👇 send the data
-//   xhr.send(JSON.stringify(data));
-// }
 
 $(document).ready(function () {
   const pickupday = document.getElementById('pickupday');
@@ -275,22 +266,7 @@ $(document).ready(function () {
       $('.filterMonth').css({
         display: 'block'
       });
-      // $('.pickupday').css(
-      //   'display','block'
-      // );
 
-      // $('.pickupdate').css({
-      //   display:'none'
-      // });
-
-      // $('.col .row .pickUpTimings-content .pickupday').css({
-      //   display:'block'
-      // });
-      // $('.col .row .pickUpTimings-content .pickupdate').css({
-      //   display:'none'
-      // });
-      // $("#pickupday").attr("disabled","");
-      // $("#pickupdate").attr("disabled","disabled");
     } else {
       $('.serviceQty').css({
         opacity: '0'
@@ -298,83 +274,12 @@ $(document).ready(function () {
       $('.filterMonth').css({
         display: 'none'
       });
-      // $("#pickupday").attr("disabled","disabled");
-      // $("#pickupdate").attr("disabled","");
-      // $('.pickupday').css({
-      //   display:'none'
-      // });
-      // $('.pickupdate').css({
-      //   display:'block'
-      // });
-      // $('.col .row .pickUpTimings-content .pickupday').css({
-      //   display:'none'
-      // });
-      // $('.col .row .pickUpTimings-content .pickupdate').css({
-      //   display:'block'
-      // });
 
-      // pickupday.style.display = "none";
-      // pickupdate.style.display = "block";
       $('#serviceQty').val("1");
 
     }
   });
 
-  // $('#serviceNext').click(function () {
-  //   alert ($("#servicetype").val());
-  //   if ($("#servicetype").val() == "regular") {
-  //     $('.pickupday').css({
-  //       display:'block',
-  //     });
-  //     $('.pickupdate').css({
-  //       display:'none',
-  //     });
-  //   } else {
-  //     $('.pickupday').css({
-  //       display:'none',
-  //     });
-  //     $('.pickupdate').css({
-  //       display:'block',
-  //     });
-  //   }
-  // });
-
-  $('#submitReq').click(function () {
-    // if (validateForm == false) {
-    $('#reqForm').submit(function (e) {
-      e.preventDefault();
-      $.ajax({
-        url: 'reqFormAction.php',
-        method: 'post',
-        data: $(this).serialize(),
-        success: function (response) {
-          console.log(response);
-        }
-
-      })
-    });
-
-
-
-
-    const nav = document.querySelector("nav");
-    const endScreen_wrapper = document.querySelector(".endScreen_wrapper");
-
-    nav.classList.contains("sticky-top") &&
-      nav.classList.remove("sticky-top");
-
-    endScreen_wrapper.classList.add("active");
-
-    $('html, body').css({
-      overflow: 'hidden'
-    });
-    $('.endScreen_wrapper').on('scroll touchmove mousewheel', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    })
-    // }
-  });
   $("#tickSI").change(function () {
     if (this.checked) {
       $("#firstNameSI").val(firstname)
@@ -399,31 +304,6 @@ $(document).ready(function () {
       $("#contactSI").removeAttr("disabled", "disabled")
     }
   });
-
-  // $("#tickSI").change(function(){
-  //   if (this.checked) {
-  //     $("#firstNameSI").val(firstname)
-  //     $("#lastNameSI").val(lastname)
-  //     $("#emailSI").val(email)
-  //     $("#contactSI").val(mobile)
-
-  //     $("#firstNameSI").attr("disabled","disabled")
-  //     $("#lastNameSI").attr("disabled","disabled")
-  //     $("#emailSI").attr("disabled","disabled")
-  //     $("#contactSI").attr("disabled","disabled")
-  //   } 
-  //   else {
-  //     $("#firstNameSI").val("")
-  //     $("#lastNameSI").val("")
-  //     $("#emailSI").val("")
-  //     $("#contactSI").val("")
-
-  //     $("#firstNameSI").removeAttr("disabled","disabled")
-  //     $("#lastNameSI").removeAttr("disabled","disabled")
-  //     $("#emailSI").removeAttr("disabled","disabled")
-  //     $("#contactSI").removeAttr("disabled","disabled")
-  //   }
-  // });
 
   $("#tickRI").change(function () {
     if (this.checked) {
@@ -450,64 +330,9 @@ $(document).ready(function () {
     }
   });
 
-  // $(".switch").change(function(){
-  //   if (document.getElementById("switch").checked) {
-  //     $('.secondpickup').css({
-  //       opacity: '1'
-  //      });
-  //   } else {
-  //     $('.secondpickup').css({
-  //       opacity: '0'
-  //      });  
-  //      $('#secondpickup').val("1");
-  //   }
-  // });
 });
 
-// function toggleclicked() {
-//   var checkBox = document.getElementById("switch");
-//   var secondpickup = document.getElementById("wholesecpickup");
 
-//   if (checkBox.checked == true) {
-
-//     // secondpickup.style.display = "block";
-//     $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
-//       display: "block"
-//     });
-//     $('.wholepickup').css({
-//       display: "none"
-//     });
-//   } else {
-
-//     $('.pickUpTimings-content div:nth-child(n+4):nth-child(-n+5)').css({
-//       display: "none"
-//     });
-//     $('.wholepickup').css({
-//       display: "block"
-//     });
-//   }
-// }
-// function serviceClicked() {
-//   var servicetype = document.getElementById("servicetype");
-
-//   if (servicetype.value == "regular") {
-
-//     $('.pickupday').css({
-//       display:'block'
-//     });
-//     $('.pickupdate').css({
-//       display:'none'
-//     });
-//   } else {
-
-//     $('.pickupday').css({
-//       display:'none'
-//     });
-//     $('.pickupdate').css({
-//       display:'block'
-//     });
-//   }
-// }
 
 function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
@@ -519,19 +344,13 @@ function toggleclicked() {
 
   if (checkBox.checked == true) {
 
-    // secondpickup.style.display = "block";
     $('.twopickups').css({
       display: "block"
     });
     $('.wholepickup').css({
       display: "none"
     });
-    // $('.pickupday').css({
-    //   display:'block'
-    // });
-    // $('.pickupdate').css({
-    //   display:'none'
-    // });
+
   } else {
 
     $('.twopickups').css({
@@ -540,12 +359,7 @@ function toggleclicked() {
     $('.wholepickup').css({
       display: "block"
     });
-    // $('.pickupday').css({
-    //   display:'none'
-    // });
-    // $('.pickupdate').css({
-    //   display:'block'
-    // });
+
   }
 }
 
