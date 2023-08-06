@@ -22,4 +22,12 @@ if (!$link) {
 
 $conn = new PDO('mysql:host=localhost;dbname=id20783214_wagginwheeldb', 'root', '');
 
+$db = new mysqli("localhost", "root", "", "id20783214_wagginwheeldb");  
+  
+// Display error if failed to connect  
+if ($db->connect_errno) {  
+    printf("Connect failed: %s\n", $db->connect_error);  
+    exit();  
+}
+
 ?>
