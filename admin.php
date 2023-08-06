@@ -101,7 +101,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
     <div class="container dashb">
         <div class="container dashboard">
             <div class="row">
-                <div class="col-6">
+                <div class="col-7">
                     <div class="container recentupdate">
                         <div class="container">
                             <div class="container">
@@ -252,6 +252,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                         $secondupdatestatus = $secondnum_rows['status'];
                                                         if ($secondupdatestatus == "a_rejected") {
                                                             $secondupdatestatus = "rejected";
+                                                            echo ($secondupdatestatus);
                                                         } else {
                                                             echo ($secondupdatestatus);
                                                         }
@@ -644,7 +645,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
 
 
                 <br>
-                <div class="col-6">
+                <div class="col-5">
                     <div class="container OVERVIEW">
                         <div class="container">
                             <div class="container">
@@ -667,7 +668,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                 <div class="row p-3">
                                     <div class="row">
                                         <div class="col"></div>
-                                        <div class="col-6 p-3 themed-grid-col col16 col14">
+                                        <div class="col-6 p-3 themed-grid-col col16 col14 text20">
                                             <?php
                                             $newQuery = "SELECT * from quote WHERE status = 'unassigned'";
                                             $newResult = mysqli_query($link, $newQuery);

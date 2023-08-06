@@ -630,6 +630,14 @@ img.four {
     font-size: medium;
 }
 
+.text16 {
+    font-family: 'Asap', sans-serif;
+    color: #1E53B3;
+    text-align: left;
+    font-size: medium;
+}
+
+
 .services {
     height: 350px;
     width: 350px;
@@ -655,4 +663,13 @@ img.four {
     padding-top: 5px;
     background-color: #ffb85b;
     width: max-content;
+}
+
+.col16 {
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: left;
+    font-family: 'Nunito', sans-serif;
+    color: white;
 }

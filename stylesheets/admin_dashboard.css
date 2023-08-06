@@ -95,15 +95,6 @@
     padding: 10px;
 }
 
-.col16 {
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 50px;
-    text-align: left;
-    font-family: 'Nunito', sans-serif;
-    color: white;
-}
-
 .col11 {
     background-color: rgb(135, 255, 189);
 }
