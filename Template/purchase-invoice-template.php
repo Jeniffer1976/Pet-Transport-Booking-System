@@ -83,7 +83,7 @@ function getHTMLPurchaseDataToPDF($result, $orderItemResult, $orderedDate, $due_
 
                 <tr style="font-weight: bold;">
                     <td></td>
-                    <td style="text-align:right;">Total ($)&nbsp;&nbsp;&nbsp;&nbsp;
+                    <td style="text-align:right;">Total ($)&nbsp;&nbsp;&nbsp;
                         <?php echo number_format($orderItemResult[0]["price"], 2); ?>
                     </td>
                 </tr>
