@@ -174,7 +174,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                     <div class="container">
                                                         <div class="row">
                                                             <div align="left">
-                                                                <h2 class="text16 bi bi-person-fill">
+                                                                <h2 class="text61 bi bi-person-fill">
                                                                     <?php
                                                                     $maxquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT MAX(quote_id) FROM quote)";
                                                                     $maxquoteidResult = mysqli_query($link, $maxquouteidQuery);
@@ -186,7 +186,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                     ?>
                                                                     <div class="row">
                                                                         <div align="left">
-                                                                            <h2 class="text16">
+                                                                            <h2 class="text61">
                                                                                 <?php
                                                                                 echo ("Pick up: $topupdatepick");
                                                                                 ?>
@@ -195,7 +195,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                     </div>
                                                                     <div class="row">
                                                                         <div align="left">
-                                                                            <h2 class="text16">
+                                                                            <h2 class="text61">
                                                                                 <?php
                                                                                 echo ("Drop off: $topupdatedrop");
                                                                                 ?>
@@ -265,7 +265,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                     <div class="container">
                                                         <div class="row">
                                                             <div align="left">
-                                                                <h2 class="text16 bi bi-person-fill">
+                                                                <h2 class="text61 bi bi-person-fill">
                                                                     <?php
                                                                     $secondquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-1) FROM quote)";
                                                                     $secondquoteidResult = mysqli_query($link, $secondquouteidQuery);
@@ -277,7 +277,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                     ?>
                                                                     <div class="row">
                                                                         <div align="left">
-                                                                            <h2 class="text16">
+                                                                            <h2 class="text61">
                                                                                 <?php
                                                                                 echo ("Pick up: $secondupdatepick");
                                                                                 ?>
@@ -286,7 +286,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                     </div>
                                                                     <div class="row">
                                                                         <div align="left">
-                                                                            <h2 class="text16">
+                                                                            <h2 class="text61">
                                                                                 <?php
                                                                                 echo ("Drop off: $secondupdatedrop");
                                                                                 ?>
@@ -355,7 +355,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                     <div class="container">
                                                         <div class="row">
                                                             <div align="left">
-                                                                <h2 class="text16 bi bi-person-fill">
+                                                                <h2 class="text61 bi bi-person-fill">
                                                                     <?php
                                                                     $thirdquouteidQuery = "SELECT * FROM quote WHERE quote_id = (SELECT (MAX(quote_id)-2) FROM quote)";
                                                                     $thirdquoteidResult = mysqli_query($link, $thirdquouteidQuery);
@@ -367,7 +367,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                     ?>
                                                                     <div class="row">
                                                                         <div align="left">
-                                                                            <h2 class="text16">
+                                                                            <h2 class="text61">
                                                                                 <?php
                                                                                 echo ("Pick up: $thirdupdatepick");
                                                                                 ?>
@@ -376,7 +376,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                     </div>
                                                                     <div class="row">
                                                                         <div align="left">
-                                                                            <h2 class="text16">
+                                                                            <h2 class="text61">
                                                                                 <?php
                                                                                 echo ("Drop off: $thirdupdatedrop");
                                                                                 ?>
