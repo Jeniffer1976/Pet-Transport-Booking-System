@@ -80,7 +80,7 @@ if(!empty($_GET['item_number']) && !empty($_GET['tx']) && !empty($_GET['amt']) &
             <div class="col-7 returnstatus">
                 <h1 class="error">Your payment has been successfully received. Thank you!</h1>
                 <br>
-                <a href="index.php" class="btn-link link">Back to Products</a>
+                <a href="index.php" class="btn-link link">Back to homepage</a>
             </div>
             <div class="col-4 returnimg">
                 <img src="images/return.png" alt="return cat" width='350' height='480'>

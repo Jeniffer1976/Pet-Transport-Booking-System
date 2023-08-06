@@ -37,7 +37,7 @@
             <div class="col-7 cancelstatus">
                 <h1 class="error">Your PayPal Transaction has been canceled!</h1>
                 <br>
-                <a href="index.php" class="btn-link link">Back to Products</a>
+                <a href="index.php" class="btn-link link">Back to homepage</a>
             </div>
             <div class="col-4 img">
                 <img src="images/cancel.png" alt="return cat" width='400' height='550'>

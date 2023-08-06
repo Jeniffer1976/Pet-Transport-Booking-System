@@ -3,18 +3,16 @@ include "loginFunctions.php";
 
 if (isset($_SESSION['username'])) {
     $username = $_SESSION['username'];
-
 } else {
     header("Location: signIn.php");
     exit();
 }
 
-$invhistQuery = "SELECT invoice.description, pickup_details.pickUp_date, quote.price, quote.quote_id 
-FROM ((((users 
+$invhistQuery = "SELECT invoice.description, quote.price, quote.quote_id 
+FROM (((users 
 INNER JOIN pet_owner ON users.username = pet_owner.username) 
 INNER JOIN invoice ON pet_owner.owner_id = invoice.owner_id) 
-INNER JOIN quote ON invoice.quote_id = quote.quote_id) 
-INNER JOIN pickup_details ON quote.quote_id = pickup_details.quote_id) 
+INNER JOIN quote ON invoice.quote_id = quote.quote_id)
 WHERE users.username = '$username'";
 
 $invhistStatus = mysqli_query($link, $invhistQuery) or die(mysqli_error($link));
@@ -35,13 +33,10 @@ while ($invRow = mysqli_fetch_array($invhistStatus)) {
     <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <!--Boostrap JS link-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -91,31 +86,50 @@ while ($invRow = mysqli_fetch_array($invhistStatus)) {
                         <table id="invoicetable">
                             <tr>
                                 <th>Item Description</th>
-                                <th>Pick-Up Date</th>
+                                <th>Pick-Up Date(s)</th>
                                 <th>Total Price ($)</th>
                                 <th>Download Invoice</th>
                             </tr>
 
                             <?php for ($i = 0; $i < count($invContent); $i++) {
                                 $item_desc = $invContent[$i]['description'];
-                                $pudate = $invContent[$i]['pickUp_date'];
+                                // $pudate = $invContent[$i]['pickUp_date'];
                                 $price = $invContent[$i]['price'];
-                                ?>
 
+                                $pickupQuery = "SELECT pickup_details.pickUp_date 
+                                FROM ((((users 
+                                INNER JOIN pet_owner ON users.username = pet_owner.username) 
+                                INNER JOIN invoice ON pet_owner.owner_id = invoice.owner_id) 
+                                INNER JOIN quote ON invoice.quote_id = quote.quote_id) 
+                                INNER JOIN pickup_details ON quote.quote_id = pickup_details.quote_id) 
+                                WHERE users.username = '$username'";
+
+                                $pickupStatus = mysqli_query($link, $pickupQuery) or die(mysqli_error($link));
+                                while ($pickupRow = mysqli_fetch_array($pickupStatus)) {
+                                    $pickupContent[] = $pickupRow;
+                                }
+                            ?>
                                 <tr>
                                     <td>
                                         <?php echo $item_desc ?>
                                     </td>
                                     <td class="w-25">
-                                        <?php echo $pudate ?>
+                                        <?php
+                                        for ($u = 0; $u < count($pickupContent); $u++) {
+                                            $pudate = $pickupContent[$u]['pickUp_date'];
+
+                                            echo date("d/m/Y", strtotime($pudate)) . "<br><br>";
+                                        }
+                                        ?>
+                                        <!-- <?php //echo $pudate 
+                                                ?> -->
                                     </td>
                                     <td>
                                         <?php echo $price ?>
                                     </td>
                                     <td align="center" style="width:30px">
                                         <form method="get" action="invoice.php" id="passOwnerId" target="_blank">
-                                            <input type="hidden" id="quote_id" name="quote_id"
-                                                value="<?php echo $invContent[$i]['quote_id'] ?>" />
+                                            <input type="hidden" id="quote_id" name="quote_id" value="<?php echo $invContent[$i]['quote_id'] ?>" />
                                             <button type="submit" class="btn">
                                                 <i class="fas fa-download download"></i></button>
                                         </form>
