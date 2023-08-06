@@ -487,7 +487,7 @@ rect {
 .dashb {
     margin-top: -95vh;
     margin-left: 25vw;
-    width: 65vw;
+    width: 70vw;
 }
 
 /* about */
@@ -647,4 +647,12 @@ img.four {
     padding-top: 10%;
 }
 
+.col8 {
+    padding-top: 0%;
+}
 
+.col18 {
+    padding-top: 5px;
+    background-color: #ffb85b;
+    width: max-content;
+}
