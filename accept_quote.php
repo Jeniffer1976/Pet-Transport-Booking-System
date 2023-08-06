@@ -1,5 +1,6 @@
 <?php
 include "dbFunctions.php";
+
 if (isset($_POST['quote_id'])) {
     $quote_id = $_POST['quote_id'];
     $staff_id = $_POST['staff_id'];
@@ -26,6 +27,7 @@ if (isset($_POST['price'])) {
     $accQuoteId = $_POST['currQuoteId'];
     $ownerId = $_POST['currOwnerId'];
     $staff_id = $_POST['staff_id'];
+
     $priceQuery = "UPDATE quote SET status = 'pending', price = '$price', staff_id = '$staff_id' WHERE quote_id = '$accQuoteId'";
     mysqli_query($link, $priceQuery) or die(mysqli_error($link));
 
@@ -57,17 +59,19 @@ if (isset($_POST['price'])) {
     } else if ($serType == "adhoc") {
         $dispDate = date_format($pickDate, "l j ") . strtoupper(date_format($pickDate, "M ")) . date_format($pickDate, "Y");
     }
-    $itemName = "Monthly Transport for " . date_format($pickDate, "F Y") . " - " . $dispDay . "*" . $tripType . "* (" . $dispDate . ") -" . $last_name;
+    $itemName = "Monthly Transport for " . date_format($pickDate, "F Y") . " - " . $dispDay . "*" . $tripType . "* (" . $dispDate . ") - " . $last_name;
 
-    $invoiceQuery = "INSERT INTO `invoice` (`owner_id`, `quote_id`, `invoice_date`, `due_date`, `description`) 
-                                    VALUES ('$ownerId', '$accQuoteId', CURRENT_DATE(), TIMESTAMPADD(DAY,7,CURRENT_DATE()),  '$itemName');";
+    $invoiceQuery = "INSERT INTO `invoice` (`owner_id`, `quote_id`, `invoice_date`, `due_date`, `description`, `msgStatus`) 
+                                    VALUES ('$ownerId', '$accQuoteId', CURRENT_DATE(), TIMESTAMPADD(DAY,7,CURRENT_DATE()),  '$itemName', 'NOT SEND');";
     mysqli_query($link, $invoiceQuery) or die(mysqli_error($link));
     $invoice_id = mysqli_insert_id($link);
     // $invoice_id = $db->insert_id; 
 
-    $invoice_no = strtoupper(date("M")) . date("y-") . $invoice_id;
+    $invoice_no = strtoupper(date("M")) . date("y");
 
     $updateInvoiceNo = $db->query("UPDATE `invoice` SET `invoice_no` = '$invoice_no' WHERE `invoice_id` = $invoice_id;");
+
+    //include('invoice.php?quote_id=' . $accQuoteId);
     header("Location: admin_quotes.php");
 }
 
@@ -81,7 +85,7 @@ if (isset($_POST['price'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quote | Waggin Wheels</title>
-    <link rel="icon" type="image/x-icon" href="/images/logoNoText.ico">
+    <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -128,7 +132,7 @@ if (isset($_POST['price'])) {
                         </div>
                     </div>
                 </div>
-                <form action="" method="post">
+                <form action="" method="post" id="accQuoteForm">
                     <div class="row mt-5" align="left">
                         <div class="col-3">
                             <label for="price" id="priceLabel" class="mt-2">
@@ -149,6 +153,12 @@ if (isset($_POST['price'])) {
                         </div>
                     </div>
                 </form>
+                <form method="get" action="invoice.php" target="_blank" style="margin-bottom:-10px; display: none">
+                    <input type="hidden" id="quote_id" name="quote_id" value="<?php echo $quote_id ?>" />
+                    <button type="submit" id="invoiceBtn" class="actionBtns">
+                        <i class="fa-solid fa-clipboard"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -166,6 +176,15 @@ if (isset($_POST['price'])) {
     <script src="scripts/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="scripts/viewQuote.js"></script>
+    <script>
+        $(document).ready(function () { 
+            $('#accQuoteForm').on('submit', function (e) { 
+ 
+                $('#invoiceBtn').click(); 
+                
+            }); 
+        });
+    </script>
 
 
 </body>
