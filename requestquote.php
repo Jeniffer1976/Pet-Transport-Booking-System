@@ -389,7 +389,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                 </div>
 
                 <div class="btns-group">
-                    <a href="#" class="btn btn-link text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
+                    <a href="#" class="btn btn-prev text-secondary"><i class="far fa-arrow-alt-circle-left"></i>
                         Previous</a>
                     <button href="#" class="btn btn-link" onclick="mySecondBtn()">Next <i class="far fa-arrow-alt-circle-right"></i></button>
                 </div>

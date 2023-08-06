@@ -126,7 +126,16 @@ if ($role != 'admin') { ?>
                                                 <h5>
                                         </li>
                                     <?php } ?>
-                                    <li><a class="dropdown-item" href="accountOverview.php">View profile</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="accountOverview.php">View profile</a>
+
+                                        <?php if ($role != 'admin') {
+                                            ?> <!-- if user is logged in -->
+                                            <a class="dropdown-item" href="invoiceHist.php">Invoice History</a>
+                                        <?php } ?>
+
+                                    </li>
+
                                     <li><a class="dropdown-item text2" onclick="location.href = '?logout'">Sign out <i
                                                 class="fas fa-sign-out-alt ms-2"></i></a></li>
                                 <?php } else { ?>
@@ -153,6 +162,7 @@ if ($role != 'admin') { ?>
                                 <i class="fas fa-circle fa-stack-2x inboxbg"></i>
                                 <i class="fas fa-bell fa-stack-1x inboxbell"></i>
                             </span>
+
                             <?php
                             $owner_id = $_SESSION['owner_id'];
                             $notiQuery = "SELECT COUNT(quote_id) AS 'num_invoice' FROM quote WHERE owner_id = $owner_id AND status = 'pending'";
@@ -160,10 +170,11 @@ if ($role != 'admin') { ?>
                             $notiRow = mysqli_fetch_array($notiStatus);
 
                             $notis = $notiRow['num_invoice'];
-
                             if ($notis > 0) {
                                 ?>
-                                <span class="badge"><?php echo $notis?></span>
+                                <span class="badge">
+                                    <?php echo $notis ?>
+                                </span>
                             <?php } ?>
                         </div>
                     <?php } ?>
