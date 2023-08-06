@@ -44,7 +44,7 @@ define('PAYPAL_CURRENCY', 'SGD');
 define('DB_HOST', 'localhost'); 
 define('DB_USERNAME', 'root'); 
 define('DB_PASSWORD', ''); 
-define('DB_NAME', 'waggingwheel_v1'); 
+define('DB_NAME', 'id20783214_wagginwheeldb'); 
  
 // Change not required 
 define('PAYPAL_URL', (PAYPAL_SANDBOX == true)?"https://www.sandbox.paypal.com/cgi-bin/webscr":"https://www.paypal.com/cgi-bin/webscr");

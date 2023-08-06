@@ -43,7 +43,7 @@ input {
     counter-reset: step;
     margin-top: 70px;
     margin-bottom: 50px;
-    margin-left: 300px;
+    margin-left: 375px;
 }
 
 .progressbar::before,

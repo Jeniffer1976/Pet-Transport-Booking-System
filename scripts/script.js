@@ -53,4 +53,11 @@ function openReqErr() {
     });
 
 
+
+}
+
+function scrollToSec(sec) {
+    $('html, body').animate({
+        scrollTop: $('.'+sec+':visible:first').offset().top
+    });
 }

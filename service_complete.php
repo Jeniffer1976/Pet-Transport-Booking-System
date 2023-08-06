@@ -1,8 +1,14 @@
 <?php
 include "dbFunctions.php";
 $quote_id = $_POST['quote_id'];
-$owner_name = $_POST['owner_name'];
 
+if (isset($_POST['comSvcBtn'])) {
+    $comSvcId = $_POST['comSvcId'];
+    $comSvcQuery = "UPDATE quote SET status = 'completed_svc' WHERE quote_id = $comSvcId";
+    $comSvcStatus = mysqli_query($link, $comSvcQuery) or die(mysqli_error($link));
+    header("Location: admin_quotes.php");
+
+}
 ?>
 
 <html lang="en">
@@ -38,21 +44,28 @@ $owner_name = $_POST['owner_name'];
             <button type="button" onclick="exitAnim()" class="exitBtn">
                 <i class="fas fa-times text-secondary"></i>
             </button>
-            <div class="container decline-content">
-                <p>Are you sure that you would like to decline
-                    <b>
-                        <?php echo $owner_name ?>
-                    </b>'s quote?
-                </p><br>
+            <div class="container svcCom-content p-2">
+                <div class="m-3 row">
+                    <div class="col-8">
+                        <img src="images/comSvc.jpg" alt="Service Completed" width="150" style="border-radius:50%">
+
+                    </div>
+                    <div class="col-2 text-success mt-5 pt-3">
+                        <p>Service Completed</p>
+
+                    </div>
+                </div>
+
+                <br>
                 <div class="row buttons">
                     <div class="col" align="left">
                         <button type="button" class="btn btn-secondary"
                             onclick="location.href='admin_quotes.php'">Cancel</button>
                     </div>
                     <div class="col">
-                        <form action="admin_quotes.php" method="post" style="margin-bottom:-1px">
-                            <input type="hidden" name="decQuoteId" value="<?php echo $quote_id ?>">
-                            <input type="submit" name="declineQuote" value="Decline Quote" class="btn btn-danger">
+                        <form action="" method="post" style="margin-bottom:-1px">
+                            <input type="hidden" name="comSvcId" value="<?php echo $quote_id ?>">
+                            <input type="submit" name="comSvcBtn" value="Completed" class="btn btn-success">
                         </form>
                     </div>
                 </div>

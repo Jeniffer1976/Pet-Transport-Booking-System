@@ -64,12 +64,12 @@
                     </div>
                     <div class="col">
                         <span class="circle-icon position-absolute">
-                        <i class="fas fa-envelope p-3" style="color: #1E53B3; font-size: 20px"></i>
+                        <i class="fas fa-envelope p-3" style="color: #1E53B3; font-size: 20px" onclick="location.href='mailto: farrahwagginwheels@gmail.com'"></i>
                         </span>
                     </div>
                     <div class="col">
                         <span class="circle-icon position-absolute">
-                        <i class="fas fa-phone-alt p-3" style="color: #1E53B3; font-size: 20px"></i>
+                        <i class="fas fa-phone-alt p-3" style="color: #1E53B3; font-size: 20px" onclick="location.href='tel:+6597511740'"></i>
                         </span>
                     </div>
                 </div>
