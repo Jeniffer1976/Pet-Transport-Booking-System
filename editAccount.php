@@ -112,11 +112,11 @@ if (isset($_SESSION['username'])) {
 
         } else {
 
-            if ($_POST['oldPassword'] == $rowPassword['password']) {
-                $passwordN = $_POST['newPassword'];
+            if (SHA1($_POST['oldPassword']) == $rowPassword['password']) {
+                $passwordN = SHA1($_POST['newPassword']);
 
                 $updateUsers = "UPDATE users
-                SET password='$passwordN' 
+                SET password= '$passwordN' 
                 WHERE username='$username'";
 
                 $updateUsersStatus = mysqli_query($link, $updateUsers);

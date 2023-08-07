@@ -25,7 +25,7 @@ if (isset($_POST['addacc'])) {
     $insertUsers = "INSERT INTO users
           (username, password, role) 
           VALUES 
-          ('$username', '$password', 'admin')";
+          ('$username', SHA1('$password'), 'admin')";
 
     $checkUsername = "SELECT DISTINCT username
         FROM users
@@ -97,11 +97,11 @@ if (isset($_POST['addacc'])) {
         <br>
         <a href="editAdmin.php" class="btn btn-back"><i class="far fa-arrow-alt-circle-left"></i> Back to Administrators</a>
         <h1 class="header1">ADD STAFF ACCOUNT</h1>
-        <h3 class="header2">STAFF'S INFORMATION</h3>
+        <h3 class="header2" style="margin-left:30vw">STAFF'S INFORMATION</h3>
 
         <section class="inverse full-bleed overflow-hidden" id="addstaffForm">
             <div class="container-fluid d-flex justify-content-center">
-                <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
+                <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data" style="width:40vw">
                     <div class="col-12">
                         <label for="username" class="form-label para">Username:</label>
                         <input type="username" class="form-control rounded-pill" name="username" placeholder="Johnny2314" required>
@@ -149,7 +149,7 @@ if (isset($_POST['addacc'])) {
                             <button type="button" class="imgBtn" onclick="triggerClick()"><i class="fas fa-camera"></i></button>
                         </div>
                     </div>
-                    <div class="col-12 text-center form-group">
+                    <div class="col-12 text-center form-group" style="margin-bottom:-5vh">
                         <button type="submit" name="addacc" class="btn btn-primary primarybtn rounded-pill">Add
                             Account</button>
                     </div>

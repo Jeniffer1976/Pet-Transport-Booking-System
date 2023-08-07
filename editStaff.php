@@ -129,11 +129,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") //if u request then it will proceed wa
 
     } else {
 
-        if ($_POST['oldPassword'] == $rowPassword['password']) {
-            $passwordN = $_POST['newPassword'];
+        if (SHA1($_POST['oldPassword']) == $rowPassword['password']) {
+            $passwordN = SHA1($_POST['newPassword']);
 
             $updateUsers = "UPDATE users
-                SET password='$passwordN' 
+                SET password= '$passwordN' 
                 WHERE username='$staff_username'";
 
             $updateUsersStatus = mysqli_query($link, $updateUsers);

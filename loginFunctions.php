@@ -7,7 +7,7 @@ function login($username, $password)
 {
     global $link;
 
-    $usersQuery = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $usersQuery = "SELECT * FROM users WHERE username = '$username' AND password = SHA1('$password')";
 
     $usernameQuery = "SELECT username FROM users WHERE username = '$username'"; // check if username exists
 
@@ -24,7 +24,7 @@ function login($username, $password)
             INNER JOIN pet_owner PO 
             ON U.username = PO.username 
             WHERE U.username ='$username' 
-            AND password = '$password'"; // check for correct username and password
+            AND password = SHA1('$password')"; // check for correct username and password
 
             $customerPassStatus = mysqli_query($link, $customerPassQuery) or die(mysqli_error($link));
 
@@ -51,7 +51,7 @@ function login($username, $password)
             INNER JOIN staff S 
             ON U.username = S.username 
             WHERE U.username ='$username' 
-            AND password = '$password'"; // check for correct username and password
+            AND password = SHA1('$password')"; // check for correct username and password
 
             $adminPassStatus = mysqli_query($link, $adminPassQuery) or die(mysqli_error($link));
 

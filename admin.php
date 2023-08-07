@@ -39,10 +39,13 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
     <link rel="icon" type="image/x-icon" href="images/logoNoText.ico">
 
     <!--Bootstrap CSS link take note of version-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
     <!--Boostrap JS link-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
 
     <!--Font Awesome-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -110,7 +113,8 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                         <div class="container">
                                             <div class="row">
                                                 <div align="left">
-                                                    <h2 class="font12 display-6 fw-bold lh-1 mb-3 bi bi-arrow-clockwise">
+                                                    <h2
+                                                        class="font12 display-6 fw-bold lh-1 mb-3 bi bi-arrow-clockwise">
                                                         RECENT
                                                         UPDATES
                                                     </h2>
@@ -161,6 +165,10 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                         $topupdatestatus = $num_rows['status'];
                                                         if ($topupdatestatus == "a_rejected") {
                                                             $topupdatestatus = "rejected";
+                                                            echo ($topupdatestatus);
+                                                        }
+                                                        if ($topupdatestatus == "completed_svc") {
+                                                            $topupdatestatus = "completed order";
                                                             echo ($topupdatestatus);
                                                         } else {
                                                             echo ($topupdatestatus);
@@ -253,6 +261,10 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                         if ($secondupdatestatus == "a_rejected") {
                                                             $secondupdatestatus = "rejected";
                                                             echo ($secondupdatestatus);
+                                                        }
+                                                        if ($secondupdatestatus == "completed_svc") {
+                                                            $secondupdatestatus = "completed order";
+                                                            echo ($secondupdatestatus);
                                                         } else {
                                                             echo ($secondupdatestatus);
                                                         }
@@ -343,6 +355,10 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                         if ($thirdupdatestatus == "a_rejected") {
                                                             $thirdupdatestatus = "rejected";
                                                             echo ($thirdupdatestatus);
+                                                        }
+                                                        if ($thirdupdatestatus == "completed_svc") {
+                                                            $thirdupdatestatus = "completed order";
+                                                            echo ($thirdupdatestatus);
                                                         } else {
                                                             echo ($thirdupdatestatus);
                                                         }
@@ -420,7 +436,11 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                         <div class="container card1">
                                             <div align="left">
                                                 <p class="d-inline-flex gap-1">
-                                                    <button class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample1" aria-expanded="false" aria-controls="collapseExample">
+                                                    <button
+                                                        class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseExample1" aria-expanded="false"
+                                                        aria-controls="collapseExample">
                                                         <?php
                                                         $past7daysQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE pickUp_date >= (NOW() - INTERVAL 7 DAY) AND pickUp_date <= (NOW() - INTERVAL 1 DAY)";
                                                         $past7daysResult = mysqli_query($link, $past7daysQuery);
@@ -452,34 +472,34 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                         $past7dayspickup = $past7daysContent[$i]['pickUp_address'];
                                                                         $past7daysdropoff = $past7daysContent[$i]['dropOff_address'];
 
-                                                                ?>
-                                                                    <tr>
-                                                                        <th scope="row">
-                                                                            <?php
-                                                                            echo date_format($past7daysdate, 'd/m');
-                                                                            ?>
-                                                                            <br>
-                                                                            <?php
-                                                                            echo date_format($past7daystime, 'H:i a');
-                                                                            ?>
-                                                                        </th>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($past7daysorderno);
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($past7dayspickup);
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($past7daysdropoff);
-                                                                            ?>
-                                                                        </td>
-                                                                    </tr>
-                                                                <?php } ?>
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <?php
+                                                                                echo date_format($past7daysdate, 'd/m');
+                                                                                ?>
+                                                                                <br>
+                                                                                <?php
+                                                                                echo date_format($past7daystime, 'H:i a');
+                                                                                ?>
+                                                                            </th>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($past7daysorderno);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($past7dayspickup);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($past7daysdropoff);
+                                                                                ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php } ?>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -496,7 +516,11 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                         <div class="container card1">
                                             <div align="left">
                                                 <p class="d-inline-flex gap-1">
-                                                    <button class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+                                                    <button
+                                                        class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseExample2" aria-expanded="false"
+                                                        aria-controls="collapseExample">
                                                         <?php
                                                         $todayQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE DATE(pickUp_date) = DATE(NOW())";
                                                         $todayResult = mysqli_query($link, $todayQuery);
@@ -527,35 +551,35 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                         $todayorderno = $todayContent[$p]['quote_id'];
                                                                         $todaypickup = $todayContent[$p]['pickUp_address'];
                                                                         $todaydropoff = $todayContent[$p]['dropOff_address'];
-                                                                ?>
-                                                                    <tr>
-                                                                        <th scope="row">
-                                                                            <?php
-                                                                            echo date_format($todaydate, 'd/m');
-                                                                            ?>
-                                                                            <br>
-                                                                            <?php
-                                                                            echo date_format($todaytime, 'H:i a');
-                                                                            ?>
-                                                                        </th>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($todayorderno);
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($todaypickup);
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($todaydropoff);
-                                                                            ?>
-                                                                        </td>
-                                                                    </tr>
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <?php
+                                                                                echo date_format($todaydate, 'd/m');
+                                                                                ?>
+                                                                                <br>
+                                                                                <?php
+                                                                                echo date_format($todaytime, 'H:i a');
+                                                                                ?>
+                                                                            </th>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($todayorderno);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($todaypickup);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($todaydropoff);
+                                                                                ?>
+                                                                            </td>
+                                                                        </tr>
 
-                                                                <?php } ?>
+                                                                    <?php } ?>
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -573,7 +597,11 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                         <div class="container card1">
                                             <div align="left">
                                                 <p class="d-inline-flex gap-1">
-                                                    <button class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+                                                    <button
+                                                        class="btn person1 bi bi-chevron-right font12 display-6 fw-bold lh-1 mb-3"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#collapseExample3" aria-expanded="false"
+                                                        aria-controls="collapseExample">
                                                         <?php
                                                         $next7daysQuery = "SELECT * FROM pickup_details P INNER JOIN QUOTE Q ON P.quote_id = Q.quote_id WHERE pickUp_date <= (NOW() + INTERVAL 7 DAY) AND pickUp_date >= (NOW() + INTERVAL 1 DAY)";
                                                         $next7daysResult = mysqli_query($link, $next7daysQuery);
@@ -605,34 +633,34 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                         $next7dayspickup = $next7daysContent[$q]['pickUp_address'];
                                                                         $next7daysdropoff = $next7daysContent[$q]['dropOff_address'];
 
-                                                                ?>
-                                                                    <tr>
-                                                                        <th scope="row">
-                                                                            <?php
-                                                                            echo date_format($next7daysdate, 'd/m');
-                                                                            ?>
-                                                                            <br>
-                                                                            <?php
-                                                                            echo date_format($next7daystime, 'H:i a');
-                                                                            ?>
-                                                                        </th>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($next7daysorderno);
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($next7dayspickup);
-                                                                            ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <?php
-                                                                            echo ($next7daysdropoff);
-                                                                            ?>
-                                                                        </td>
-                                                                    </tr>
-                                                                <?php } ?>
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row">
+                                                                                <?php
+                                                                                echo date_format($next7daysdate, 'd/m');
+                                                                                ?>
+                                                                                <br>
+                                                                                <?php
+                                                                                echo date_format($next7daystime, 'H:i a');
+                                                                                ?>
+                                                                            </th>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($next7daysorderno);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($next7dayspickup);
+                                                                                ?>
+                                                                            </td>
+                                                                            <td>
+                                                                                <?php
+                                                                                echo ($next7daysdropoff);
+                                                                                ?>
+                                                                            </td>
+                                                                        </tr>
+                                                                    <?php } ?>
                                                             </tbody>
                                                         </table>
                                                     </div>

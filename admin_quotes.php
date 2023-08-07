@@ -24,7 +24,7 @@ if (isset($_POST['submitFilter'])) {
     if ($month == "showall") {
         $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q 
-        INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id
+        INNER JOIN pickup_details PD ON Q.quote_id = PD.quote_id
         WHERE Q.status <> 'completed_svc' 
         ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
@@ -143,11 +143,11 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
             <div class="tableLegend" align="right">
                 <p>
                     <!-- <button class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB" type="button" onclick="document.querySelector('.table-success:first').scrollTo();" >Completed Booking</button> -->
-                    <button class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB" type="button"
+                    <button class="text-secondary rounded-pill p-2" style="background-color:#C3E6CB;border:3px solid green; border-style: groove;" type="button"
                         onclick="scrollToSec('table-success')">Completed Booking</button>
-                    <button class="text-secondary rounded-pill p-2" style="background-color:#FFEEBA" type="button"
+                    <button class="text-secondary rounded-pill p-2" style="background-color:#FFEEBA;border:3px solid yellow; border-style: groove;" type="button"
                         onclick="scrollToSec('table-warning')">Payment Pending</button>
-                    <button class="text-secondary rounded-pill p-2" style="background-color:#F5C6CB" type="button"
+                    <button class="text-secondary rounded-pill p-2" style="background-color:#F5C6CB;border:3px solid red; border-style: groove;" type="button"
                         onclick="scrollToSec('table-danger')">Rejected Booking</button>
                 </p>
             </div>
@@ -247,11 +247,12 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                 }
 
 
-                                $ownerQuery = "SELECT first_Name, last_Name, email, mobile, profile FROM pet_owner WHERE owner_id = '$owner_id'";
+                                $ownerQuery = "SELECT first_Name, last_Name, email, mobile, profile, username FROM pet_owner WHERE owner_id = '$owner_id'";
 
                                 $ownerStatus = mysqli_query($link, $ownerQuery) or die(mysqli_error($link));
 
                                 $ownerRow = mysqli_fetch_array($ownerStatus);
+                                $po_userName = $ownerRow['username'];
                                 $po_firstName = $ownerRow['first_Name'];
                                 $po_lastName = $ownerRow['last_Name'];
                                 $po_email = $ownerRow['email'];
@@ -301,7 +302,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                                 ?>
                                 <tr class="<?php echo $tableStyle ?>">
                                     <td>
-                                        <?php echo $owner_name ?>
+                                        <?php echo $owner_name .'<span style="font-size:13px"><br>@'.$po_userName.'</span>'?>
                                     </td>
                                     <td class="petCol">
                                         <?php
