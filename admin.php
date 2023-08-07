@@ -447,6 +447,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                 } else
                                                                     for ($i = 0; $i < count($past7daysContent); $i++) {
                                                                         $past7daysdate = date_create($past7daysContent[$i]['pickUp_date']);
+                                                                        $past7daystime = date_create($past7daysContent[$i]['first_pickUp_time']);
                                                                         $past7daysorderno = $past7daysContent[$i]['quote_id'];
                                                                         $past7dayspickup = $past7daysContent[$i]['pickUp_address'];
                                                                         $past7daysdropoff = $past7daysContent[$i]['dropOff_address'];
@@ -459,7 +460,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                             ?>
                                                                             <br>
                                                                             <?php
-                                                                            echo date_format($past7daysdate, 'H:i a');
+                                                                            echo date_format($past7daystime, 'H:i a');
                                                                             ?>
                                                                         </th>
                                                                         <td>
@@ -522,6 +523,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                 } else
                                                                     for ($p = 0; $p < count($todayContent); $p++) {
                                                                         $todaydate = date_create($todayContent[$p]['pickUp_date']);
+                                                                        $todaytime = date_create($todayContent[$p]['first_pickUp_time']);
                                                                         $todayorderno = $todayContent[$p]['quote_id'];
                                                                         $todaypickup = $todayContent[$p]['pickUp_address'];
                                                                         $todaydropoff = $todayContent[$p]['dropOff_address'];
@@ -533,7 +535,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                             ?>
                                                                             <br>
                                                                             <?php
-                                                                            echo date_format($todaydate, 'H:i a');
+                                                                            echo date_format($todaytime, 'H:i a');
                                                                             ?>
                                                                         </th>
                                                                         <td>
@@ -598,6 +600,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                 } else
                                                                     for ($q = 0; $q < count($next7daysContent); $q++) {
                                                                         $next7daysdate = date_create($next7daysContent[$q]['pickUp_date']);
+                                                                        $next7daystime = date_create($next7daysContent[$q]['first_pickUp_time']);
                                                                         $next7daysorderno = $next7daysContent[$q]['quote_id'];
                                                                         $next7dayspickup = $next7daysContent[$q]['pickUp_address'];
                                                                         $next7daysdropoff = $next7daysContent[$q]['dropOff_address'];
@@ -610,7 +613,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                                             ?>
                                                                             <br>
                                                                             <?php
-                                                                            echo date_format($next7daysdate, 'H:i a');
+                                                                            echo date_format($next7daystime, 'H:i a');
                                                                             ?>
                                                                         </th>
                                                                         <td>
