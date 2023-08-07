@@ -167,7 +167,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                             $topupdatestatus = "rejected";
                                                             echo ($topupdatestatus);
                                                         }
-                                                        if ($topupdatestatus == "completed_svc") {
+                                                        else if ($topupdatestatus == "completed_svc") {
                                                             $topupdatestatus = "completed order";
                                                             echo ($topupdatestatus);
                                                         } else {
@@ -262,7 +262,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                             $secondupdatestatus = "rejected";
                                                             echo ($secondupdatestatus);
                                                         }
-                                                        if ($secondupdatestatus == "completed_svc") {
+                                                        else if ($secondupdatestatus == "completed_svc") {
                                                             $secondupdatestatus = "completed order";
                                                             echo ($secondupdatestatus);
                                                         } else {
@@ -356,7 +356,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                                                             $thirdupdatestatus = "rejected";
                                                             echo ($thirdupdatestatus);
                                                         }
-                                                        if ($thirdupdatestatus == "completed_svc") {
+                                                        else if ($thirdupdatestatus == "completed_svc") {
                                                             $thirdupdatestatus = "completed order";
                                                             echo ($thirdupdatestatus);
                                                         } else {
