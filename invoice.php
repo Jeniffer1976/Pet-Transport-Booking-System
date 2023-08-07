@@ -29,7 +29,7 @@ if (!empty($result)) {
     $recipientPhoneNo = "whatsapp:+65" . strval($result[0]['mobile']);
     //$body_msg = 'Test message';
     //$body_msg = "Your quote has been reviewed and accepted by us. Here are the details of your invoice: https://f30d-121-6-10-155.ngrok-free.app/Pet-Transport-Booking-System/invoice.php?quote_id=" . strval($id);
-    $body_msg = 'Your quote from Waggin Wheel has been reviewed and accepted. Ensure you pay by the date stated in the invoice. Here are the invoice details: https://f30d-121-6-10-155.ngrok-free.app/Pet-Transport-Booking-System/invoice.php?quote_id=' . strval($id);
+    $body_msg = 'Your quote from Waggin Wheels has been reviewed and accepted. Ensure you pay by the date stated in the invoice. Here are the invoice details: https://f30d-121-6-10-155.ngrok-free.app/Pet-Transport-Booking-System/invoice.php?quote_id=' . strval($id);
 
     $account_sid = "ACa8bd31122a50ac8ddb1f4b4fbe20ac03";
     $token = "8bcd08290de197e76d1981654aee9734";
