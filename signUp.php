@@ -25,7 +25,7 @@ if (isset($_POST['signUp'])) {
     $insertUsers = "INSERT INTO users
           (username, password, role) 
           VALUES 
-          ('$username', '$password', 'customer')";
+          ('$username', SHA1('$password'), 'customer')";
 
     $checkUsername = "SELECT DISTINCT username
         FROM users
@@ -118,11 +118,11 @@ if (isset($_POST['signUp'])) {
     <div class="container-fluid" id="signUpSection">
         <br>
         <h1 class="header1">SIGN UP FOR AN ACCOUNT</h1>
-        <h3 class="header2">USER'S INFORMATION</h3>
+        <h3 class="header2" style='margin-left: 30vw'>USER'S INFORMATION</h3>
 
         <section class="inverse full-bleed overflow-hidden" id="signUpForm">
             <div class="container-fluid d-flex justify-content-center">
-                <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data">
+                <form class="row g-3 gx-5" method="post" action="" enctype="multipart/form-data" style='width: 40vw'>
                     <div class="col-12">
                         <label for="username" class="form-label para">Username:</label>
                         <input type="username" class="form-control rounded-pill" name="username"
@@ -161,7 +161,7 @@ if (isset($_POST['signUp'])) {
                                     class="fas fa-camera"></i></button>
                         </div>
                     </div>
-                    <div class="col-12 text-center form-group">
+                    <div class="col-12 text-center form-group" style='margin-bottom: -5vh'>
                         <button type="submit" name="signUp" class="btn btn-primary primarybtn rounded-pill">Sign
                             Up</button>
                     </div>

@@ -303,7 +303,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="row g-3 gx-5" align="center" style="z-index:4; background-color:#99F7DB;">
+                            <div class="row g-3 gx-5" align="center" style="z-index:4; background-color:#99F7DB;padding-bottom:20px; margin-bottom:-40px">
                                 <div class="col-12">
                                     <label for="pickupaddress" class="form-label para" align="left">Address:</label>
                                     <input id="pickupaddress" class="form-control rounded-pill" name="pickupaddress"
@@ -569,7 +569,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     <h4 class="para-it mt-5 pt-3">Size of pet</h4>
                                     <div class="col-md-6">
                                         <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
-                                        <input type="number" class="form-control rounded-pill"  id="weight" step="0.01"
+                                        <input type="number" class="form-control rounded-pill"  min=.01  id="weight" step="0.01"
                                             name="weight[]" list='weightList' required>
 
                                         <datalist id="weightList">
@@ -583,7 +583,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     </div>
                                     <div class="col-md-6">
                                         <label for="height" class="form-label para" align="left">Height (Cm):</label>
-                                        <input type="number" class="form-control rounded-pill"  id="height" step="0.1"
+                                        <input type="number" class="form-control rounded-pill" min=.1 id="height" step="0.1"
                                             name="height[]" list='heightList' required>
 
                                         <datalist id="heightList">
@@ -598,7 +598,7 @@ while ($petRow = mysqli_fetch_array($petStatus)) {
                                     <div class="col-md-6"></div>
                                     <div class="col-md-6">
                                         <label for="width" class="form-label para" align="left">Width (Cm):</label>
-                                        <input type="number" class="form-control rounded-pill" id="width" step="0.1" name="width[]"
+                                        <input type="number" class="form-control rounded-pill"  min=.1 id="width" step="0.1" name="width[]"
                                             required list='widthList'>
 
                                         <datalist id="widthList">

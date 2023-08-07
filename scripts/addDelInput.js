@@ -143,7 +143,7 @@ $(document).ready(function () {
                         <h4 class="para-it mt-5 pt-3">Size of pet</h4>
                         <div class="col-md-6">
                             <label for="weight" class="form-label para" align="left">Weight (Kg):</label>
-                            <input type="number" class="form-control rounded-pill" step="0.01"
+                            <input type="number" class="form-control rounded-pill"  min=.01 step="0.01"
                                 name="weight[]" list='weightList' required>
 
                             <datalist id="weightList">
@@ -157,7 +157,7 @@ $(document).ready(function () {
                         </div>
                         <div class="col-md-6">
                             <label for="height" class="form-label para" align="left">Height (Cm):</label>
-                            <input type="number" class="form-control rounded-pill" step="0.1"
+                            <input type="number" class="form-control rounded-pill" min=.1 step="0.1"
                                 name="height[]" list='heightList' required>
 
                             <datalist id="heightList">
@@ -172,7 +172,7 @@ $(document).ready(function () {
                         <div class="col-md-6"></div>
                         <div class="col-md-6">
                             <label for="width" class="form-label para" align="left">Width (Cm):</label>
-                            <input type="number" class="form-control rounded-pill" step="0.1" name="width[]"
+                            <input type="number" class="form-control rounded-pill" min=.1 step="0.1" name="width[]"
                                 required list='widthList'>
 
                             <datalist id="widthList">

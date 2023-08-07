@@ -106,7 +106,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
     </div>
     <!-- -->
 
-    <div class="container accTable">
+    <div class="container accTable" style='min-height: 60vh;'>
         <h2 class="header1">Staff</h2>
         <div class="addstaff" align="right">
             <button type="button" class="btn rounded-pill mt-2 me-2 button" onclick="document.location='addstaff.php'">Add Account <i class="fas fa-user-plus addicon"></i></button>

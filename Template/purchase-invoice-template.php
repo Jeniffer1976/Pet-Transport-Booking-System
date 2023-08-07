@@ -95,7 +95,8 @@ function getHTMLPurchaseDataToPDF($result, $orderItemResult, $orderedDate, $due_
             <u>Kindly make your payment to</u>:<br />
             1&#41; by PAYNOW to mobile number: 97511740<br />
             2&#41; by Bank Transfer: POSB Account No-126627572<br />
-            3&#41; by our website with Paypal<br />
+            3&#41; by our website with PayPal<br /><br/>
+            <i>Disclaimer: If methods 1 or 2 are being used, please inform the admin and provide a screenshot of your payment upon interaction.</i>
         </p>
 
         <p>THANK YOU FOR YOUR BUSINESS!</p>
