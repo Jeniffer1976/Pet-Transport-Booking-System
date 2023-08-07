@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="60%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <svg class="bd-placeholder-img" width="100%" height="70%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
                     <rect></rect>
                 </svg>
 
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <svg class="bd-placeholder-img" width="100%" height="60%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <svg class="bd-placeholder-img" width="100%" height="70%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
                     <rect></rect>
                 </svg>
 
