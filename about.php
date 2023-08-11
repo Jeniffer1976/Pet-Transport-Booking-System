@@ -158,7 +158,7 @@
                     </div>
                 </div>
 
-                <div class="container cn1">
+                <div class="container cn1 mt-5">
                     <div class="row">
                         <div class="font51 h3">Comparision between us and another company on the market</div>
                         <br>

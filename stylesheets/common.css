@@ -386,12 +386,12 @@ rect {
 /* dashboard */
 
 .regular {
-    height: 450px;
-    width: 450px;
+    height: 350px;
+    width: 350px;
     border-radius: 50%;
-    background-color: #1E53B3;
+    background-color: #133470;
     padding-top: 15%;
-    transform: translate(15%, 0%);
+    transform: translate(36%, 0%);
 }
 
 .regularcontainer {
@@ -408,6 +408,7 @@ rect {
 .regular img {
     height: 200px;
     width: 200px;
+    margin-top: -40px;
 }
 
 .conservices {
@@ -500,8 +501,8 @@ rect {
 }
 
 img.two {
-    width: 80%;
-    height: 70%;
+    width: 60%;
+    height: auto;
 }
 
 img.four {
@@ -652,7 +653,7 @@ img.four {
     height: 350px;
     width: 350px;
     border-radius: 50%;
-    background-color: #338762;
+    background-color: #133470;
     padding-top: 30%;
     transform: translate(15%, 0%);
     font-family: 'Nunito', sans-serif;
@@ -697,5 +698,5 @@ img.four {
 }
 
 .rm:hover {
-    color: #133470;
+    color: orange;
 }

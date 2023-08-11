@@ -95,7 +95,7 @@ while ($accRow = mysqli_fetch_array($accStatus)) {
                     <div class="nav-option option3 active">
                         <a class="nav-link nav-text" href="editAdmin.php">
                             <i class="fa-solid fa-user-gear"></i>
-                            Administrators
+                            Staffs
                         </a>
 
                     </div>

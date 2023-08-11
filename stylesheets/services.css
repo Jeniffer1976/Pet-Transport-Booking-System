@@ -85,8 +85,10 @@
 }
 
 img.one {
-    width: 70%;
-    height: 70%;
+    width: 68%;
+    height: min-content;
+    padding: 5 100 5 0;
+    margin-right: -210;
 }
 
 .font5 {

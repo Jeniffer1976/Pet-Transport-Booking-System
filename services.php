@@ -53,14 +53,14 @@
                     <div class="regular">
                         <img src="images/schedule.png" alt="">
                         <p class="font8">Regular</p>
-                        <a class="font8" href="#regular">Read More</a>
+                        <a class="font8 rm" href="#regular">Read More</a>
                     </div>
                 </div>
                 <div class="col-sm">
                     <div class="regular">
                         <img src="images/calendar.png" alt="">
                         <p class="font8">Ad-hoc</p>
-                        <a class="font8" href="#regular">Read More</a>
+                        <a class="font8 rm" href="#regular">Read More</a>
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="container">
-                    <div class="row">
+                    <div class="row mt-5">
                         <h2 class="font5">Benefits for regular</h2>
                         <br>
                         <div class="container">
@@ -161,7 +161,7 @@
 
                 <div class="container">
                     <div class="row">
-                        <h2 class="font5">Benefits for ad-hoc</h2>
+                        <h2 class="font5 mt-5">Benefits for ad-hoc</h2>
                         <br>
                         <div class="container">
                             <div class="row p-3">

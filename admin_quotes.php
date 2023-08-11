@@ -25,14 +25,14 @@ if (isset($_POST['submitFilter'])) {
         $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q 
         INNER JOIN pickup_details PD ON Q.quote_id = PD.quote_id
-        WHERE Q.status <> 'completed_svc' 
+        WHERE Q.status != 'completed_svc' 
         ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
     } else {
         $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
         WHERE MONTH(PD.pickUp_date) = '$month' 
-        WHERE Q.status <> 'completed_svc'
+        AND Q.status != 'completed_svc'
         ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
     }
@@ -40,7 +40,7 @@ if (isset($_POST['submitFilter'])) {
     $quoteQuery = "SELECT DISTINCT Q.quote_id, Q.owner_id, Q.service_type, Q.pickUp_address, Q.dropOff_address, Q.sender_id, Q.recipient_id, Q.status, Q.price 
         FROM quote Q 
         INNER JOIN pickup_details PD ON Q.quote_id= PD.quote_id 
-        WHERE Q.status <> 'completed_svc'
+        WHERE Q.status != 'completed_svc'
         ORDER BY Q.status DESC, PD.pickUp_date DESC";
 
 }
@@ -115,7 +115,7 @@ while ($quoteRow = mysqli_fetch_array($quoteStatus)) {
                     <div class="nav-option option3">
                         <a class="nav-link nav-text" href="editAdmin.php">
                             <i class="fa-solid fa-user-gear"></i>
-                            Administrators
+                            Staffs
                         </a>
 
                     </div>

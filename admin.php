@@ -90,7 +90,7 @@ while ($next7daysnum_rows = mysqli_fetch_array($next7daysResult)) {
                     <div class="nav-option option3">
                         <a class="nav-link nav-text" href="editAdmin.php">
                             <i class="fa-solid fa-user-gear"></i>
-                            Administrators
+                            Staffs
                         </a>
 
                     </div>
