@@ -62,7 +62,7 @@ if (!empty($result)) {
         ->create($recipientPhoneNo, // to
             array(
             "from" => "whatsapp:+14155238886",
-            "body" => "Your quote has been reviewed and accepted by us. Here are the details of your invoice: https://231a-121-6-10-155.ngrok-free.app/Pet-Transport-Booking-System/invoice.php?quote_id=".$id
+            "body" => "Your quote has been reviewed and accepted by us. Here are the details of your invoice: https://f249-203-127-47-55.ngrok-free.app/Pet-Transport-Booking-System/invoice.php?quote_id=".$id
             )
         );
 
